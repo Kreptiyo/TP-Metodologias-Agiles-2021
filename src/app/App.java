@@ -9,6 +9,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import interfaces_graficas.Alta_Propietario;
+import interfaces_graficas.Interfaz_Grafica_Listar_Propietarios;
 
 public class App extends JFrame {
 
@@ -18,7 +19,7 @@ public class App extends JFrame {
 		JFrame app = new App();
 		
 		
-		JPanel panel1 = new Alta_Propietario(app);
+		JPanel panel1 = new Interfaz_Grafica_Listar_Propietarios(app);
 		
 		app.setContentPane(panel1);
 		app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
