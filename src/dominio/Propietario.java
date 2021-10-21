@@ -1,150 +1,171 @@
 package dominio;
 
 
-public class Propietario {
-	
+public class Propietario 
+{
+	private Integer id;
 	private String nombre;
 	private String apellido;
-	private String email;
-	private String tipoDocumento;
-	private Integer numeroDocumento;
+	private Tipo_Documento tipodocumento;
+	private Integer nrodocumento;
 	private String calle;
-	private int numeroCalle;
-	private Integer numeroTelefono;
+	private Integer nrocalle;
 	private String localidad;
 	private String provincia;
-	private Integer id;
+	private Integer telefono;
+	private String email;
 	
+	public enum Tipo_Documento
+	{
+		DNI, CI, LC, LE, Pasaporte
+	}
 	
-	
-	public Propietario() {
+	public Propietario()
+	{
 		super();
 	}
-
-
-	public Propietario(String nombre, String apellido, String email, String tipoDocumento, Integer numeroDocumento,
-			String calle, int numeroCalle, Integer numeroTelefono, String localidad, String provincia) {
+	
+	public Propietario(Integer id, String nombre, String apellido, Tipo_Documento tipodocumento, Integer nrodocumento, String calle,
+			Integer nrocalle, String localidad, String provincia, Integer telefono, String email)
+	{
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.tipodocumento = tipodocumento;
+		this.nrodocumento = nrodocumento;
+		this.calle = calle;
+		this.nrocalle = nrocalle;
+		this.localidad = localidad;
+		this.provincia = provincia;
+		this.telefono = telefono;
+		this.email = email;
+	}
+	
+	public Propietario(String nombre, String apellido, Tipo_Documento tipodocumento, Integer nrodocumento, String calle,
+			Integer nrocalle, String localidad, String provincia, Integer telefono, String email)
+	{
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.email = email;
-		this.tipoDocumento = tipoDocumento;
-		this.numeroDocumento = numeroDocumento;
+		this.tipodocumento = tipodocumento;
+		this.nrodocumento = nrodocumento;
 		this.calle = calle;
-		this.numeroCalle = numeroCalle;
-		this.numeroTelefono = numeroTelefono;
+		this.nrocalle = nrocalle;
 		this.localidad = localidad;
 		this.provincia = provincia;
+		this.telefono = telefono;
+		this.email = email;
 	}
-	
 
-	public Integer getId() {
+	public Integer getId() 
+	{
 		return id;
 	}
 
-
-	public void setId(Integer id) {
+	public void setId(Integer id) 
+	{
 		this.id = id;
 	}
 
-
-	public String getNombre() {
+	public String getNombre() 
+	{
 		return nombre;
 	}
 
-
-	public void setNombre(String nombre) {
+	public void setNombre(String nombre) 
+	{
 		this.nombre = nombre;
 	}
 
-
-	public String getApellido() {
+	public String getApellido() 
+	{
 		return apellido;
 	}
 
-
-	public void setApellido(String apellido) {
+	public void setApellido(String apellido) 
+	{
 		this.apellido = apellido;
 	}
 
-
-	public String getEmail() {
-		return email;
+	public Tipo_Documento getTipodocumento() 
+	{
+		return tipodocumento;
 	}
 
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setTipodocumento(Tipo_Documento tipodocumento) 
+	{
+		this.tipodocumento = tipodocumento;
 	}
 
-
-	public String getTipoDocumento() {
-		return tipoDocumento;
+	public Integer getNrodocumento() 
+	{
+		return nrodocumento;
 	}
 
-
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public void setNrodocumento(Integer nrodocumento) 
+	{
+		this.nrodocumento = nrodocumento;
 	}
 
-
-	public Integer getNumeroDocumento() {
-		return numeroDocumento;
-	}
-
-
-	public void setNumeroDocumento(Integer numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
-	}
-
-
-	public String getCalle() {
+	public String getCalle() 
+	{
 		return calle;
 	}
 
-
-	public void setCalle(String calle) {
+	public void setCalle(String calle) 
+	{
 		this.calle = calle;
 	}
 
-
-	public int getNumeroCalle() {
-		return numeroCalle;
+	public Integer getNrocalle() 
+	{
+		return nrocalle;
 	}
 
-
-	public void setNumeroCalle(int numeroCalle) {
-		this.numeroCalle = numeroCalle;
+	public void setNrocalle(Integer nrocalle) 
+	{
+		this.nrocalle = nrocalle;
 	}
 
-
-	public Integer getNumeroTelefono() {
-		return numeroTelefono;
-	}
-
-
-	public void setNumeroTelefono(Integer numeroTelefono) {
-		this.numeroTelefono = numeroTelefono;
-	}
-
-
-	public String getLocalidad() {
+	public String getLocalidad() 
+	{
 		return localidad;
 	}
 
-
-	public void setLocalidad(String localidad) {
+	public void setLocalidad(String localidad) 
+	{
 		this.localidad = localidad;
 	}
 
-
-	public String getProvincia() {
+	public String getProvincia() 
+	{
 		return provincia;
 	}
 
-
-	public void setProvincia(String provincia) {
+	public void setProvincia(String provincia) 
+	{
 		this.provincia = provincia;
 	}
 
+	public Integer getTelefono() 
+	{
+		return telefono;
+	}
+
+	public void setTelefono(Integer telefono) 
+	{
+		this.telefono = telefono;
+	}
+
+	public String getEmail() 
+	{
+		return email;
+	}
+
+	public void setEmail(String email) 
+	{
+		this.email = email;
+	}
+	
 }

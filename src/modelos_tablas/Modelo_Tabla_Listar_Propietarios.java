@@ -34,9 +34,9 @@ public class Modelo_Tabla_Listar_Propietarios extends AbstractTableModel {
 	    	        case 1:
 	    	        	return p.getApellido(); 
 	    	        case 2:
-	    	        	return p.getTipoDocumento();
+	    	        	return p.getTipodocumento();
 	    	        case 3:
-	    	        	return p.getNumeroDocumento(); 
+	    	        	return p.getNrodocumento(); 
 	    	        case 4:
 	    	        	return p.getProvincia(); 
 	    	        case 5:
@@ -44,9 +44,9 @@ public class Modelo_Tabla_Listar_Propietarios extends AbstractTableModel {
 	    	        case 6:
 	    	        	return p.getCalle(); 
 	    	        case 7:
-	    	        	return p.getNumeroCalle(); 
+	    	        	return p.getNrocalle(); 
 	    	        case 8:
-	    	        	return p.getNumeroTelefono(); 
+	    	        	return p.getTelefono(); 
 	    	        case 9:
 	    	        	return p.getEmail(); 
 						
