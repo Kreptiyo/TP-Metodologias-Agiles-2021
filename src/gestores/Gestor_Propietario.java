@@ -1,28 +1,40 @@
 package gestores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 
 import java.util.List;
 
+import dao.Propietario_DAO;
+import dao.Propietario_DAO_PostgreSQL;
+import dominio.Propietario;
+import dominio.Propietario.Tipo_Documento;
+import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 
 
 public class Gestor_Propietario {
 
 	
+	private Propietario_DAO propietarioDAO;
+	
 	public Gestor_Propietario() {
 		super();
+		this.propietarioDAO = new Propietario_DAO_PostgreSQL();
 	}
 	
 	
-	public void crear_Propietario(String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
-								  String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception 
+	public Propietario crear_Propietario(String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+								  String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception, SQLException, BaseDeDatosException 
 	{
 		/*la excepcion de datos invalidos la vuelvo a relanzar para atraparla en la gui de alta de propietario con el fin de marcar los campos
 		 * en los cuales ocurrieron errores*/
 		this.validar_Datos(nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
+		Propietario p = new Propietario();
+		this.actualizarModelo(p, nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
+		return propietarioDAO.saveOrUpdate(p);
 	}
 	
 	
@@ -103,5 +115,30 @@ public class Gestor_Propietario {
 			throw new Datos_Invalidos_Exception(mensajeAMostrar.toString(), lista_de_campos_erroneos);
 		}
 		
+	}
+	
+	public void actualizarModelo(Propietario p, String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+			String calle, Integer numCalle, String provincia, String localidad)
+	{
+		p.setNombre(nombre);
+		p.setApellido(apellido);
+		p.setTipodocumento(Tipo_Documento.DNI);
+		p.setNrodocumento(numDocumento);
+		p.setTelefono(numTelefono);
+		p.setEmail(email);
+		p.setCalle(calle);
+		p.setNrocalle(numCalle);
+		p.setProvincia(provincia);
+		p.setLocalidad(localidad);
+	}
+	
+	public List<Propietario> listarTodas()
+	{
+		return propietarioDAO.buscarTodas();
+	}
+	
+	public void eliminarPropietario(Integer id)
+	{
+		propietarioDAO.eliminarPropietario(id);
 	}
 }

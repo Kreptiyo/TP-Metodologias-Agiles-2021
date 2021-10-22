@@ -6,25 +6,34 @@ import dominio.Propietario;
 
 
 
-public class Modelo_Tabla_Listar_Propietarios extends AbstractTableModel {
+public class Modelo_Tabla_Listar_Propietarios extends AbstractTableModel 
+{
 	
 	private String[] columnNames =  {"Nombre","Apellido", "Tipo Documento", "N° Documento","Provincia" ,"Localidad", "Calle", "N° Calle", "Telefono", "Email"};
 	private List<Propietario> data ;
 
-	public Modelo_Tabla_Listar_Propietarios(List<Propietario> propietarios) {
+	public Modelo_Tabla_Listar_Propietarios(List<Propietario> propietarios) 
+	{
 	    	this.data = propietarios;
-	    }
+	}
 
-	public int getColumnCount() {
+	public int getColumnCount() 
+	{
 	        return columnNames.length;
-	    }
+	}
 
-	public String getColumnName(int col) {
+	public String getColumnName(int col) 
+	{
 	        return columnNames[col];
-	    }
-
+	}
 	
-	    public Object getValueAt(int row, int col) {
+	public int getRowCount() 
+	{
+		return data.size();
+	}
+	
+	    public Object getValueAt(int row, int col) 
+	    {
 	    
 	    	Propietario p = data.get(row);
 	    	
@@ -57,20 +66,16 @@ public class Modelo_Tabla_Listar_Propietarios extends AbstractTableModel {
 	            return null;
 	        }
 
-	    public Class getColumnClass(int c) {
+	    public Class getColumnClass(int c) 
+	    {
 	            return getValueAt(0, c).getClass();
 	    }
 	        
-	    public Integer obtenerIdCompetencia(int row){
+	    public Integer obtenerIdPropietario(int row)
+	    {
 	            Propietario p = data.get(row);
 	            return p.getId();
 	    }
-
-		@Override
-		public int getRowCount() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
 
 }
 

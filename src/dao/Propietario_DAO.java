@@ -9,6 +9,6 @@ public interface Propietario_DAO
 {
 	public Propietario saveOrUpdate(Propietario p) throws BaseDeDatosException, SQLException;
 	public List<Propietario> buscarTodas();
-	public Propietario buscarPorId(Integer id);
 	public void eliminarPropietario(Integer id);
+	
 }

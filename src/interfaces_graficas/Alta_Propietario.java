@@ -10,10 +10,12 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JTextField;
 
+import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Propietario;
 
@@ -242,6 +244,13 @@ public class Alta_Propietario extends JPanel {
 		add(txtNumTelefono);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(e->
+		{
+			this.setVisible(false);
+			JPanel panelListarPropietarios = new Interfaz_Grafica_Listar_Propietarios(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(panelListarPropietarios);
+			pantallaPrincipal.setTitle("LISTAR PROPIETARIOS");
+		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancelar.setBounds(914, 717, 100, 40);
 		add(btnCancelar);
@@ -287,6 +296,12 @@ public class Alta_Propietario extends JPanel {
 				this.accionMarcarCamposCorrectos();
 				this.mostrarError(e2.getCamposErroneos());
 				this.mostrarMensajeError(pantallaPrincipal,"Error al dar de alta el propietario",e2.getMessage());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			
 		});

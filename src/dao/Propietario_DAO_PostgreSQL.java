@@ -19,14 +19,14 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 			"SELECT * FROM ma.propietario";
 	
 	private static final String INSERT_PROPIETARIO =
-			"INSERT INTO ma.propietario (NOMBRE, APELLIDO, TIPO_DOCUMENTO, NRO_DOCUMENTO, CALLE, NRO_CALLE, LOCALIDAD, PROVINCIA, TELEFONO, EMAIL) VALUES(?,?,?,?,?,?,?,?,?,?) RETURNING ID";
+			"INSERT INTO ma.propietario (NOMBRE, APELLIDO, TIPO_DOCUMENTO, NRO_DOCUMENTO, CALLE, NRO_CALLE, LOCALIDAD, PROVINCIA, TELEFONO, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String UPDATE_PROPIETARIO =
 			"UPDATE ma.propietario SET NOMBRE = ?, APELLIDO = ?, TIPO_DOCUMENTO = ?, NRO_DOCUMENTO = ?, CALLE = ?, NRO_CALLE = ?, LOCALIDAD = ?, PROVINCIA = ?, TELEFONO = ?, EMAIL = ?"+
 		    "WHERE ID = ?";
 	
 	private static final String DELETE_PROPIETARIO =
-			"DELETE FROM ma.popietario where ID = ?";
+			"DELETE FROM ma.propietario WHERE ID = ?";
 	
 	@Override
 	public Propietario saveOrUpdate(Propietario p) throws BaseDeDatosException, SQLException
@@ -67,6 +67,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 					pstmt.setString(8, p.getProvincia());
 					pstmt.setInt(9, p.getTelefono());
 					pstmt.setString(10, p.getEmail());
+					pstmt.executeUpdate();
 					conn.commit();
 				}					
 		} 
@@ -152,13 +153,6 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 			}
 		}
 		return lista;
-	}
-
-	@Override
-	public Propietario buscarPorId(Integer id) 
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override
