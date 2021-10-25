@@ -43,13 +43,11 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 	/*modelo tabla es un modelo de tabla personalizado cuyas columnas son los datos del propietario*/
 	
 	private Modelo_Tabla_Listar_Propietarios modeloTabla;
-	private List<Propietario> listaPropietarios;
 	private Gestor_Propietario gestorPropietario;
 	
 	public Interfaz_Grafica_Listar_Propietarios(JFrame pantallaPrincipal) {
 		super();
 		this.gestorPropietario = new Gestor_Propietario();
-		this.listaPropietarios = gestorPropietario.listarTodas();
 		this.armarPanel(pantallaPrincipal);
 	}
 	
@@ -185,7 +183,7 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 					Integer id_Propietario = modeloTabla.obtenerIdPropietario(table.getSelectedRow());
 					gestorPropietario.eliminarPropietario(id_Propietario);
 					this.mostrarMensajeExito(pantallaPrincipal, "Eliminar Propietario", "Se elimino el propietario correctamente");
-					this.armarPanel(pantallaPrincipal);
+					//FALTA REFRESCAR EL PANEL A LA HORA DE ELIMINAR
 				}
 			}
 			else 

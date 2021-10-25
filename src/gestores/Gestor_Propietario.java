@@ -19,9 +19,11 @@ public class Gestor_Propietario {
 
 	
 	private Propietario_DAO propietarioDAO;
+	private List<Propietario> listaDePropietarios;
 	
 	public Gestor_Propietario() {
 		super();
+		this.listaDePropietarios = new ArrayList<Propietario>();
 		this.propietarioDAO = new Propietario_DAO_PostgreSQL();
 	}
 	
@@ -122,7 +124,24 @@ public class Gestor_Propietario {
 	{
 		p.setNombre(nombre);
 		p.setApellido(apellido);
-		p.setTipodocumento(Tipo_Documento.DNI);
+		switch(tipoDocumento)
+		{
+		case "DNI":
+			p.setTipodocumento(Tipo_Documento.DNI);
+			break;
+		case "CI":
+			p.setTipodocumento(Tipo_Documento.CI);
+			break;
+		case "LC":
+			p.setTipodocumento(Tipo_Documento.LC);
+			break;
+		case "LE":
+			p.setTipodocumento(Tipo_Documento.LE);
+			break;
+		case "Pasaporte":
+			p.setTipodocumento(Tipo_Documento.Pasaporte);
+			break;
+		}
 		p.setNrodocumento(numDocumento);
 		p.setTelefono(numTelefono);
 		p.setEmail(email);
@@ -134,7 +153,9 @@ public class Gestor_Propietario {
 	
 	public List<Propietario> listarTodas()
 	{
-		return propietarioDAO.buscarTodas();
+		this.listaDePropietarios.clear();
+		this.listaDePropietarios.addAll(propietarioDAO.buscarTodas());
+		return this.listaDePropietarios;
 	}
 	
 	public void eliminarPropietario(Integer id)

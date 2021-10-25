@@ -41,7 +41,7 @@ public class Alta_Propietario extends JPanel {
 	private JSeparator separator;
 	private JLabel lblEmailPropietario;
 	private JLabel lblTipoDNI;
-	private JComboBox cbxTipoDocumento;
+	private JComboBox<String> cbxTipoDocumento;
 	private JLabel lblNumeroDocumento;
 	private JLabel lblDatosDomicilio;
 	private JSeparator separator_1;
@@ -52,8 +52,8 @@ public class Alta_Propietario extends JPanel {
 	private JLabel lblNumeroCalle;
 	private JLabel lblProvincia;
 	private JLabel lblLocalidad;
-	private JComboBox cbxProvincia;
-	private JComboBox cbxLocalidad;
+	private JComboBox<String> cbxProvincia;
+	private JComboBox<String> cbxLocalidad;
 	private JLabel lblErrorNombre;
 	private JLabel lblErrorTipoDoc;
 	private JLabel lblErrorNumTel;
@@ -179,7 +179,10 @@ public class Alta_Propietario extends JPanel {
 		cbxTipoDocumento.setBounds(315, 205, 150, 22);
 		cbxTipoDocumento.addItem("SELECCIONAR");
 		cbxTipoDocumento.addItem("DNI");
-		cbxTipoDocumento.addItem("PASAPORTE");
+		cbxTipoDocumento.addItem("CI");
+		cbxTipoDocumento.addItem("LC");
+		cbxTipoDocumento.addItem("LE");
+		cbxTipoDocumento.addItem("Pasaporte");
 		add(cbxTipoDocumento);
 		
 		lblNumeroDocumento = new JLabel("N\u00FAmero de Documento:");
@@ -381,6 +384,17 @@ public class Alta_Propietario extends JPanel {
 		cbxLocalidad.setBounds(764, 441, 150, 22);
 		cbxLocalidad.addItem("SELECCIONAR");
 		cbxLocalidad.addItem("SANTA FE");
+		cbxLocalidad.addItem("ROSARIO");
+		cbxLocalidad.addItem("VENADO TUERTO");
+		cbxLocalidad.addItem("SAUCE VIEJO");
+		cbxLocalidad.addItem("RAFAELA");
+		cbxLocalidad.addItem("SANTO TOME");
+		cbxLocalidad.addItem("CORONDA");
+		cbxLocalidad.addItem("RECONQUISTA");
+		cbxLocalidad.addItem("SUNCHALES");
+		cbxLocalidad.addItem("RECREO");
+		cbxLocalidad.addItem("ARROYO LEYES");
+		cbxLocalidad.addItem("SAN JUSTO");
 		add(cbxLocalidad);
 		
 		lblErrorNombre = new JLabel("(!)");

@@ -13,7 +13,7 @@ public class DB
 			"				 ID SERIAL, "+
 			"				 NOMBRE VARCHAR(30), "+
 			"				 APELLIDO VARCHAR(30), "+
-			"				 TIPO_DOCUMENTO VARCHAR(5), "+
+			"				 TIPO_DOCUMENTO VARCHAR(9), "+
 			"				 NRO_DOCUMENTO INTEGER, "+
 			"				 CALLE VARCHAR(100), "+
 			"				 NRO_CALLE INTEGER, "+
