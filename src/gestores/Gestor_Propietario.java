@@ -21,7 +21,8 @@ public class Gestor_Propietario {
 	private Propietario_DAO propietarioDAO;
 	private List<Propietario> listaDePropietarios;
 	
-	public Gestor_Propietario() {
+	public Gestor_Propietario() 
+	{
 		super();
 		this.listaDePropietarios = new ArrayList<Propietario>();
 		this.propietarioDAO = new Propietario_DAO_PostgreSQL();

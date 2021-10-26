@@ -161,9 +161,11 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 		PreparedStatement pstmt = null;
 		try 
 		{
+				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(DELETE_PROPIETARIO);
 				pstmt.setInt(1, id);
 				pstmt.executeUpdate();
+				conn.commit();
 		} 
 		catch (SQLException e) 
 		{
