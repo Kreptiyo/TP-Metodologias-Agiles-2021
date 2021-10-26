@@ -177,13 +177,15 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		btnEliminar.addActionListener(e ->{
 			if(table.getSelectedRow() != -1) 
 			{
-				int resp = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el insumo del sistema?");
+				int resp = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el propietario del sistema?");
 				if(resp==JOptionPane.YES_OPTION)
 				{
 					Integer id_Propietario = modeloTabla.obtenerIdPropietario(table.getSelectedRow());
 					gestorPropietario.eliminarPropietario(id_Propietario);
 					this.mostrarMensajeExito(pantallaPrincipal, "Eliminar Propietario", "Se elimino el propietario correctamente");
-					//FALTA REFRESCAR EL PANEL A LA HORA DE ELIMINAR
+					this.setVisible(false);
+					Interfaz_Grafica_Listar_Propietarios recarga = new Interfaz_Grafica_Listar_Propietarios(pantallaPrincipal);
+					pantallaPrincipal.setContentPane(recarga);
 				}
 			}
 			else 

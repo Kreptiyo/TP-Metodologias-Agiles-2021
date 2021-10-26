@@ -250,9 +250,8 @@ public class Alta_Propietario extends JPanel {
 		btnCancelar.addActionListener(e->
 		{
 			this.setVisible(false);
-			JPanel panelListarPropietarios = new Interfaz_Grafica_Listar_Propietarios(pantallaPrincipal);
+			Interfaz_Grafica_Listar_Propietarios panelListarPropietarios = new Interfaz_Grafica_Listar_Propietarios(pantallaPrincipal);
 			pantallaPrincipal.setContentPane(panelListarPropietarios);
-			pantallaPrincipal.setTitle("LISTAR PROPIETARIOS");
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancelar.setBounds(914, 717, 100, 40);
