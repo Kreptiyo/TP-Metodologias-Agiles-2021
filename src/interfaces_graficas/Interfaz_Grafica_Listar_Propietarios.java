@@ -247,8 +247,8 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 				String email = (String) modeloTabla.getValueAt(table.getSelectedRow(), 9);
 				
 				/*le pasamos todos los datos de arriba, junto con la pantalla principal, para que pueda inicializar la pantalla modificar con esos datos*/
-				
-				JPanel panelModificarPropietario = new Alta_Modificacion_Propietario(pantallaPrincipal, nombrePropietario, apellidoPropietario, tipoDocumento, numDoc, calle, numCalle, localidad,
+				Integer id_Propietario = modeloTabla.obtenerIdPropietario(table.getSelectedRow());
+				JPanel panelModificarPropietario = new Alta_Modificacion_Propietario(pantallaPrincipal, id_Propietario, nombrePropietario, apellidoPropietario, tipoDocumento, numDoc, calle, numCalle, localidad,
 					provincia, telefono,  email);
 				pantallaPrincipal.setContentPane(panelModificarPropietario);
 				pantallaPrincipal.setTitle("MODIFICAR PROPIETARIO");

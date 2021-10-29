@@ -29,14 +29,14 @@ public class Gestor_Propietario {
 	}
 	
 	
-	public Propietario crear_Propietario(String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+	public Propietario crear_Propietario(Integer id_Propietario, String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
 								  String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception, SQLException, BaseDeDatosException 
 	{
 		/*la excepcion de datos invalidos la vuelvo a relanzar para atraparla en la gui de alta de propietario con el fin de marcar los campos
 		 * en los cuales ocurrieron errores*/
 		this.validar_Datos(nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
 		Propietario p = new Propietario();
-		this.actualizarModelo(p, nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
+		this.actualizarModelo(p, id_Propietario, nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
 		return propietarioDAO.saveOrUpdate(p);
 	}
 	
@@ -120,9 +120,13 @@ public class Gestor_Propietario {
 		
 	}
 	
-	public void actualizarModelo(Propietario p, String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+	public void actualizarModelo(Propietario p, Integer id_Propietario, String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
 			String calle, Integer numCalle, String provincia, String localidad)
 	{
+		if(id_Propietario > 0)
+		{
+			p.setId(id_Propietario);
+		}
 		p.setNombre(nombre);
 		p.setApellido(apellido);
 		switch(tipoDocumento)

@@ -68,20 +68,20 @@ public class Alta_Modificacion_Propietario extends JPanel {
 
 	
 	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal) {
-		this.armarPanel(pantallaPrincipal);
+		this.armarPanel(pantallaPrincipal, -1);
 	}
 	
-	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal,String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
+	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal,Integer id_Propietario, String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
 	String localidad, String provincia, Integer telefono,String email) 
 	{
-		this.armarPanel(pantallaPrincipal);
+		this.armarPanel(pantallaPrincipal, id_Propietario);
 		this.setearDatos(nombre, apellido, tipoDoc, nrodocumento,calle, nrocalle,
 				localidad, provincia, telefono, email);
 		
 	}
 	
 	/*Crea el panel inluyendo todos los componentes necesarios*/
-	public void armarPanel(JFrame pantallaPrincipal) {
+	public void armarPanel(JFrame pantallaPrincipal, Integer id_Propietario) {
 		setLayout(null);
 		
 		lblNombrePropietario = new JLabel("Nombre:");
@@ -303,10 +303,17 @@ public class Alta_Modificacion_Propietario extends JPanel {
 				String localidad = this.cbxLocalidad.getSelectedItem().toString();
 				
 				Gestor_Propietario gestorPropietario = new Gestor_Propietario();
-				gestorPropietario.crear_Propietario(nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
+				gestorPropietario.crear_Propietario(id_Propietario, nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
 				this.accionMarcarCamposCorrectos();
 				this.limpiarFormulario();
-				this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "El propietario se ha creado exitosamente");
+				if(id_Propietario < 0)
+				{
+					this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "El propietario se ha creado exitosamente");
+				}
+				else
+				{
+					this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "El propietario se ha modificado exitosamente");
+				}
 				
 			} catch (Datos_Invalidos_Exception e2) {
 				e2.printStackTrace();
@@ -619,16 +626,21 @@ public class Alta_Modificacion_Propietario extends JPanel {
 	private void setearDatos(String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
 			String localidad, String provincia, Integer telefono,String email) 
 	{
-		this.txtNombre.setText(nombre);
-		this.txtApellido.setText(apellido);
-		this.cbxTipoDocumento.setSelectedItem(tipoDoc);
-		this.txtNumDocumento.setText(nrodocumento.toString());
-		this.txtCalle.setText(calle);
-		this.txtNumero.setText(nrocalle.toString());
-		this.cbxLocalidad.setSelectedItem(localidad);
-		this.cbxProvincia.setSelectedItem(provincia);
-		this.txtNumTelefono.setText(telefono.toString());
-		this.txtEmail.setText(email);
+		//Esto es para que setee los datos del prop e inhabilite los campos nombre apellido tipo y num doc
+				this.txtNombre.setText(nombre);
+				this.txtNombre.setEditable(false);
+				this.txtApellido.setText(apellido);
+				this.txtApellido.setEditable(false);
+				this.cbxTipoDocumento.setSelectedItem(tipoDoc);
+				this.cbxTipoDocumento.setEnabled(false);;
+				this.txtNumDocumento.setText(nrodocumento.toString());
+				this.txtNumDocumento.setEditable(false);
+				this.txtCalle.setText(calle);
+				this.txtNumero.setText(nrocalle.toString());
+				this.cbxLocalidad.setSelectedItem(localidad);
+				this.cbxProvincia.setSelectedItem(provincia);
+				this.txtNumTelefono.setText(telefono.toString());
+				this.txtEmail.setText(email);
 	}
 	
 }

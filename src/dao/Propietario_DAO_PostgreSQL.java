@@ -49,6 +49,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 					pstmt.setString(8, p.getProvincia());
 					pstmt.setInt(9, p.getTelefono());
 					pstmt.setString(10, p.getEmail());
+					pstmt.setInt(11, p.getId());
 					pstmt.executeUpdate();
 					conn.commit();
 					
