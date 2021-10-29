@@ -1,4 +1,4 @@
-package Interfaces;
+package interfaces_graficas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;

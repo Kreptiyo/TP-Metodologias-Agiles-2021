@@ -1,4 +1,4 @@
-package Interfaces;
+package interfaces_graficas;
 
 import java.awt.EventQueue;
 
