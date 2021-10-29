@@ -1,6 +1,7 @@
 package base_de_datos;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 

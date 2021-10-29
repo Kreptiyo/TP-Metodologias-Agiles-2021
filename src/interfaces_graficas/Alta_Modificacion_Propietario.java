@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JTextField;
 
+import dominio.Propietario.Tipo_Documento;
 import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Propietario;
@@ -25,7 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.Color;
 
-public class Alta_Propietario extends JPanel {
+public class Alta_Modificacion_Propietario extends JPanel {
 	
 	private JTextField txtNombre;
 	private JTextField txtApellido;
@@ -66,7 +67,21 @@ public class Alta_Propietario extends JPanel {
 	private JLabel lblErrorLocalidad;
 
 	
-	public Alta_Propietario(JFrame pantallaPrincipal) {
+	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal) {
+		this.armarPanel(pantallaPrincipal);
+	}
+	
+	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal,String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
+	String localidad, String provincia, Integer telefono,String email) 
+	{
+		this.armarPanel(pantallaPrincipal);
+		this.setearDatos(nombre, apellido, tipoDoc, nrodocumento,calle, nrocalle,
+				localidad, provincia, telefono, email);
+		
+	}
+	
+	/*Crea el panel inluyendo todos los componentes necesarios*/
+	public void armarPanel(JFrame pantallaPrincipal) {
 		setLayout(null);
 		
 		lblNombrePropietario = new JLabel("Nombre:");
@@ -295,7 +310,9 @@ public class Alta_Propietario extends JPanel {
 				
 			} catch (Datos_Invalidos_Exception e2) {
 				e2.printStackTrace();
+				/*se utiliza este metodo para limpiar la pantalla cuando anteriormente hubo un error y se modifico*/
 				this.accionMarcarCamposCorrectos();
+				/*muestra en pantalla un (!) junto a cado campo incorrecto*/
 				this.mostrarError(e2.getCamposErroneos());
 				this.mostrarMensajeError(pantallaPrincipal,"Error al dar de alta el propietario",e2.getMessage());
 			} catch (SQLException e1) {
@@ -597,6 +614,21 @@ public class Alta_Propietario extends JPanel {
 		this.txtNumero.setText("");
 		this.cbxProvincia.setSelectedIndex(0);
 		this.cbxLocalidad.setSelectedIndex(0);
+	}
+	
+	private void setearDatos(String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
+			String localidad, String provincia, Integer telefono,String email) 
+	{
+		this.txtNombre.setText(nombre);
+		this.txtApellido.setText(apellido);
+		this.cbxTipoDocumento.setSelectedItem(tipoDoc);
+		this.txtNumDocumento.setText(nrodocumento.toString());
+		this.txtCalle.setText(calle);
+		this.txtNumero.setText(nrocalle.toString());
+		this.cbxLocalidad.setSelectedItem(localidad);
+		this.cbxProvincia.setSelectedItem(provincia);
+		this.txtNumTelefono.setText(telefono.toString());
+		this.txtEmail.setText(email);
 	}
 	
 }

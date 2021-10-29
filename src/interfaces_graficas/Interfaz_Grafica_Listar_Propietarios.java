@@ -10,18 +10,23 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import dominio.Propietario;
+import dominio.Propietario.Tipo_Documento;
 import gestores.Gestor_Propietario;
 import modelos_tablas.Modelo_Tabla_Listar_Propietarios;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 	private JTextField txtNumDocumento;
@@ -38,7 +43,7 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 	private JButton btnAñadir;
 	private JButton btnModificar;
 	private JButton btnEliminar;
-	private JButton btnAñadirInmueble;
+	private JButton btnLimpiarFiltro;
 	
 	/*modelo tabla es un modelo de tabla personalizado cuyas columnas son los datos del propietario*/
 	
@@ -100,6 +105,12 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		
 		cbxTipoDocumento = new JComboBox();
 		cbxTipoDocumento.setBounds(306, 94, 150, 25);
+		cbxTipoDocumento.addItem("SELECCIONAR");
+		cbxTipoDocumento.addItem("DNI");
+		cbxTipoDocumento.addItem("CI");
+		cbxTipoDocumento.addItem("LC");
+		cbxTipoDocumento.addItem("LE");
+		cbxTipoDocumento.addItem("Pasaporte");
 		add(cbxTipoDocumento);
 		
 		lblApellido = new JLabel("Apellido:");
@@ -131,13 +142,6 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		});
 		add(txtApellido);
 		
-		btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnFiltrar.setBounds(538, 148, 375, 40);
-		add(btnFiltrar);
-		
-		
-		
 		modeloTabla = new Modelo_Tabla_Listar_Propietarios(gestorPropietario.listarTodas());
 		table = new JTable();
 		table.setBounds(10, 245, 899, 445);
@@ -150,6 +154,56 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		table.setRowSorter(orden);
 		add(scrollPane);
 		
+		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnFiltrar.setBounds(538, 148, 180, 40);
+		btnFiltrar.addActionListener(e->
+		{
+			
+				
+				LinkedList<RowFilter> listaDeFiltros = new LinkedList<RowFilter>();
+				
+				if(!txtApellido.getText().isEmpty()) {
+					
+					listaDeFiltros.add(RowFilter.regexFilter(txtApellido.getText().toString(),1));
+					
+				}
+				
+				if(cbxTipoDocumento.getSelectedIndex()!=0) {
+					
+					listaDeFiltros.add(RowFilter.regexFilter(cbxTipoDocumento.getSelectedItem().toString(),2));
+					
+				}
+				
+				if(!txtNumDocumento.getText().isEmpty()) {
+					
+					listaDeFiltros.add(RowFilter.regexFilter(txtNumDocumento.getText().toString(),3));
+					
+				}
+				
+				if(listaDeFiltros.size()!=0) {
+					
+					orden.setRowFilter(RowFilter.andFilter((Iterable)listaDeFiltros));
+					
+				}
+				
+			});
+		add(btnFiltrar);
+		
+		btnLimpiarFiltro = new JButton("Limpiar Filtros");
+		btnLimpiarFiltro.addActionListener(e->
+		{
+			
+			this.txtApellido.setText("");
+			this.cbxTipoDocumento.setSelectedIndex(0);
+			this.txtNumDocumento.setText("");
+			
+			orden.setRowFilter(RowFilter.regexFilter("",0));
+			
+		});
+		btnLimpiarFiltro.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLimpiarFiltro.setBounds(733, 148, 180, 40);
+		add(btnLimpiarFiltro);
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -160,9 +214,9 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		btnAñadir.addActionListener(e->
 		{
 			this.setVisible(false);
-			JPanel panelAñadirPropietario = new Alta_Propietario(pantallaPrincipal);
+			JPanel panelAñadirPropietario = new Alta_Modificacion_Propietario(pantallaPrincipal);
 			pantallaPrincipal.setContentPane(panelAñadirPropietario);
-			pantallaPrincipal.setTitle("DAR DE ALTA NUEVA COMPETENCIA");
+			pantallaPrincipal.setTitle("DAR DE ALTA NUEVO PROPIETARIO");
 		});
 		btnAñadir.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnAñadir.setBounds(914, 245, 105, 40);
@@ -171,6 +225,39 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		btnModificar = new JButton("Modificar");
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnModificar.setBounds(914, 296, 105, 40);
+		btnModificar.addActionListener(e ->{
+			if(table.getSelectedRow() != -1) 
+			{
+				this.setVisible(false);
+				
+				/*obtiene los datos de la tabla,en particular de la fila seleccionada y segun el indice de la columna guarda los datos 
+				 * en distintas variables temporales */
+				
+				String nombrePropietario = (String) modeloTabla.getValueAt(table.getSelectedRow(), 0);
+				String apellidoPropietario = (String) modeloTabla.getValueAt(table.getSelectedRow(), 1);
+				Tipo_Documento tipoDoc =  (Tipo_Documento) modeloTabla.getValueAt(table.getSelectedRow(), 2);
+				/*al ser un enum lo paso a string*/
+				String tipoDocumento = tipoDoc.toString();
+				Integer numDoc = (Integer) modeloTabla.getValueAt(table.getSelectedRow(), 3);
+				String provincia = (String) modeloTabla.getValueAt(table.getSelectedRow(), 4);
+				String localidad = (String) modeloTabla.getValueAt(table.getSelectedRow(), 5);
+				String calle = (String) modeloTabla.getValueAt(table.getSelectedRow(), 6);
+				Integer numCalle = (Integer) modeloTabla.getValueAt(table.getSelectedRow(), 7);
+				Integer telefono = (Integer) modeloTabla.getValueAt(table.getSelectedRow(), 8);
+				String email = (String) modeloTabla.getValueAt(table.getSelectedRow(), 9);
+				
+				/*le pasamos todos los datos de arriba, junto con la pantalla principal, para que pueda inicializar la pantalla modificar con esos datos*/
+				
+				JPanel panelModificarPropietario = new Alta_Modificacion_Propietario(pantallaPrincipal, nombrePropietario, apellidoPropietario, tipoDocumento, numDoc, calle, numCalle, localidad,
+					provincia, telefono,  email);
+				pantallaPrincipal.setContentPane(panelModificarPropietario);
+				pantallaPrincipal.setTitle("MODIFICAR PROPIETARIO");
+			}
+			else 
+			{
+				this.mostrarMensajeAdvertencia(pantallaPrincipal, "No seleccionó ningun propietario.", "Debe seleccionar un propietario"+"\n"+"para modificarlo.");
+			}
+	});
 		add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -194,14 +281,8 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 			}
 	});
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnEliminar.setBounds(914, 438, 105, 40);
+		btnEliminar.setBounds(914, 347, 105, 40);
 		add(btnEliminar);
-		
-		btnAñadirInmueble = new JButton();
-		btnAñadirInmueble.setText("<html><center><p>Añadir<p>Inmueble<p><html>");
-		btnAñadirInmueble.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnAñadirInmueble.setBounds(914, 347, 105, 80);
-		add(btnAñadirInmueble);
 
 	}
 	public void mostrarMensajeAdvertencia(JFrame padre ,String titulo,String detalle) 
