@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-import interfaces_graficas.Alta_Propietario;
+import interfaces_graficas.Alta_Modificacion_Propietario;
 import interfaces_graficas.Interfaz_Grafica_Listar_Propietarios;
 
 public class App extends JFrame {

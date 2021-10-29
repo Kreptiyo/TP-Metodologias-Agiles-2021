@@ -1,6 +1,5 @@
 package dominio;
 
-
 public class Propietario 
 {
 	private Integer id;

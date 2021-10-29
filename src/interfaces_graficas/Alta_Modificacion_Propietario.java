@@ -10,10 +10,13 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JTextField;
 
+import dominio.Propietario.Tipo_Documento;
+import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Propietario;
 
@@ -23,7 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.Color;
 
-public class Alta_Propietario extends JPanel {
+public class Alta_Modificacion_Propietario extends JPanel {
 	
 	private JTextField txtNombre;
 	private JTextField txtApellido;
@@ -39,7 +42,7 @@ public class Alta_Propietario extends JPanel {
 	private JSeparator separator;
 	private JLabel lblEmailPropietario;
 	private JLabel lblTipoDNI;
-	private JComboBox cbxTipoDocumento;
+	private JComboBox<String> cbxTipoDocumento;
 	private JLabel lblNumeroDocumento;
 	private JLabel lblDatosDomicilio;
 	private JSeparator separator_1;
@@ -50,8 +53,8 @@ public class Alta_Propietario extends JPanel {
 	private JLabel lblNumeroCalle;
 	private JLabel lblProvincia;
 	private JLabel lblLocalidad;
-	private JComboBox cbxProvincia;
-	private JComboBox cbxLocalidad;
+	private JComboBox<String> cbxProvincia;
+	private JComboBox<String> cbxLocalidad;
 	private JLabel lblErrorNombre;
 	private JLabel lblErrorTipoDoc;
 	private JLabel lblErrorNumTel;
@@ -64,7 +67,21 @@ public class Alta_Propietario extends JPanel {
 	private JLabel lblErrorLocalidad;
 
 	
-	public Alta_Propietario(JFrame pantallaPrincipal) {
+	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal) {
+		this.armarPanel(pantallaPrincipal, -1);
+	}
+	
+	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal,Integer id_Propietario, String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
+	String localidad, String provincia, Integer telefono,String email) 
+	{
+		this.armarPanel(pantallaPrincipal, id_Propietario);
+		this.setearDatos(nombre, apellido, tipoDoc, nrodocumento,calle, nrocalle,
+				localidad, provincia, telefono, email);
+		
+	}
+	
+	/*Crea el panel inluyendo todos los componentes necesarios*/
+	public void armarPanel(JFrame pantallaPrincipal, Integer id_Propietario) {
 		setLayout(null);
 		
 		lblNombrePropietario = new JLabel("Nombre:");
@@ -177,7 +194,10 @@ public class Alta_Propietario extends JPanel {
 		cbxTipoDocumento.setBounds(315, 205, 150, 22);
 		cbxTipoDocumento.addItem("SELECCIONAR");
 		cbxTipoDocumento.addItem("DNI");
-		cbxTipoDocumento.addItem("PASAPORTE");
+		cbxTipoDocumento.addItem("CI");
+		cbxTipoDocumento.addItem("LC");
+		cbxTipoDocumento.addItem("LE");
+		cbxTipoDocumento.addItem("Pasaporte");
 		add(cbxTipoDocumento);
 		
 		lblNumeroDocumento = new JLabel("N\u00FAmero de Documento:");
@@ -242,6 +262,12 @@ public class Alta_Propietario extends JPanel {
 		add(txtNumTelefono);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(e->
+		{
+			this.setVisible(false);
+			Interfaz_Grafica_Listar_Propietarios panelListarPropietarios = new Interfaz_Grafica_Listar_Propietarios(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(panelListarPropietarios);
+		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancelar.setBounds(914, 717, 100, 40);
 		add(btnCancelar);
@@ -277,16 +303,31 @@ public class Alta_Propietario extends JPanel {
 				String localidad = this.cbxLocalidad.getSelectedItem().toString();
 				
 				Gestor_Propietario gestorPropietario = new Gestor_Propietario();
-				gestorPropietario.crear_Propietario(nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
+				gestorPropietario.crear_Propietario(id_Propietario, nombre, apellido, tipoDocumento, numDocumento, numTelefono, email, calle, numCalle, provincia, localidad);
 				this.accionMarcarCamposCorrectos();
 				this.limpiarFormulario();
-				this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "El propietario se ha creado exitosamente");
+				if(id_Propietario < 0)
+				{
+					this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "El propietario se ha creado exitosamente");
+				}
+				else
+				{
+					this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "El propietario se ha modificado exitosamente");
+				}
 				
 			} catch (Datos_Invalidos_Exception e2) {
 				e2.printStackTrace();
+				/*se utiliza este metodo para limpiar la pantalla cuando anteriormente hubo un error y se modifico*/
 				this.accionMarcarCamposCorrectos();
+				/*muestra en pantalla un (!) junto a cado campo incorrecto*/
 				this.mostrarError(e2.getCamposErroneos());
 				this.mostrarMensajeError(pantallaPrincipal,"Error al dar de alta el propietario",e2.getMessage());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			
 		});
@@ -366,6 +407,17 @@ public class Alta_Propietario extends JPanel {
 		cbxLocalidad.setBounds(764, 441, 150, 22);
 		cbxLocalidad.addItem("SELECCIONAR");
 		cbxLocalidad.addItem("SANTA FE");
+		cbxLocalidad.addItem("ROSARIO");
+		cbxLocalidad.addItem("VENADO TUERTO");
+		cbxLocalidad.addItem("SAUCE VIEJO");
+		cbxLocalidad.addItem("RAFAELA");
+		cbxLocalidad.addItem("SANTO TOME");
+		cbxLocalidad.addItem("CORONDA");
+		cbxLocalidad.addItem("RECONQUISTA");
+		cbxLocalidad.addItem("SUNCHALES");
+		cbxLocalidad.addItem("RECREO");
+		cbxLocalidad.addItem("ARROYO LEYES");
+		cbxLocalidad.addItem("SAN JUSTO");
 		add(cbxLocalidad);
 		
 		lblErrorNombre = new JLabel("(!)");
@@ -569,6 +621,26 @@ public class Alta_Propietario extends JPanel {
 		this.txtNumero.setText("");
 		this.cbxProvincia.setSelectedIndex(0);
 		this.cbxLocalidad.setSelectedIndex(0);
+	}
+	
+	private void setearDatos(String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
+			String localidad, String provincia, Integer telefono,String email) 
+	{
+		//Esto es para que setee los datos del prop e inhabilite los campos nombre apellido tipo y num doc
+				this.txtNombre.setText(nombre);
+				this.txtNombre.setEditable(false);
+				this.txtApellido.setText(apellido);
+				this.txtApellido.setEditable(false);
+				this.cbxTipoDocumento.setSelectedItem(tipoDoc);
+				this.cbxTipoDocumento.setEnabled(false);;
+				this.txtNumDocumento.setText(nrodocumento.toString());
+				this.txtNumDocumento.setEditable(false);
+				this.txtCalle.setText(calle);
+				this.txtNumero.setText(nrocalle.toString());
+				this.cbxLocalidad.setSelectedItem(localidad);
+				this.cbxProvincia.setSelectedItem(provincia);
+				this.txtNumTelefono.setText(telefono.toString());
+				this.txtEmail.setText(email);
 	}
 	
 }
