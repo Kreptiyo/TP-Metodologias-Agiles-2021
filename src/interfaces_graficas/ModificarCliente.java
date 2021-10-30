@@ -1,7 +1,5 @@
 package interfaces_graficas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -12,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class ModificarCliente {
+public class ModificarCliente extends JFrame{
 
 	private JFrame frmModificarCliente;
 	private JTextField textFieldTelefono;
@@ -20,34 +18,17 @@ public class ModificarCliente {
 	private JTextField textFieldBarrio;
 	private JTextField textFieldCaracteriscticas;
 	private JTextField textFieldMonto;
+	private JTextField textFieldNombre;
+	private JTextField textFieldApellido;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ModificarCliente window = new ModificarCliente();
-					window.frmModificarCliente.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public ModificarCliente() {
+		super();
 		initialize();
+		this.setLocationRelativeTo(null);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
+		
 		frmModificarCliente = new JFrame();
 		frmModificarCliente.setTitle("Modificar Cliente");
 		frmModificarCliente.setBounds(100, 100, 1024, 768);
@@ -59,12 +40,12 @@ public class ModificarCliente {
 		
 		JLabel lblTelefonoCliente = new JLabel("Telefono");
 		lblTelefonoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTelefonoCliente.setBounds(330, 216, 130, 25);
+		lblTelefonoCliente.setBounds(330, 210, 130, 25);
 		panelModificarCliente.add(lblTelefonoCliente);
 		
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
-		textFieldTelefono.setBounds(500, 216, 200, 25);
+		textFieldTelefono.setBounds(500, 210, 200, 25);
 		panelModificarCliente.add(textFieldTelefono);
 		
 		JPanel panelDatosInmueble = new JPanel();
@@ -132,9 +113,90 @@ public class ModificarCliente {
 		btnCancelar.setBounds(584, 515, 140, 30);
 		panelModificarCliente.add(btnCancelar);
 		
-		JLabel lblNewLabel = new JLabel("Cliente: RAMIRO GRIPPO");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(413, 102, 230, 46);
-		panelModificarCliente.add(lblNewLabel);
+		JLabel lblNombreCliente = new JLabel("Nombre");
+		lblNombreCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNombreCliente.setBounds(330, 130, 130, 25);
+		panelModificarCliente.add(lblNombreCliente);
+		
+		JLabel lblApellidoCliente = new JLabel("Apellido");
+		lblApellidoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblApellidoCliente.setBounds(330, 170, 130, 25);
+		panelModificarCliente.add(lblApellidoCliente);
+		
+		textFieldNombre = new JTextField();
+		textFieldNombre.setColumns(10);
+		textFieldNombre.setBounds(500, 130, 200, 25);
+		panelModificarCliente.add(textFieldNombre);
+		
+		textFieldApellido = new JTextField();
+		textFieldApellido.setColumns(10);
+		textFieldApellido.setBounds(500, 170, 200, 25);
+		panelModificarCliente.add(textFieldApellido);
 	}
+
+	public JFrame getFrmModificarCliente() {
+		return frmModificarCliente;
+	}
+
+	public void setFrmModificarCliente(JFrame frmModificarCliente) {
+		this.frmModificarCliente = frmModificarCliente;
+	}
+
+	public JTextField getTextFieldTelefono() {
+		return textFieldTelefono;
+	}
+
+	public void setTextFieldTelefono(JTextField textFieldTelefono) {
+		this.textFieldTelefono = textFieldTelefono;
+	}
+
+	public JTextField getTextFieldLocalidad() {
+		return textFieldLocalidad;
+	}
+
+	public void setTextFieldLocalidad(JTextField textFieldLocalidad) {
+		this.textFieldLocalidad = textFieldLocalidad;
+	}
+
+	public JTextField getTextFieldBarrio() {
+		return textFieldBarrio;
+	}
+
+	public void setTextFieldBarrio(JTextField textFieldBarrio) {
+		this.textFieldBarrio = textFieldBarrio;
+	}
+
+	public JTextField getTextFieldCaracteriscticas() {
+		return textFieldCaracteriscticas;
+	}
+
+	public void setTextFieldCaracteriscticas(JTextField textFieldCaracteriscticas) {
+		this.textFieldCaracteriscticas = textFieldCaracteriscticas;
+	}
+
+	public JTextField getTextFieldMonto() {
+		return textFieldMonto;
+	}
+
+	public void setTextFieldMonto(JTextField textFieldMonto) {
+		this.textFieldMonto = textFieldMonto;
+	}
+
+	public JTextField getTextFieldNombre() {
+		return textFieldNombre;
+	}
+
+	public void setTextFieldNombre(JTextField textFieldNombre) {
+		this.textFieldNombre = textFieldNombre;
+	}
+
+	public JTextField getTextFieldApellido() {
+		return textFieldApellido;
+	}
+
+	public void setTextFieldApellido(JTextField textFieldApellido) {
+		this.textFieldApellido = textFieldApellido;
+	}
+	
+	
 }

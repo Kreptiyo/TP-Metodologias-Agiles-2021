@@ -6,11 +6,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import interfaces_graficas.ModificarCliente;
 
 public class ListaClientes {
 	private JFrame frmAbmCliente;
@@ -104,14 +109,19 @@ public class ListaClientes {
 		modelo.addColumn("Monto");
 		tablaClientes.setModel(modelo);
 		this.modelo.addRow(new Object[]{"AA","AA","AA","AA","AA","AA","AA"});
-		this.modelo.addRow(new Object[]{"AA","AA","AA","AA","AA","AA","AA"});
-		this.modelo.addRow(new Object[]{"AA","AA","AA","AA","AA","AA","AA"});
+		this.modelo.addRow(new Object[]{"BB","BB","BB","BB","BB","BB","BB"});
+		this.modelo.addRow(new Object[]{"CC","CC","CC","CC","CC","CC","CC"});
 		scrollPanelTablaClientes.setViewportView(tablaClientes);
 		
 		JButton btnModificarCliente = new JButton("Modificar");
 		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnModificarCliente.setBounds(440, 600, 140, 30);
 		btnModificarCliente.setEnabled(false);
+		btnModificarCliente.addActionListener(e->{	
+					ModificarCliente mc = new ModificarCliente();
+			  		mc.setVisible(true);
+			  		
+		});
 		panelClientes.add(btnModificarCliente);
 		
 		JButton btnAñadirCliente = new JButton("A\u00F1adir");
