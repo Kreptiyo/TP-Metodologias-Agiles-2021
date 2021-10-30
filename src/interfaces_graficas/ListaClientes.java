@@ -25,9 +25,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import interfaces_graficas.ModificarCliente;
 
-public class ListaClientes {
+public class ListaClientes  extends JFrame{
 	private JFrame frmAbmCliente;
 	private JTable tablaClientes;
 	private DefaultTableModel modelo;
@@ -105,12 +104,11 @@ public class ListaClientes {
 		modelo.addColumn("Tipo Inmueble");
 		modelo.addColumn("Localidad");
 		modelo.addColumn("Barrio");
-		modelo.addColumn("Caracteristicas");
 		modelo.addColumn("Monto");
 		tablaClientes.setModel(modelo);
-		this.modelo.addRow(new Object[]{"AA","AA","AA","AA","AA","AA","AA"});
-		this.modelo.addRow(new Object[]{"BB","BB","BB","BB","BB","BB","BB"});
-		this.modelo.addRow(new Object[]{"CC","CC","CC","CC","CC","CC","CC"});
+		this.modelo.addRow(new Object[]{"AA","AA","AA","AA","AA","AA"});
+		this.modelo.addRow(new Object[]{"BB","BB","BB","BB","BB","BB"});
+		this.modelo.addRow(new Object[]{"CC","CC","CC","CC","CC","CC"});
 		scrollPanelTablaClientes.setViewportView(tablaClientes);
 		
 		JButton btnModificarCliente = new JButton("Modificar");
@@ -127,6 +125,11 @@ public class ListaClientes {
 		JButton btnAñadirCliente = new JButton("A\u00F1adir");
 		btnAñadirCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAñadirCliente.setBounds(114, 600, 140, 30);
+		btnAñadirCliente.addActionListener(e-> {
+			AltaCliente ac = new AltaCliente();
+			ac.setVisible(true);
+		
+		});
 		panelClientes.add(btnAñadirCliente);
 		
 		JButton btnEliminarCliente = new JButton("Eliminar");

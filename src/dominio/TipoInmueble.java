@@ -1,5 +1,5 @@
 package dominio;
 
 public enum TipoInmueble {
-		L, C, D, T, Q, G
+		L, O, C, D, T, Q, G
 }
