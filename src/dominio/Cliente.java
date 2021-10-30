@@ -11,6 +11,7 @@ public class Cliente {
 	private CaracteristicasInmueble caracteristicas;
 	private String barrio;
 	private Integer monto;
+	
 	public Integer getId() {
 		return id;
 	}
