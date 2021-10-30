@@ -14,6 +14,4 @@ public interface Cliente_DAO {
 	public void eliminarCliente(Integer id);
 	
 	
-	
-	
 }
