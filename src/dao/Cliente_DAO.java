@@ -13,4 +13,7 @@ public interface Cliente_DAO {
 	public List<Cliente> buscarTodas();
 	public void eliminarCliente(Integer id);
 	
+	
+	
+	
 }
