@@ -38,13 +38,13 @@ public class ModificarCliente extends JFrame{
 	}
 
 	private void initialize() {
-		frmModificarCliente = new JFrame();
-		frmModificarCliente.setTitle("Modificar Cliente");
-		frmModificarCliente.setBounds(100, 100, 1024, 768);
-		frmModificarCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel panelAltaCliente = new JPanel();
-		frmModificarCliente.getContentPane().add(panelAltaCliente, BorderLayout.CENTER);
+		setBounds(100, 100, 1024, 768);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panelModificarCliente = new JPanel();
+		getContentPane().add(panelModificarCliente, BorderLayout.CENTER);
+		panelModificarCliente.setLayout(null);	
 		
 		JLabel lblNombreCliente = new JLabel("Nombre");
 		lblNombreCliente.setBounds(298, 41, 130, 25);
@@ -57,15 +57,15 @@ public class ModificarCliente extends JFrame{
 		JLabel lblTelefonoCliente = new JLabel("Telefono");
 		lblTelefonoCliente.setBounds(298, 121, 130, 25);
 		lblTelefonoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panelAltaCliente.setLayout(null);
-		panelAltaCliente.add(lblNombreCliente);
-		panelAltaCliente.add(lblApellidoCliente);
-		panelAltaCliente.add(lblTelefonoCliente);
+		panelModificarCliente.setLayout(null);
+		panelModificarCliente.add(lblNombreCliente);
+		panelModificarCliente.add(lblApellidoCliente);
+		panelModificarCliente.add(lblTelefonoCliente);
 		
 		JPanel panelDatosInmueble = new JPanel();
 		panelDatosInmueble.setBorder(new TitledBorder(null, "Datos del inmueble", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelDatosInmueble.setBounds(278, 173, 416, 193);
-		panelAltaCliente.add(panelDatosInmueble);
+		panelModificarCliente.add(panelDatosInmueble);
 		panelDatosInmueble.setLayout(null);
 		
 		JLabel lblTipoDeInmueble = new JLabel("Tipo de Inmueble");
@@ -118,13 +118,13 @@ public class ModificarCliente extends JFrame{
 		
 		textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(468, 43, 200, 25);
-		panelAltaCliente.add(textFieldNombre);
+		panelModificarCliente.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		textFieldApellido = new JTextField();
 		textFieldApellido.setColumns(10);
 		textFieldApellido.setBounds(468, 81, 200, 25);
-		panelAltaCliente.add(textFieldApellido);
+		panelModificarCliente.add(textFieldApellido);
 		
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
@@ -138,22 +138,22 @@ public class ModificarCliente extends JFrame{
 		         }
 		      }
 		   });
-		panelAltaCliente.add(textFieldTelefono);
+		panelModificarCliente.add(textFieldTelefono);
 		
 		JButton btnModificarCliente = new JButton("Aceptar");
 		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnModificarCliente.setBounds(298, 669, 140, 30);
-		panelAltaCliente.add(btnModificarCliente);
+		panelModificarCliente.add(btnModificarCliente);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCancelar.setBounds(537, 669, 140, 30);
-		panelAltaCliente.add(btnCancelar);
+		panelModificarCliente.add(btnCancelar);
 		
 		JPanel panelCaracteristicas = new JPanel();
 		panelCaracteristicas.setBorder(new TitledBorder(null, "Caracteristicas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCaracteristicas.setBounds(104, 374, 808, 270);
-		panelAltaCliente.add(panelCaracteristicas);
+		panelModificarCliente.add(panelCaracteristicas);
 		panelCaracteristicas.setLayout(null);
 		
 		JLabel lblFrente = new JLabel("Frente");

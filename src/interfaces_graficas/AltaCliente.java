@@ -46,20 +46,15 @@ public class AltaCliente extends JFrame{
 	private JTextField textFieldBaños;
 
 	public AltaCliente() {
+		
 		super();
-		setTitle("Alta Cliente");
-		initialize();
-		this.setLocationRelativeTo(null);
-	}
- 
-	private void initialize() {
-		frmAadirCliente = new JFrame();
-		frmAadirCliente.setTitle("Alta Cliente");
-		frmAadirCliente.setBounds(100, 100, 1024, 768);
-		frmAadirCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1024, 768);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelAltaCliente = new JPanel();
-		frmAadirCliente.setContentPane(panelAltaCliente);
+		getContentPane().add(panelAltaCliente, BorderLayout.CENTER);
+		panelAltaCliente.setLayout(null);	
+		
 		
 		JLabel lblNombreCliente = new JLabel("Nombre");
 		lblNombreCliente.setBounds(298, 41, 130, 25);
@@ -346,8 +341,8 @@ public class AltaCliente extends JFrame{
 		btnAñadirCliente.addActionListener(e-> {
 			validarDatosVacios();
 		  });
-		
 	}
+ 
 	
 	public boolean validarDatosVacios() {		
 		

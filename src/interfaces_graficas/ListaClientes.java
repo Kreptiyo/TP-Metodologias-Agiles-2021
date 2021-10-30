@@ -126,6 +126,7 @@ public class ListaClientes  extends JFrame{
 		btnAñadirCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAñadirCliente.setBounds(114, 600, 140, 30);
 		btnAñadirCliente.addActionListener(e-> {
+			
 			AltaCliente ac = new AltaCliente();
 			ac.setVisible(true);
 		
