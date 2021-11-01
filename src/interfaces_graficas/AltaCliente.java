@@ -27,6 +27,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import javax.swing.border.EtchedBorder;
 
 public class AltaCliente extends JFrame{
 
@@ -163,7 +164,7 @@ public class AltaCliente extends JFrame{
 		panelAltaCliente.add(btnCancelar);
 		
 		JPanel panelCaracteristicas = new JPanel();
-		panelCaracteristicas.setBorder(new TitledBorder(null, "Caracteristicas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelCaracteristicas.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Caracteristicas del Inmueble", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelCaracteristicas.setBounds(104, 374, 808, 270);
 		panelAltaCliente.add(panelCaracteristicas);
 		panelCaracteristicas.setLayout(null);
@@ -337,6 +338,24 @@ public class AltaCliente extends JFrame{
 		chckbxPavimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPavimento.setBounds(676, 190, 93, 21);
 		panelCaracteristicas.add(chckbxPavimento);
+		
+		JLabel lblErrorNombre = new JLabel("(!)");
+		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorNombre.setForeground(Color.RED);
+		lblErrorNombre.setBounds(275, 42, 13, 25);
+		panelAltaCliente.add(lblErrorNombre);
+		
+		JLabel lblErrorApellido = new JLabel("(!)");
+		lblErrorApellido.setForeground(Color.RED);
+		lblErrorApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorApellido.setBounds(275, 81, 13, 25);
+		panelAltaCliente.add(lblErrorApellido);
+		
+		JLabel lblErrorTelefono = new JLabel("(!)");
+		lblErrorTelefono.setForeground(Color.RED);
+		lblErrorTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorTelefono.setBounds(275, 121, 13, 25);
+		panelAltaCliente.add(lblErrorTelefono);
 		
 		btnAñadirCliente.addActionListener(e-> {
 			validarDatosVacios();
