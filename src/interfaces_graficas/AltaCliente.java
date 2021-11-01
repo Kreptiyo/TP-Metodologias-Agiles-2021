@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,7 +46,25 @@ public class AltaCliente extends JFrame{
 	private JTextField textFieldSuperficie;
 	private JTextField textFieldAntiguedad;
 	private JTextField textFieldBaños;
-
+	private JCheckBox chckbxHorizontal;
+	private JCheckBox chckbxGarage;
+	private JCheckBox chckbxPatio;
+	private JCheckBox chckbxAguaCorriente;
+	private JCheckBox chckbxCloacas;
+	private JCheckBox chckbxGas;
+	private JCheckBox chckbxAguaCaliente;
+	private JCheckBox chckbxTelofono;
+	private JCheckBox chckbxLavadero;
+	private JCheckBox chckbxPavimento;
+	private JLabel lblErrorTipoInmueble;
+	private JLabel lblErrorLocalidad;
+	private JLabel lblErrorBarrio;
+	private JLabel lblErrorMonto;
+	private JLabel lblErrorNombre;
+	private JLabel lblErrorApellido;
+	private JLabel lblErrorTelefono;
+	private  JLabel lblErrorCaractersiticas;
+	
 	public AltaCliente() {
 		
 		super();
@@ -81,38 +100,85 @@ public class AltaCliente extends JFrame{
 		
 		JLabel lblTipoDeInmueble = new JLabel("Tipo de Inmueble");
 		lblTipoDeInmueble.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTipoDeInmueble.setBounds(20, 20, 130, 25);
+		lblTipoDeInmueble.setBounds(30, 20, 130, 25);
 		panelDatosInmueble.add(lblTipoDeInmueble);
 		
 		JLabel lblLocalidad = new JLabel("Localidad");
 		lblLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblLocalidad.setBounds(20, 60, 130, 25);
+		lblLocalidad.setBounds(30, 60, 130, 25);
 		panelDatosInmueble.add(lblLocalidad);
 		
 		JLabel lblBarrio = new JLabel("Barrio");
 		lblBarrio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBarrio.setBounds(20, 100, 130, 25);
+		lblBarrio.setBounds(30, 100, 130, 25);
 		panelDatosInmueble.add(lblBarrio);
 		
 		JLabel lblMonto = new JLabel("Monto Disponible");
 		lblMonto.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMonto.setBounds(20, 140, 130, 25);
+		lblMonto.setBounds(30, 140, 130, 25);
 		panelDatosInmueble.add(lblMonto);
 		
 		textFieldLocalidad = new JTextField();
 		textFieldLocalidad.setColumns(10);
 		textFieldLocalidad.setBounds(190, 60, 200, 25);
 		panelDatosInmueble.add(textFieldLocalidad);
+		textFieldLocalidad.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldLocalidad.getText().length()>20) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		
 		textFieldBarrio = new JTextField();
 		textFieldBarrio.setColumns(10);
 		textFieldBarrio.setBounds(190, 100, 200, 25);
 		panelDatosInmueble.add(textFieldBarrio);
+		textFieldBarrio.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldBarrio.getText().length()>20) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		
 		textFieldMonto = new JTextField();
 		textFieldMonto.setColumns(10);
 		textFieldMonto.setBounds(190, 140, 200, 25);
 		panelDatosInmueble.add(textFieldMonto);
+		textFieldMonto.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldMonto.setEditable(true);
+		         } else {
+		        	 textFieldMonto.setEditable(false);
+		         }
+		      }
+		   });
 		
 		String[] aux = new String[8];
 		aux[1]= "Local";
@@ -129,15 +195,80 @@ public class AltaCliente extends JFrame{
 		comboBoxTipoInmueble.setBounds(190, 20, 200, 25);
 		panelDatosInmueble.add(comboBoxTipoInmueble);
 		
+		lblErrorTipoInmueble = new JLabel("(!)");
+		lblErrorTipoInmueble.setForeground(Color.RED);
+		lblErrorTipoInmueble.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorTipoInmueble.setBounds(10, 20, 13, 25);
+		lblErrorTipoInmueble.setVisible(false);
+		panelDatosInmueble.add(lblErrorTipoInmueble);
+		
+		lblErrorLocalidad = new JLabel("(!)");
+		lblErrorLocalidad.setForeground(Color.RED);
+		lblErrorLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorLocalidad.setBounds(10, 60, 13, 25);
+		lblErrorLocalidad.setVisible(false);
+		panelDatosInmueble.add(lblErrorLocalidad);
+		
+		lblErrorBarrio = new JLabel("(!)");
+		lblErrorBarrio.setForeground(Color.RED);
+		lblErrorBarrio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorBarrio.setBounds(10, 100, 13, 25);
+		lblErrorBarrio.setVisible(false);
+		panelDatosInmueble.add(lblErrorBarrio);
+		
+		lblErrorMonto = new JLabel("(!)");
+		lblErrorMonto.setForeground(Color.RED);
+		lblErrorMonto.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorMonto.setBounds(10, 140, 13, 25);
+		lblErrorMonto.setVisible(false);
+		panelDatosInmueble.add(lblErrorMonto);
+		
 		textFieldNombre = new JTextField();
 		textFieldNombre.setBounds(468, 43, 200, 25);
 		panelAltaCliente.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
-		
+		textFieldNombre.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldNombre.getText().length()>30) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		textFieldApellido = new JTextField();
 		textFieldApellido.setColumns(10);
 		textFieldApellido.setBounds(468, 81, 200, 25);
 		panelAltaCliente.add(textFieldApellido);
+		textFieldApellido.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldApellido.getText().length()>30) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
@@ -188,6 +319,15 @@ public class AltaCliente extends JFrame{
 		textFieldFrente.setColumns(10);
 		textFieldFrente.setBounds(141, 30, 116, 25);
 		panelCaracteristicas.add(textFieldFrente);
+		textFieldFrente.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldFrente.setEditable(true);
+		         } else {
+		        	 textFieldFrente.setEditable(false);
+		         }
+		      }
+		   });
 		
 		JLabel lblAntiguedad = new JLabel("Antiguedad");
 		lblAntiguedad.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -203,21 +343,56 @@ public class AltaCliente extends JFrame{
 		textFieldFondo.setColumns(10);
 		textFieldFondo.setBounds(141, 70, 116, 25);
 		panelCaracteristicas.add(textFieldFondo);
+		textFieldFondo.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldFondo.setEditable(true);
+		         } else {
+		        	 textFieldFondo.setEditable(false);
+		         }
+		      }
+		   });
 		
 		textFieldSuperficie = new JTextField();
 		textFieldSuperficie.setColumns(10);
 		textFieldSuperficie.setBounds(141, 110, 116, 25);
 		panelCaracteristicas.add(textFieldSuperficie);
+		textFieldSuperficie.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldSuperficie.setEditable(true);
+		         } else {
+		        	 textFieldSuperficie.setEditable(false);
+		         }
+		      }
+		   });
 		
 		textFieldAntiguedad = new JTextField();
 		textFieldAntiguedad.setColumns(10);
 		textFieldAntiguedad.setBounds(141, 150, 116, 25);
 		panelCaracteristicas.add(textFieldAntiguedad);
-		
+		textFieldAntiguedad.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldAntiguedad.setEditable(true);
+		         } else {
+		        	 textFieldAntiguedad.setEditable(false);
+		         }
+		      }
+		   });
 		textFieldBaños = new JTextField();
 		textFieldBaños.setColumns(10);
 		textFieldBaños.setBounds(141, 190, 116, 25);
 		panelCaracteristicas.add(textFieldBaños);
+		textFieldBaños.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldBaños.setEditable(true);
+		         } else {
+		        	 textFieldBaños.setEditable(false);
+		         }
+		      }
+		   });
 		
 		JLabel lblHorizontal = new JLabel("Horizontal");
 		lblHorizontal.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -338,25 +513,34 @@ public class AltaCliente extends JFrame{
 		chckbxPavimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPavimento.setBounds(676, 190, 93, 21);
 		panelCaracteristicas.add(chckbxPavimento);
-		
-		JLabel lblErrorNombre = new JLabel("(!)");
+
+		lblErrorNombre = new JLabel("(!)");
 		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblErrorNombre.setForeground(Color.RED);
 		lblErrorNombre.setBounds(275, 42, 13, 25);
+		lblErrorNombre.setVisible(false);
 		panelAltaCliente.add(lblErrorNombre);
-		
-		JLabel lblErrorApellido = new JLabel("(!)");
+
+		lblErrorApellido = new JLabel("(!)");
 		lblErrorApellido.setForeground(Color.RED);
 		lblErrorApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblErrorApellido.setBounds(275, 81, 13, 25);
+		lblErrorApellido.setVisible(false);
 		panelAltaCliente.add(lblErrorApellido);
-		
-		JLabel lblErrorTelefono = new JLabel("(!)");
+
+		lblErrorTelefono = new JLabel("(!)");
 		lblErrorTelefono.setForeground(Color.RED);
 		lblErrorTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblErrorTelefono.setBounds(275, 121, 13, 25);
+		lblErrorTelefono.setVisible(false);
 		panelAltaCliente.add(lblErrorTelefono);
-		
+
+		lblErrorCaractersiticas = new JLabel("(!)");
+		lblErrorCaractersiticas.setForeground(Color.RED);
+		lblErrorCaractersiticas.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblErrorCaractersiticas.setBounds(81, 358, 23, 40);
+		lblErrorCaractersiticas.setVisible(false);
+		panelAltaCliente.add(lblErrorCaractersiticas);
 		btnAñadirCliente.addActionListener(e-> {
 			validarDatosVacios();
 		  });
@@ -365,16 +549,52 @@ public class AltaCliente extends JFrame{
 	
 	public boolean validarDatosVacios() {		
 		
-		System.out.println(this.comboBoxTipoInmueble.getSelectedItem() == null);
+		boolean error = false;
 		
-		if(		this.textFieldNombre.getText().isEmpty() ||
-				this.textFieldApellido.getText().isEmpty() ||
-				this.textFieldBarrio.getText().isEmpty() ||
-				this.textFieldMonto.getText().isEmpty() ||
-				this.textFieldLocalidad.getText().isEmpty() ||
-				this.textFieldTelefono.getText().isEmpty() ||
-				this.comboBoxTipoInmueble.getSelectedItem() == null)
-				
+		if(this.textFieldNombre.getText().isEmpty()) {
+			this.lblErrorNombre.setVisible(true);
+			error = true;
+		}
+		if(this.textFieldApellido.getText().isEmpty()) {
+			this.lblErrorApellido.setVisible(true);
+			error = true;
+		}
+		if(this.textFieldBarrio.getText().isEmpty()) {
+			this.lblErrorBarrio.setVisible(true);
+			error = true;
+		}
+		if(this.textFieldMonto.getText().isEmpty()) {
+			this.lblErrorMonto.setVisible(true);
+			error = true;
+		}
+		if(this.textFieldLocalidad.getText().isEmpty()) {
+			this.lblErrorLocalidad.setVisible(true);
+			error = true;
+		}
+		if(this.textFieldTelefono.getText().isEmpty()) {
+			this.lblErrorTelefono.setVisible(true);
+			error = true;
+		}
+		if(this.comboBoxTipoInmueble.getSelectedItem() == null) {
+			this.lblErrorTipoInmueble.setVisible(true);
+			error = true;
+		}
+		
+		if(
+		this.textFieldAntiguedad.getText().isEmpty() ||
+		this.textFieldBaños.getText().isEmpty()|| 
+		this.textFieldFondo.getText().isEmpty()||
+		this.textFieldFrente.getText().isEmpty()||
+		this.textFieldSuperficie.getText().isEmpty()||
+		this.comboBoxOrientacion.getSelectedItem() == null 
+			
+		) {
+			this.lblErrorCaractersiticas.setVisible(true);
+			error = true;
+		}
+		
+		
+		if(error == true)		
 		{
 			JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
 			return false;
@@ -382,4 +602,46 @@ public class AltaCliente extends JFrame{
 		
 		return true;
 	}
+	
+	private void limpiarFormulario() {
+		this.textFieldNombre.setText("");
+		this.textFieldApellido.setText("");
+		this.textFieldTelefono.setText("");
+		this.comboBoxTipoInmueble.setSelectedIndex(0);
+		this.textFieldLocalidad.setText("");
+		this.textFieldBarrio.setText("");
+		this.textFieldMonto.setText("");
+		this.textFieldAntiguedad.setText("");
+		this.textFieldBaños.setText("");
+		this.textFieldFondo.setText("");
+		this.textFieldFrente.setText("");
+		this.textFieldSuperficie.setText("");
+		this.comboBoxOrientacion.setSelectedIndex(0);
+		this.chckbxAguaCaliente.setSelected(false);
+		this.chckbxAguaCorriente.setSelected(false);
+		this.chckbxCloacas.setSelected(false);
+		this.chckbxGarage.setSelected(false);
+		this.chckbxAguaCaliente.setSelected(false);
+		this.chckbxHorizontal.setSelected(false);
+		this.chckbxLavadero.setSelected(false);
+		this.chckbxPatio.setSelected(false);
+		this.chckbxPavimento.setSelected(false);
+		this.chckbxTelofono.setSelected(false);
+		this.chckbxGas.setSelected(false);
+	}
+	
+		private void accionMarcarCamposCorrectos() {
+		
+		/*borra los simbolos que se muestran en pantlla junto a cada campo erroneo*/
+		
+		this.lblErrorBarrio.setVisible(false);
+		this.lblErrorNombre.setVisible(false);
+		this.lblErrorMonto.setVisible(false);
+		this.lblErrorLocalidad.setVisible(false);
+		this.lblErrorApellido.setVisible(false);
+		this.lblErrorCaractersiticas.setVisible(false);
+		this.lblErrorTelefono.setVisible(false);
+		this.lblErrorTipoInmueble.setVisible(false);
+	}
+		
 }
