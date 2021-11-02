@@ -64,6 +64,7 @@ public class DB
 			{
 				stmt = conn.createStatement();
 				stmt.execute(TABLE_CREATE_PROPIETARIO);
+				stmt.execute(TABLE_CREATE_INMUEBLE);
 			}
 			catch(SQLException e)
 			{
