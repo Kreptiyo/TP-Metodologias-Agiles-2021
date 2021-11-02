@@ -24,6 +24,37 @@ public class DB
 			"				 EMAIL VARCHAR(100), "+
 			"				 PRIMARY KEY(ID)) ";
 	
+    private static final String TABLE_CREATE_INMUEBLE =
+    		"CREATE TABLE IF NOT EXISTS ma.inmueble ( "+
+    		"				 ID SERIAL, "+
+    		"				 PROVINCIA VARCHAR(30), "+
+    		"				 LOCALIDAD VARCHAR(30), "+
+    		"				 CALLE_NUMERO VARCHAR(30), "+
+    		"				 PISO_DEPARTAMENTO INTEGER, "+
+    		"				 BARRIO VARCHAR(30), "+
+    		"				 TIPO_INMUEBLE VARCHAR(1), "+
+    		"				 PRECIO INTEGER, "+
+    		"				 OBSERVACION VARCHAR(500), "+
+    		"				 ORIENTACION VARCHAR(10), "+
+    		"				 FRENTE INTEGER, "+
+    		"				 FONDO INTEGER, "+
+    		"				 SUPERFICIE INTEGER, "+
+    		"				 PROPIEDAD_HORIZONTAL BOOLEAN, "+
+    		"				 ANTIGUEDAD INTEGER, "+
+    		"				 DORMITORIOS INTEGER, "+
+    		"				 BAÑOS INTEGER, "+
+    		"				 GARAJE BOOLEAN, "+
+    		"				 PATIO BOOLEAN, "+
+    		"				 PISCINA BOOLEAN, "+
+    		"				 AGUA_CORRIENTE BOOLEAN, "+
+    		" 				 CLOACAS BOOLEAN, "+
+    		"				 GAS_NATURAL BOOLEAN, "+
+    		"				 AGUA_CALIENTE BOOLEAN, "+
+    		"				 TELEFONO BOOLEAN, "+
+    		"				 LAVADERO BOOLEAN, "+
+    		"				 PAVIMENTO BOOLEAN, "+
+    		"				 PRIMARY KEY(ID)) ";
+	
 	public static void verificarCrearTablas(Connection conn)
 	{
 		if(!_TABLAS_CREADAS)
