@@ -64,8 +64,12 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 	private JButton btnCancelar;
 	private JButton btnSiguientePagina;
 	
+	
+	private Gestor_Inmueble gestorInmueble;
+	
 	/*CONSTRUCTOR PARA PANTALLA ALTA*/
-	public Alta_Modificacion_Inmueble_Pagina_2(JFrame pantallaPrincipal) {
+	public Alta_Modificacion_Inmueble_Pagina_2(JFrame pantallaPrincipal, Gestor_Inmueble gi) {
+		this.gestorInmueble = gi;
 		this.armarPanel(pantallaPrincipal);
 	}
 	
@@ -465,8 +469,6 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 					superficieTerreno = Integer.parseInt(txtSuperficieTerreno.getText().toString());
 				}
 				
-				
-				Gestor_Inmueble gestorInmueble = new Gestor_Inmueble();
 				gestorInmueble.validar_Datos_Inmueble(tipoInmueble, precioInmueble, orientacion, metrosFondo, metrosFrente, superficieTerreno);
 				
 				Integer superficieEdificio;
@@ -508,7 +510,7 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 						this.chkPiscina.isSelected(), this.chkAguaCorriente.isSelected(), this.chkCloacas.isSelected(), this.chkGasNatural.isSelected(),
 						this.chkAguaCaliente.isSelected(), this.chkTelefono.isSelected(), this.chkLavadero.isSelected(), this.chkPavimiento.isSelected());
 				this.setVisible(false);
-				Alta_Modificacion_Inmueble_Pagina_3 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_3(pantallaPrincipal);
+				Alta_Modificacion_Inmueble_Pagina_3 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_3(pantallaPrincipal, gestorInmueble);
 				pantallaPrincipal.setContentPane(panelSiguiente);
 				
 			} catch (Datos_Invalidos_Exception e2) {

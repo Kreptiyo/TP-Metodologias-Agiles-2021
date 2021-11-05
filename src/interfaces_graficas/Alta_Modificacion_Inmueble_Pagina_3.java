@@ -38,10 +38,13 @@ public class Alta_Modificacion_Inmueble_Pagina_3 extends JPanel {
 	
 	/*Recibe el panel anterior para poder moverse entre interfaces con la posibilidad de volver al anterior*/
 	
+	private Gestor_Inmueble gestorInmueble;
+	
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Alta_Modificacion_Inmueble_Pagina_3(JFrame pantallaPrincipal) {
+	public Alta_Modificacion_Inmueble_Pagina_3(JFrame pantallaPrincipal, Gestor_Inmueble gi) {
+		this.gestorInmueble = gi;
 		this.armarPanel(pantallaPrincipal);
 	}
 	
@@ -118,7 +121,6 @@ public class Alta_Modificacion_Inmueble_Pagina_3 extends JPanel {
 			
 			try {
 				
-				Gestor_Inmueble gestorInmueble = new Gestor_Inmueble();
 				gestorInmueble.actualizarModelo_Datos_Extras(this.descripcion.getText());
 				gestorInmueble.crear_Inmueble();
 				

@@ -53,11 +53,12 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	
 	/*Recibe el panel siguinte para poder moverse entre interfaces con la posibilidad de volver al anterior*/
 	
-
+	private Gestor_Inmueble gestorInmueble;
 	/**
 	 * @wbp.parser.constructor
 	 */
 	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal) {
+		this.gestorInmueble = new Gestor_Inmueble();
 		this.armarPanel(pantallaPrincipal);
 	}
 	
@@ -355,11 +356,10 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 					numDepto = -1;
 				}
 				
-				Gestor_Inmueble gestorInmueble = new Gestor_Inmueble();
 				gestorInmueble.validar_Datos_Ubicacion(provincia, localidad, calle, numCalle, barrio,numDepto);
 				gestorInmueble.actualizarModelo_Ubicacion(provincia, localidad, calle, numCalle, barrio, numDepto);
 				this.setVisible(false);
-				Alta_Modificacion_Inmueble_Pagina_2 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_2(pantallaPrincipal);
+				Alta_Modificacion_Inmueble_Pagina_2 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_2(pantallaPrincipal, gestorInmueble);
 				pantallaPrincipal.setContentPane(panelSiguiente);
 				
 				
