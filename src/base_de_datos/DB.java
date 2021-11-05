@@ -29,7 +29,8 @@ public class DB
     		"				 ID SERIAL, "+
     		"				 PROVINCIA VARCHAR(30), "+
     		"				 LOCALIDAD VARCHAR(30), "+
-    		"				 CALLE_NUMERO VARCHAR(30), "+
+    		"				 CALLE VARCHAR(30), "+
+    		"				 CALLE_NUMERO INTEGER, "+
     		"				 PISO_DEPARTAMENTO INTEGER, "+
     		"				 BARRIO VARCHAR(30), "+
     		"				 TIPO_INMUEBLE VARCHAR(1), "+
@@ -40,6 +41,7 @@ public class DB
     		"				 FONDO INTEGER, "+
     		"				 SUPERFICIE INTEGER, "+
     		"				 PROPIEDAD_HORIZONTAL BOOLEAN, "+
+    		"				 SUPERFICIE_EDIFICIO INTEGER, "+
     		"				 ANTIGUEDAD INTEGER, "+
     		"				 DORMITORIOS INTEGER, "+
     		"				 BAÑOS INTEGER, "+
