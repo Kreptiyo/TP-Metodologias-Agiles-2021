@@ -56,7 +56,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setInt(10, i.getFrente());
 				pstmt.setInt(11, i.getFondo());
 				pstmt.setInt(12, i.getSuperficie());
-				pstmt.setBoolean(0, i.getPropiedadHorizontal());
+				pstmt.setBoolean(13, i.getPropiedadHorizontal());
 				pstmt.setInt(14, i.getAntiguedad());
 				pstmt.setInt(15, i.getDormitorios());
 				pstmt.setInt(16, i.getBaños());
@@ -64,7 +64,8 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setBoolean(18, i.getPatio());
 				pstmt.setBoolean(19, i.getPiscina());
 				pstmt.setBoolean(20, i.getAguaCorriente());
-				pstmt.setBoolean(22, i.getCloacas());
+				pstmt.setBoolean(21, i.getCloacas());
+				pstmt.setBoolean(22, i.getGasNatural());
 				pstmt.setBoolean(23, i.getAguaCaliente());
 				pstmt.setBoolean(24, i.getTelefono());
 				pstmt.setBoolean(25, i.getLavadero());
@@ -89,7 +90,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setInt(10, i.getFrente());
 				pstmt.setInt(11, i.getFondo());
 				pstmt.setInt(12, i.getSuperficie());
-				pstmt.setBoolean(0, i.getPropiedadHorizontal());
+				pstmt.setBoolean(13, i.getPropiedadHorizontal());
 				pstmt.setInt(14, i.getAntiguedad());
 				pstmt.setInt(15, i.getDormitorios());
 				pstmt.setInt(16, i.getBaños());
@@ -97,7 +98,8 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setBoolean(18, i.getPatio());
 				pstmt.setBoolean(19, i.getPiscina());
 				pstmt.setBoolean(20, i.getAguaCorriente());
-				pstmt.setBoolean(22, i.getCloacas());
+				pstmt.setBoolean(21, i.getCloacas());
+				pstmt.setBoolean(22, i.getGasNatural());
 				pstmt.setBoolean(23, i.getAguaCaliente());
 				pstmt.setBoolean(24, i.getTelefono());
 				pstmt.setBoolean(25, i.getLavadero());
