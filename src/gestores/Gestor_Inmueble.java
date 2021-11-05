@@ -153,7 +153,8 @@ public class Gestor_Inmueble
 	{
 		i.setProvincia(provincia);
 		i.setLocalidad(localidad);
-		i.setCalleNumero(calle.concat(numero.toString()));
+		i.setCalle(calle);
+		i.setCalleNumero(numero);
 		i.setBarrio(barrio);
 		i.setPisoDepartamento(pisoDepartamento);
 	}
@@ -215,6 +216,7 @@ public class Gestor_Inmueble
 		i.setFondo(fondo);
 		i.setSuperficie(superficie);
 		i.setPropiedadHorizontal(propiedadHorizontal);
+		i.setSuperficieEdificio(superficieEdificio);
 		i.setAntiguedad(antiguedad);
 		i.setDormitorios(dormitorios);
 		i.setBaños(baños);

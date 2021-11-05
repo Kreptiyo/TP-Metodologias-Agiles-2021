@@ -21,13 +21,13 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			"SELECT * FROM ma.inmueble";
 	
 	private static final String INSERT_INMUEBLE =
-			"INSERT INTO ma.inmueble (PROVINCIA, LOCALIDAD, CALLE_NUMERO, PISO_DEPARTAMENTO, BARRIO, TIPO_INMUEBLE, PRECIO, OBSERVACION, ORIENTACION, "
-			+ "FRENTE, FONDO, SUPERFICIE, PROPIEDAD_HORIZONTAL, ANTIGUEDAD, DORMITORIOS, BAÑOS, GARAJE, PATIO, PISCINA, AGUA_CORRIENTE, CLOACAS, GAS_NATURAL, "
-			+ "AGUA_CALIENTE, TELEFONO, LAVADERO, PAVIMENTO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			"INSERT INTO ma.inmueble (PROVINCIA, LOCALIDAD, CALLE, CALLE_NUMERO, PISO_DEPARTAMENTO, BARRIO, TIPO_INMUEBLE, PRECIO, OBSERVACION, ORIENTACION, "
+			+ "FRENTE, FONDO, SUPERFICIE, PROPIEDAD_HORIZONTAL, SUPERFICIE_EDIFICIO, ANTIGUEDAD, DORMITORIOS, BAÑOS, GARAJE, PATIO, PISCINA, AGUA_CORRIENTE, CLOACAS, GAS_NATURAL, "
+			+ "AGUA_CALIENTE, TELEFONO, LAVADERO, PAVIMENTO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String UPDATE_INMUEBLE =
-			"UPDATE ma.inmueble SET PROVINCIA = ?, LOCALIDAD = ?, CALLE_NUMERO = ?, PISO_DEPARTAMENTO = ?, BARRIO = ?, TIPO_INMUEBLE = ?, PRECIO = ?, OBSERVACION = ?, ORIENTACION = ?, "
-			+ "FRENTE = ?, FONDO = ?, SUPERFICIE = ?, PROPIEDAD_HORIZONTAL = ?, ANTIGUEDAD = ?, DORMITORIOS = ?, BAÑOS = ?, GARAJE = ?, PATIO = ?, PISCINA = ?, AGUA_CORRIENTE = ?, CLOACAS = ?, GAS_NATURAL = ?, "
+			"UPDATE ma.inmueble SET PROVINCIA = ?, LOCALIDAD = ?, CALLE = ?, CALLE_NUMERO = ?, PISO_DEPARTAMENTO = ?, BARRIO = ?, TIPO_INMUEBLE = ?, PRECIO = ?, OBSERVACION = ?, ORIENTACION = ?, "
+			+ "FRENTE = ?, FONDO = ?, SUPERFICIE = ?, PROPIEDAD_HORIZONTAL = ?, SUPERFICIE_EDIFICIO = ?, ANTIGUEDAD = ?, DORMITORIOS = ?, BAÑOS = ?, GARAJE = ?, PATIO = ?, PISCINA = ?, AGUA_CORRIENTE = ?, CLOACAS = ?, GAS_NATURAL = ?, "
 			+ "AGUA_CALIENTE = ?, TELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?";
 	
 	private static final String DELETE_INMUEBLE =
@@ -46,30 +46,32 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt = conn.prepareStatement(UPDATE_INMUEBLE);
 				pstmt.setString(1, i.getProvincia());
 				pstmt.setString(2, i.getLocalidad());
-				pstmt.setString(3, i.getCalleNumero());
-				pstmt.setInt(4, i.getPisoDepartamento());
-				pstmt.setString(5, i.getBarrio());
-				pstmt.setString(6, i.getTipoDeInmueble().toString());
-				pstmt.setInt(7, i.getPrecioDeVenta());
-				pstmt.setString(8, i.getObservacion());
-				pstmt.setString(9, i.getOrientacion().toString());
-				pstmt.setInt(10, i.getFrente());
-				pstmt.setInt(11, i.getFondo());
-				pstmt.setInt(12, i.getSuperficie());
-				pstmt.setBoolean(13, i.getPropiedadHorizontal());
-				pstmt.setInt(14, i.getAntiguedad());
-				pstmt.setInt(15, i.getDormitorios());
-				pstmt.setInt(16, i.getBaños());
-				pstmt.setBoolean(17, i.getGaraje());
-				pstmt.setBoolean(18, i.getPatio());
-				pstmt.setBoolean(19, i.getPiscina());
-				pstmt.setBoolean(20, i.getAguaCorriente());
-				pstmt.setBoolean(21, i.getCloacas());
-				pstmt.setBoolean(22, i.getGasNatural());
-				pstmt.setBoolean(23, i.getAguaCaliente());
-				pstmt.setBoolean(24, i.getTelefono());
-				pstmt.setBoolean(25, i.getLavadero());
-				pstmt.setBoolean(26, i.getPavimento());
+				pstmt.setString(3, i.getCalle());
+				pstmt.setInt(4, i.getCalleNumero());
+				pstmt.setInt(5, i.getPisoDepartamento());
+				pstmt.setString(6, i.getBarrio());
+				pstmt.setString(7, i.getTipoDeInmueble().toString());
+				pstmt.setInt(8, i.getPrecioDeVenta());
+				pstmt.setString(9, i.getObservacion());
+				pstmt.setString(10, i.getOrientacion().toString());
+				pstmt.setInt(11, i.getFrente());
+				pstmt.setInt(12, i.getFondo());
+				pstmt.setInt(13, i.getSuperficie());
+				pstmt.setBoolean(14, i.getPropiedadHorizontal());
+				pstmt.setInt(15, i.getSuperficieEdificio());
+				pstmt.setInt(16, i.getAntiguedad());
+				pstmt.setInt(17, i.getDormitorios());
+				pstmt.setInt(18, i.getBaños());
+				pstmt.setBoolean(19, i.getGaraje());
+				pstmt.setBoolean(20, i.getPatio());
+				pstmt.setBoolean(21, i.getPiscina());
+				pstmt.setBoolean(22, i.getAguaCorriente());
+				pstmt.setBoolean(23, i.getCloacas());
+				pstmt.setBoolean(24, i.getGasNatural());
+				pstmt.setBoolean(25, i.getAguaCaliente());
+				pstmt.setBoolean(26, i.getTelefono());
+				pstmt.setBoolean(27, i.getLavadero());
+				pstmt.setBoolean(28, i.getPavimento());
 				pstmt.executeUpdate();
 				conn.commit();
 				
@@ -80,30 +82,32 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt = conn.prepareStatement(INSERT_INMUEBLE);
 				pstmt.setString(1, i.getProvincia());
 				pstmt.setString(2, i.getLocalidad());
-				pstmt.setString(3, i.getCalleNumero());
-				pstmt.setInt(4, i.getPisoDepartamento());
-				pstmt.setString(5, i.getBarrio());
-				pstmt.setString(6, i.getTipoDeInmueble().toString());
-				pstmt.setInt(7, i.getPrecioDeVenta());
-				pstmt.setString(8, i.getObservacion());
-				pstmt.setString(9, i.getOrientacion().toString());
-				pstmt.setInt(10, i.getFrente());
-				pstmt.setInt(11, i.getFondo());
-				pstmt.setInt(12, i.getSuperficie());
-				pstmt.setBoolean(13, i.getPropiedadHorizontal());
-				pstmt.setInt(14, i.getAntiguedad());
-				pstmt.setInt(15, i.getDormitorios());
-				pstmt.setInt(16, i.getBaños());
-				pstmt.setBoolean(17, i.getGaraje());
-				pstmt.setBoolean(18, i.getPatio());
-				pstmt.setBoolean(19, i.getPiscina());
-				pstmt.setBoolean(20, i.getAguaCorriente());
-				pstmt.setBoolean(21, i.getCloacas());
-				pstmt.setBoolean(22, i.getGasNatural());
-				pstmt.setBoolean(23, i.getAguaCaliente());
-				pstmt.setBoolean(24, i.getTelefono());
-				pstmt.setBoolean(25, i.getLavadero());
-				pstmt.setBoolean(26, i.getPavimento());
+				pstmt.setString(3, i.getCalle());
+				pstmt.setInt(4, i.getCalleNumero());
+				pstmt.setInt(5, i.getPisoDepartamento());
+				pstmt.setString(6, i.getBarrio());
+				pstmt.setString(7, i.getTipoDeInmueble().toString());
+				pstmt.setInt(8, i.getPrecioDeVenta());
+				pstmt.setString(9, i.getObservacion());
+				pstmt.setString(10, i.getOrientacion().toString());
+				pstmt.setInt(11, i.getFrente());
+				pstmt.setInt(12, i.getFondo());
+				pstmt.setInt(13, i.getSuperficie());
+				pstmt.setBoolean(14, i.getPropiedadHorizontal());
+				pstmt.setInt(15, i.getSuperficieEdificio());
+				pstmt.setInt(16, i.getAntiguedad());
+				pstmt.setInt(17, i.getDormitorios());
+				pstmt.setInt(18, i.getBaños());
+				pstmt.setBoolean(19, i.getGaraje());
+				pstmt.setBoolean(20, i.getPatio());
+				pstmt.setBoolean(21, i.getPiscina());
+				pstmt.setBoolean(22, i.getAguaCorriente());
+				pstmt.setBoolean(23, i.getCloacas());
+				pstmt.setBoolean(24, i.getGasNatural());
+				pstmt.setBoolean(25, i.getAguaCaliente());
+				pstmt.setBoolean(26, i.getTelefono());
+				pstmt.setBoolean(27, i.getLavadero());
+				pstmt.setBoolean(28, i.getPavimento());
 				pstmt.executeUpdate();
 				conn.commit();
 			}
@@ -144,7 +148,8 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setId(rs.getInt("ID"));
 				i.setProvincia(rs.getString("PROVINCIA"));
 				i.setLocalidad(rs.getString("LOCALIDAD"));
-				i.setCalleNumero(rs.getString("CALLE_NUMERO"));
+				i.setCalle(rs.getString("CALLE"));
+				i.setCalleNumero(rs.getInt("CALLE_NUMERO"));
 				i.setPisoDepartamento(rs.getInt("PISO_DEPARTAMENTO"));
 				i.setBarrio(rs.getString("BARRIO"));
 				switch(rs.getString("TIPO_INMUEBLE"))
