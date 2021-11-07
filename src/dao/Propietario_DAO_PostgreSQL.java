@@ -19,7 +19,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 			"SELECT * FROM ma.propietario";
 	
 	private static final String SELECT_PROPIETARIO =
-			"SELECT * FROM ma.propietario WHERE nro_documento = ?";
+			"SELECT * FROM ma.propietario WHERE NRO_DOCUMENTO = ?";
 	
 	private static final String INSERT_PROPIETARIO =
 			"INSERT INTO ma.propietario (NOMBRE, APELLIDO, TIPO_DOCUMENTO, NRO_DOCUMENTO, CALLE, NRO_CALLE, LOCALIDAD, PROVINCIA, TELEFONO, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -189,7 +189,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 	}
 
 	@Override
-	public Propietario buscarPorDni(Integer dni) {
+	public Propietario buscarPorNroDocumento(Integer nroDocumento) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Propietario p = new Propietario();
@@ -197,7 +197,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 		try
 		{
 			pstmt = conn.prepareStatement(SELECT_PROPIETARIO);
-			pstmt.setInt(1, dni);
+			pstmt.setInt(1, nroDocumento);
 			rs = pstmt.executeQuery();
 			while(rs.next())
 			{

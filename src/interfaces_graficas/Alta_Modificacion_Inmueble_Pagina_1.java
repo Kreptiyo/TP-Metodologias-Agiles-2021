@@ -58,21 +58,22 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer idPropietario) {
+	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento) {
 		this.gestorInmueble = new Gestor_Inmueble();
-		this.armarPanel(pantallaPrincipal);
+		this.armarPanel(pantallaPrincipal, nroDocumento);
 	}
 	
-	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, String provincia, String localidad, String calle, Integer numeroCalle, Integer numDepartamento,
+	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento, String provincia, String localidad, String calle, Integer numeroCalle, Integer numDepartamento,
 		String barrio, 	String tipoInmueble, Integer precio, String orientacion, Integer metrosFrente, Integer metrosFondo, Integer superficie, Integer antiguedad,	
 		boolean propHorizontal, Integer superficieEdificio, Integer cantDormitorios, Integer cantBaños, boolean garage, boolean patio, boolean piscina, boolean aguaCaliente, boolean aguaCorriente, boolean cloacas,
 		boolean gasNatural, boolean telefono, boolean lavadero, boolean pavimento, String descripcion) {
-		this.armarPanel(pantallaPrincipal);
+		this.gestorInmueble = new Gestor_Inmueble();
+		this.armarPanel(pantallaPrincipal, nroDocumento);
 		this.setearDatos(provincia, localidad,  calle,  numeroCalle,  numDepartamento, barrio);
 	}
 	
 
-	public void armarPanel(JFrame pantallaPrincipal) {
+	public void armarPanel(JFrame pantallaPrincipal, Integer nroDocumento) {
 		setForeground(Color.GRAY);
 		setLayout(null);
 		
@@ -356,7 +357,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 				else {
 					numDepto = -1;
 				}
-				
+				gestorInmueble.actualizarModelo_Propietario(nroDocumento);
 				gestorInmueble.validar_Datos_Ubicacion(provincia, localidad, calle, numCalle, barrio,numDepto);
 				gestorInmueble.actualizarModelo_Ubicacion(provincia, localidad, calle, numCalle, barrio, numDepto);
 				this.setVisible(false);

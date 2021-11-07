@@ -3,6 +3,7 @@ package dominio;
 public class Inmueble 
 {
 	Integer id;
+	Propietario propietario;
 	String provincia;
 	String localidad;
 	String calle;
@@ -54,6 +55,14 @@ public class Inmueble
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Propietario getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
 	}
 
 	public String getProvincia() {

@@ -163,9 +163,9 @@ public class Gestor_Propietario {
 		return this.listaDePropietarios;
 	}
 	
-	public Propietario buscarPorDni(Integer dni)
+	public Propietario buscarPorNroDocumento(Integer nroDocumento)
 	{
-		Propietario p = propietarioDAO.buscarPorDni(dni);
+		Propietario p = propietarioDAO.buscarPorNroDocumento(nroDocumento);
 		return p;
 	}
 	
