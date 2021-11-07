@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import dominio.Inmueble.Orientacion;
 import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Inmueble;
@@ -57,7 +58,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal) {
+	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer idPropietario) {
 		this.gestorInmueble = new Gestor_Inmueble();
 		this.armarPanel(pantallaPrincipal);
 	}
@@ -70,7 +71,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 		this.setearDatos(provincia, localidad,  calle,  numeroCalle,  numDepartamento, barrio);
 	}
 	
-	
+
 	public void armarPanel(JFrame pantallaPrincipal) {
 		setForeground(Color.GRAY);
 		setLayout(null);
@@ -375,6 +376,11 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 		add(btnSiguiente);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(e-> {
+			this.setVisible(false);
+			Interfaz_Gestionar_Inmueble cancelar = new Interfaz_Gestionar_Inmueble(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(cancelar);
+		});
 		btnCancelar.setForeground(Color.BLACK);
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancelar.setBounds(914, 717, 100, 40);

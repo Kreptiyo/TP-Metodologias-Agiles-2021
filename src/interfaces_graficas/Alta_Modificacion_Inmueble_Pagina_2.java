@@ -431,6 +431,11 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 		btnCancelar.setForeground(Color.BLACK);
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancelar.setBounds(914, 717, 100, 40);
+		btnCancelar.addActionListener(e-> {
+			this.setVisible(false);
+			Interfaz_Gestionar_Inmueble cancelar = new Interfaz_Gestionar_Inmueble(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(cancelar);
+		});
 		add(btnCancelar);
 		
 		btnSiguientePagina = new JButton("Siguiente p\u00E1gina");

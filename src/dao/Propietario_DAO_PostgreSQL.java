@@ -18,6 +18,9 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 	private static final String SELECT_ALL_PROPIETARIO =
 			"SELECT * FROM ma.propietario";
 	
+	private static final String SELECT_PROPIETARIO =
+			"SELECT * FROM ma.propietario WHERE nro_documento = ?";
+	
 	private static final String INSERT_PROPIETARIO =
 			"INSERT INTO ma.propietario (NOMBRE, APELLIDO, TIPO_DOCUMENTO, NRO_DOCUMENTO, CALLE, NRO_CALLE, LOCALIDAD, PROVINCIA, TELEFONO, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	
@@ -183,5 +186,68 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public Propietario buscarPorDni(Integer dni) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Propietario p = new Propietario();
+		
+		try
+		{
+			pstmt = conn.prepareStatement(SELECT_PROPIETARIO);
+			pstmt.setInt(1, dni);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				p.setId(rs.getInt("ID"));
+				p.setNombre(rs.getString("NOMBRE"));
+				p.setApellido(rs.getString("APELLIDO"));
+				switch(rs.getString("TIPO_DOCUMENTO"))
+				{
+				case "DNI":
+					p.setTipodocumento(Tipo_Documento.DNI);
+					break;
+				case "CI":
+					p.setTipodocumento(Tipo_Documento.CI);
+					break;
+				case "LC":
+					p.setTipodocumento(Tipo_Documento.LC);
+					break;
+				case "LE":
+					p.setTipodocumento(Tipo_Documento.LE);
+					break;
+				case "Pasaporte":
+					p.setTipodocumento(Tipo_Documento.Pasaporte);
+					break;
+				}
+				p.setNrodocumento(rs.getInt("NRO_DOCUMENTO"));
+				p.setCalle(rs.getString("CALLE"));
+				p.setNrocalle(rs.getInt("NRO_CALLE"));
+				p.setLocalidad(rs.getString("LOCALIDAD"));
+				p.setProvincia(rs.getString("PROVINCIA"));
+				p.setTelefono(rs.getInt("TELEFONO"));
+				p.setEmail(rs.getString("EMAIL"));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return p;
+		
 	}
 }

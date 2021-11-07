@@ -244,6 +244,17 @@ public class Gestor_Inmueble
 		return this.listaDeInmuebles;
 	}
 	
+	public List<Inmueble> buscarTodos(Integer idPropietario)
+	{
+		this.listaDeInmuebles.clear();
+		this.listaDeInmuebles.addAll(inmuebleDAO.buscarTodosPorIdPropietario(idPropietario));
+		return this.listaDeInmuebles;
+	}
+	
+	public Inmueble buscarPorId(Integer id) {
+		return inmuebleDAO.buscarPorId(id);
+	}
+	
 	public void eliminarInmueble(Integer id)
 	{
 		inmuebleDAO.eliminarInmueble(id);

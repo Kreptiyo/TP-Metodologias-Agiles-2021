@@ -1,6 +1,7 @@
 package modelos_tablas;
 
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 import dominio.Propietario;
 

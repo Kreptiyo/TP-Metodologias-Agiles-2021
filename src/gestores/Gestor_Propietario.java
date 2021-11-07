@@ -163,6 +163,12 @@ public class Gestor_Propietario {
 		return this.listaDePropietarios;
 	}
 	
+	public Propietario buscarPorDni(Integer dni)
+	{
+		Propietario p = propietarioDAO.buscarPorDni(dni);
+		return p;
+	}
+	
 	public void eliminarPropietario(Integer id)
 	{
 		propietarioDAO.eliminarPropietario(id);
