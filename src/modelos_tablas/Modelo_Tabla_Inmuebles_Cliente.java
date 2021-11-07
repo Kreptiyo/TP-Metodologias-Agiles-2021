@@ -56,10 +56,9 @@ public class Modelo_Tabla_Inmuebles_Cliente extends AbstractTableModel {
 	            return i.getId();
 	    }
 
-		@Override
-		public int getRowCount() {
-			// TODO Auto-generated method stub
-			return 0;
+	    public int getRowCount() 
+		{
+			return data.size();
 		}
 
 }

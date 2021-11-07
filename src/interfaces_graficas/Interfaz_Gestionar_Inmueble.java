@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -51,6 +52,8 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 
 	public Interfaz_Gestionar_Inmueble(JFrame pantallaPrincipal) {
 		gestorPropietario = new Gestor_Propietario();
+		gestorInmueble = new Gestor_Inmueble();
+		listaInmuebles = new ArrayList<Inmueble>();
 		propietario = new Propietario();
 		this.armarPanel(pantallaPrincipal);
 	}
@@ -99,10 +102,15 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(e-> {
 			if(!this.txtNumDocumento.getText().isEmpty()) {
-				propietario = gestorPropietario.buscarPorDni(Integer.parseInt(txtNumDocumento.getText().toString()));
+				propietario = gestorPropietario.buscarPorNroDocumento(Integer.parseInt(txtNumDocumento.getText().toString()));
 				if(propietario.getId()!=null){
 					txtPropietario.setText(this.propietario.getNombre() + " " + propietario.getApellido());
-					listaInmuebles = gestorInmueble.buscarTodos(propietario.getId());
+					this.listaInmuebles.clear();
+					this.listaInmuebles.addAll(gestorInmueble.buscarTodos(propietario.getNrodocumento()));
+					if(!this.listaInmuebles.isEmpty())
+					{
+						this.modeloTabla.fireTableDataChanged();
+					}
 				}
 			}
 		});
@@ -128,7 +136,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 			
 			if(propietario.getId()!=null) {
 				this.setVisible(false);
-				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, propietario.getId());
+				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, propietario.getNrodocumento());
 				pantallaPrincipal.setContentPane(panelAltaInmueble);
 			}
 			else {
@@ -152,6 +160,9 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 					Integer id_Inmueble = modeloTabla.obtenerIdInmueble(table.getSelectedRow());
 					gestorInmueble.eliminarInmueble(id_Inmueble);
 					this.mostrarMensajeExito(pantallaPrincipal, "Eliminar inmueble", "Se elimino el inmueble correctamente");
+					this.listaInmuebles.clear();
+					this.listaInmuebles.addAll(gestorInmueble.buscarTodos(propietario.getNrodocumento()));
+					this.modeloTabla.fireTableDataChanged();
 				}
 			}
 			else 
@@ -170,7 +181,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 				this.setVisible(false);
 				
 				Inmueble i = gestorInmueble.buscarPorId(modeloTabla.obtenerIdInmueble(table.getSelectedRow()));
-				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, i.getProvincia(), i.getLocalidad(), i.getCalle(), 
+				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, i.getPropietario().getNrodocumento(), i.getProvincia(), i.getLocalidad(), i.getCalle(), 
 						i.getCalleNumero(), i.getPisoDepartamento(), i.getBarrio(), i.getTipoDeInmueble().name() , i.getPrecioDeVenta(), i.getOrientacion().name(),
 						i.getFrente(),i.getFondo(), i.getSuperficie(), i.getAntiguedad(), i.getPropiedadHorizontal(), i.getSuperficieEdificio(), i.getDormitorios(), i.getBaños(),
 						i.getGaraje(), i.getPatio(), i.getPiscina(), i.getAguaCaliente(), i.getAguaCorriente(), i.getCloacas(), i.getGasNatural(), i.getTelefono(), 
@@ -209,6 +220,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 		add(txtPropietario);
 
 	}
+	
 	
 	public void mostrarMensajeExito(JFrame padre ,String titulo,String detalle) 
 	{

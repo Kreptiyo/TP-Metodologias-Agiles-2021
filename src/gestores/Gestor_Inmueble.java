@@ -16,6 +16,7 @@ import excepciones.Datos_Invalidos_Exception;
 public class Gestor_Inmueble 
 {
 	private Inmueble_DAO inmuebleDAO;
+	private Gestor_Propietario gestorPropietario;
 	private Inmueble i;
 	private List<Inmueble> listaDeInmuebles;
 	
@@ -25,6 +26,7 @@ public class Gestor_Inmueble
 		this.i = new Inmueble();
 		this.listaDeInmuebles = new ArrayList<Inmueble>();
 		this.inmuebleDAO = new Inmueble_DAO_PostgreSQL();
+		this.gestorPropietario = new Gestor_Propietario();
 	}
 	
 	public Inmueble crear_Inmueble() throws SQLException, BaseDeDatosException 
@@ -237,6 +239,12 @@ public class Gestor_Inmueble
 		i.setObservacion(observaciones);
 	}
 	
+	
+	public void actualizarModelo_Propietario(Integer nroDocumento)
+	{
+		i.setPropietario(gestorPropietario.buscarPorNroDocumento(nroDocumento));
+	}
+	
 	public List<Inmueble> listarTodos()
 	{
 		this.listaDeInmuebles.clear();
@@ -244,10 +252,10 @@ public class Gestor_Inmueble
 		return this.listaDeInmuebles;
 	}
 	
-	public List<Inmueble> buscarTodos(Integer idPropietario)
+	public List<Inmueble> buscarTodos(Integer nroDocumento)
 	{
 		this.listaDeInmuebles.clear();
-		this.listaDeInmuebles.addAll(inmuebleDAO.buscarTodosPorIdPropietario(idPropietario));
+		this.listaDeInmuebles.addAll(inmuebleDAO.buscarTodosPorNroDocumentoPropietario(nroDocumento));
 		return this.listaDeInmuebles;
 	}
 	
