@@ -27,6 +27,7 @@ public class DB
     private static final String TABLE_CREATE_INMUEBLE =
     		"CREATE TABLE IF NOT EXISTS ma.inmueble ( "+
     		"				 ID SERIAL, "+
+    		"				 ID_PROPIETARIO INTEGER, "+
     		"				 PROVINCIA VARCHAR(30), "+
     		"				 LOCALIDAD VARCHAR(30), "+
     		"				 CALLE VARCHAR(30), "+
@@ -55,7 +56,8 @@ public class DB
     		"				 TELEFONO BOOLEAN, "+
     		"				 LAVADERO BOOLEAN, "+
     		"				 PAVIMENTO BOOLEAN, "+
-    		"				 PRIMARY KEY(ID)) ";
+    		"				 PRIMARY KEY(ID), "+
+    		"				 FOREIGN KEY (ID_PROPIETARIO) REFERENCES ma.usuario(ID))";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{

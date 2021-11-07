@@ -25,6 +25,9 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 			"UPDATE ma.propietario SET NOMBRE = ?, APELLIDO = ?, TIPO_DOCUMENTO = ?, NRO_DOCUMENTO = ?, CALLE = ?, NRO_CALLE = ?, LOCALIDAD = ?, PROVINCIA = ?, TELEFONO = ?, EMAIL = ?"+
 		    "WHERE ID = ?";
 	
+	private static final String SEARCH_PROPIETARIO_WITH_ID =
+			"SELECT * from ma.propietario WHERE ID = ?";
+	
 	private static final String DELETE_PROPIETARIO =
 			"DELETE FROM ma.propietario WHERE ID = ?";
 	
@@ -154,6 +157,69 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 			}
 		}
 		return lista;
+	}
+	
+	@Override
+	public Propietario buscarPorId(Integer id) 
+	{
+		Propietario p = new Propietario();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(SELECT_ALL_PROPIETARIO);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				p.setId(rs.getInt("ID"));
+				p.setNombre(rs.getString("NOMBRE"));
+				p.setApellido(rs.getString("APELLIDO"));
+				switch(rs.getString("TIPO_DOCUMENTO"))
+				{
+				case "DNI":
+					p.setTipodocumento(Tipo_Documento.DNI);
+					break;
+				case "CI":
+					p.setTipodocumento(Tipo_Documento.CI);
+					break;
+				case "LC":
+					p.setTipodocumento(Tipo_Documento.LC);
+					break;
+				case "LE":
+					p.setTipodocumento(Tipo_Documento.LE);
+					break;
+				case "Pasaporte":
+					p.setTipodocumento(Tipo_Documento.Pasaporte);
+					break;
+				}
+				p.setNrodocumento(rs.getInt("NRO_DOCUMENTO"));
+				p.setCalle(rs.getString("CALLE"));
+				p.setNrocalle(rs.getInt("NRO_CALLE"));
+				p.setLocalidad(rs.getString("LOCALIDAD"));
+				p.setProvincia(rs.getString("PROVINCIA"));
+				p.setTelefono(rs.getInt("TELEFONO"));
+				p.setEmail(rs.getString("EMAIL"));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return p;
 	}
 	
 	@Override
