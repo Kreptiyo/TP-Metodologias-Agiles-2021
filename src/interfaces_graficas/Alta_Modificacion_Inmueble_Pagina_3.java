@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 
+import dominio.Inmueble;
 import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Inmueble;
@@ -35,6 +36,7 @@ public class Alta_Modificacion_Inmueble_Pagina_3 extends JPanel {
 	private JButton btnCancelar;
 	private JButton btnImagen;
 	private JButton btnAceptar;
+	private Inmueble inmueble;
 	
 	/*Recibe el panel anterior para poder moverse entre interfaces con la posibilidad de volver al anterior*/
 	
@@ -43,17 +45,14 @@ public class Alta_Modificacion_Inmueble_Pagina_3 extends JPanel {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Alta_Modificacion_Inmueble_Pagina_3(JFrame pantallaPrincipal, Gestor_Inmueble gi) {
+	public Alta_Modificacion_Inmueble_Pagina_3(JFrame pantallaPrincipal, Gestor_Inmueble gi, Integer idInmueble) {
 		this.gestorInmueble = gi;
 		this.armarPanel(pantallaPrincipal);
+		if(idInmueble!=-1) {
+			inmueble = gestorInmueble.buscarPorId(idInmueble);
+			this.setearDatos(inmueble.getObservacion());
+		}
 	}
-	
-	public Alta_Modificacion_Inmueble_Pagina_3(JFrame pantallaPrincipal, String descripcion) {
-		this.armarPanel(pantallaPrincipal);
-		this.setearDatos(descripcion);
-	}
-	
-	
 	
 	public void armarPanel(JFrame pantallaPrincipal) {
 		

@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import dominio.Inmueble;
+import dominio.Inmueble.Tipo_Inmueble;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Inmueble;
 
@@ -63,19 +65,29 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 	private JCheckBox chkPavimiento;
 	private JButton btnCancelar;
 	private JButton btnSiguientePagina;
+	private Inmueble inmueble;
 	
 	
 	private Gestor_Inmueble gestorInmueble;
 	
-	/*CONSTRUCTOR PARA PANTALLA ALTA*/
-	public Alta_Modificacion_Inmueble_Pagina_2(JFrame pantallaPrincipal, Gestor_Inmueble gi) {
+	/*CONSTRUCTOR PARA PANTALLA ALTA Y MODIFICAR*/
+	public Alta_Modificacion_Inmueble_Pagina_2(JFrame pantallaPrincipal, Gestor_Inmueble gi, Integer idInmueble) {
 		this.gestorInmueble = gi;
-		this.armarPanel(pantallaPrincipal);
+		this.armarPanel(pantallaPrincipal, idInmueble);
+		inmueble = new Inmueble();
+		if(idInmueble!=-1) {
+			inmueble = gestorInmueble.buscarPorId(idInmueble);
+			this.setearDatos(inmueble.getTipoDeInmueble().toString(), inmueble.getPrecioDeVenta(), inmueble.getOrientacion().toString(), 
+					inmueble.getFrente(), inmueble.getFondo(), inmueble.getSuperficie(), inmueble.getAntiguedad(),
+					inmueble.getSuperficieEdificio(), inmueble.getDormitorios(), inmueble.getBaños(), inmueble.getPropiedadHorizontal(), 
+					inmueble.getGaraje(), inmueble.getPatio(), inmueble.getPiscina(), inmueble.getAguaCaliente(), inmueble.getAguaCorriente(),
+					inmueble.getCloacas(), inmueble.getGasNatural(), inmueble.getTelefono(), inmueble.getLavadero(), inmueble.getPavimento());
+		}
 	}
 	
 	
 	/*CONSTRUCTOR PARA PANTALLA MODIFICAR*/
-	public Alta_Modificacion_Inmueble_Pagina_2(JFrame pantallaPrincipal, String tipoInmueble, Integer precio, String orientacion,
+	/*public Alta_Modificacion_Inmueble_Pagina_2(JFrame pantallaPrincipal, String tipoInmueble, Integer precio, String orientacion,
 			Integer metrosFrente, Integer metrosFondo, Integer superficie, Integer antiguedad,	boolean propHorizontal,
 			Integer superficieEdificio, Integer cantDormitorios, Integer cantBaños, boolean garage, boolean patio, boolean piscina,
 			boolean aguaCaliente, boolean aguaCorriente, boolean cloacas,
@@ -85,9 +97,9 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 		this.setearDatos(tipoInmueble, precio, orientacion, metrosFrente, metrosFondo, superficie, antiguedad,
 			 superficieEdificio, cantDormitorios, cantBaños, propHorizontal, garage, patio, piscina,
 			 aguaCaliente, aguaCorriente, cloacas, gasNatural, telefono, lavadero, pavimento);
-	}
+	}*/
 	
-	public void armarPanel(JFrame pantallaPrincipal) {
+	public void armarPanel(JFrame pantallaPrincipal, Integer idInmueble) {
 		setLayout(null);
 		
 		lblDatosInmueble = new JLabel("Datos de Inmueble");
@@ -515,7 +527,7 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 						this.chkPiscina.isSelected(), this.chkAguaCorriente.isSelected(), this.chkCloacas.isSelected(), this.chkGasNatural.isSelected(),
 						this.chkAguaCaliente.isSelected(), this.chkTelefono.isSelected(), this.chkLavadero.isSelected(), this.chkPavimiento.isSelected());
 				this.setVisible(false);
-				Alta_Modificacion_Inmueble_Pagina_3 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_3(pantallaPrincipal, gestorInmueble);
+				Alta_Modificacion_Inmueble_Pagina_3 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_3(pantallaPrincipal, gestorInmueble, idInmueble);
 				pantallaPrincipal.setContentPane(panelSiguiente);
 				
 			} catch (Datos_Invalidos_Exception e2) {
@@ -542,7 +554,29 @@ public class Alta_Modificacion_Inmueble_Pagina_2 extends JPanel {
 			Integer superficieEdificio, Integer cantDormitorios, Integer cantBaños, boolean propHorizontal, boolean garage, boolean patio, boolean piscina,
 			boolean aguaCaliente, boolean aguaCorriente, boolean cloacas, boolean gasNatural, boolean telefono, boolean lavadero, boolean pavimento) {
 		
-		this.cbxTipoInmueble.setSelectedItem(tipoInmueble);
+		
+		switch (tipoInmueble) 
+		{
+		case "L":
+			this.cbxTipoInmueble.setSelectedItem("L / LOCAL U OFICINA");
+			break;
+		case "C":
+			this.cbxTipoInmueble.setSelectedItem("C / CASA");
+			break;
+		case "D":
+			this.cbxTipoInmueble.setSelectedItem("D / DEPARTAMENTO");
+			break;
+		case "T":
+			this.cbxTipoInmueble.setSelectedItem("T / TERRENO");
+			break;
+		case "Q":
+			this.cbxTipoInmueble.setSelectedItem("Q / QUINTA");
+			break;
+		case "G":
+			this.cbxTipoInmueble.setSelectedItem("G / GALPÓN");
+			break;
+		}		
+		
 		this.txtPrecio.setText(precio.toString());
 		this.cbxOrientacion.setSelectedItem(orientacion);
 		this.txtMetrosFrente.setText(metrosFrente.toString());

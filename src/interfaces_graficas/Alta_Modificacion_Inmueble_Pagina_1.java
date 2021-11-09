@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import dominio.Inmueble;
 import dominio.Inmueble.Orientacion;
 import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
@@ -50,6 +51,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	private JLabel lblPisoDepartamento;
 	private JButton btnSiguiente;
 	private JButton btnCancelar;	
+	private Inmueble inmueble;
 	
 	
 	/*Recibe el panel siguinte para poder moverse entre interfaces con la posibilidad de volver al anterior*/
@@ -58,22 +60,28 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento) {
+	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento, Integer idInmueble) {
 		this.gestorInmueble = new Gestor_Inmueble();
-		this.armarPanel(pantallaPrincipal, nroDocumento);
+		inmueble = new Inmueble();
+		this.armarPanel(pantallaPrincipal, nroDocumento, idInmueble);
+		if(idInmueble!=-1) {
+			inmueble = gestorInmueble.buscarPorId(idInmueble);
+			this.setearDatos(inmueble.getProvincia(), inmueble.getLocalidad(),  inmueble.getCalle(),  inmueble.getCalleNumero(),  inmueble.getPisoDepartamento(), inmueble.getBarrio());
+		}
+		
 	}
 	
-	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento, String provincia, String localidad, String calle, Integer numeroCalle, Integer numDepartamento,
+	/*public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento, String provincia, String localidad, String calle, Integer numeroCalle, Integer numDepartamento,
 		String barrio, 	String tipoInmueble, Integer precio, String orientacion, Integer metrosFrente, Integer metrosFondo, Integer superficie, Integer antiguedad,	
 		boolean propHorizontal, Integer superficieEdificio, Integer cantDormitorios, Integer cantBaños, boolean garage, boolean patio, boolean piscina, boolean aguaCaliente, boolean aguaCorriente, boolean cloacas,
 		boolean gasNatural, boolean telefono, boolean lavadero, boolean pavimento, String descripcion) {
 		this.gestorInmueble = new Gestor_Inmueble();
 		this.armarPanel(pantallaPrincipal, nroDocumento);
 		this.setearDatos(provincia, localidad,  calle,  numeroCalle,  numDepartamento, barrio);
-	}
+	}*/
 	
 
-	public void armarPanel(JFrame pantallaPrincipal, Integer nroDocumento) {
+	public void armarPanel(JFrame pantallaPrincipal, Integer nroDocumento, Integer idInmueble) {
 		setForeground(Color.GRAY);
 		setLayout(null);
 		
@@ -358,10 +366,13 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 					numDepto = -1;
 				}
 				gestorInmueble.actualizarModelo_Propietario(nroDocumento);
+				if(idInmueble!=-1) {
+					gestorInmueble.actualizarModelo_IdInmueble(idInmueble);
+				}
 				gestorInmueble.validar_Datos_Ubicacion(provincia, localidad, calle, numCalle, barrio,numDepto);
 				gestorInmueble.actualizarModelo_Ubicacion(provincia, localidad, calle, numCalle, barrio, numDepto);
 				this.setVisible(false);
-				Alta_Modificacion_Inmueble_Pagina_2 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_2(pantallaPrincipal, gestorInmueble);
+				Alta_Modificacion_Inmueble_Pagina_2 panelSiguiente = new Alta_Modificacion_Inmueble_Pagina_2(pantallaPrincipal, gestorInmueble, idInmueble);
 				pantallaPrincipal.setContentPane(panelSiguiente);
 				
 				
@@ -426,7 +437,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 		
 		if(otraCalle=true) {
 			this.chkOtraCalle.setSelected(true);
-			txtCalle.setText(localidad);
+			txtCalle.setText(calle);
 		}
 		else {
 			cbxCalle.setSelectedItem(localidad);
@@ -435,7 +446,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 		this.txtNumeroCalle.setText(numeroCalle.toString());
 		this.cbxBarrio.setSelectedItem(barrio);
 		
-		if(numDepartamento!=null) {
+		if(numDepartamento!=-1) {
 			this.chkDepartamento.setSelected(true);
 			this.txtPisoDepartamento.setText(numDepartamento.toString());
 		}

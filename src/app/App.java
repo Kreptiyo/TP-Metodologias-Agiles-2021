@@ -7,6 +7,7 @@ import javax.swing.WindowConstants;
 
 import interfaces_graficas.Alta_Modificacion_Inmueble_Pagina_1;
 import interfaces_graficas.Alta_Modificacion_Inmueble_Pagina_2;
+import interfaces_graficas.Interfaz_Consultar_Inmuebles;
 import interfaces_graficas.Interfaz_Gestionar_Inmueble;
 import interfaces_graficas.Interfaz_Grafica_Listar_Propietarios;
 
@@ -22,8 +23,9 @@ public class App extends JFrame {
 		//JPanel panel2 = new Alta_Modificacion_Inmueble_Pagina_1(app);
 		//JPanel panel3 = new Alta_Modificacion_Inmueble_Pagina_2(app, null);
 		JPanel panel4 = new Interfaz_Gestionar_Inmueble(app);
+		JPanel panel5 = new Interfaz_Consultar_Inmuebles(app);
 		
-		app.setContentPane(panel4);
+		app.setContentPane(panel5);
 		app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		app.setSize(1040, 805);
 		app.setResizable(false);

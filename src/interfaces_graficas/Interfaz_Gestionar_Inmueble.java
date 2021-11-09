@@ -136,7 +136,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 			
 			if(propietario.getId()!=null) {
 				this.setVisible(false);
-				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, propietario.getNrodocumento());
+				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, propietario.getNrodocumento(),-1);
 				pantallaPrincipal.setContentPane(panelAltaInmueble);
 			}
 			else {
@@ -181,11 +181,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 				this.setVisible(false);
 				
 				Inmueble i = gestorInmueble.buscarPorId(modeloTabla.obtenerIdInmueble(table.getSelectedRow()));
-				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal, i.getPropietario().getNrodocumento(), i.getProvincia(), i.getLocalidad(), i.getCalle(), 
-						i.getCalleNumero(), i.getPisoDepartamento(), i.getBarrio(), i.getTipoDeInmueble().name() , i.getPrecioDeVenta(), i.getOrientacion().name(),
-						i.getFrente(),i.getFondo(), i.getSuperficie(), i.getAntiguedad(), i.getPropiedadHorizontal(), i.getSuperficieEdificio(), i.getDormitorios(), i.getBaños(),
-						i.getGaraje(), i.getPatio(), i.getPiscina(), i.getAguaCaliente(), i.getAguaCorriente(), i.getCloacas(), i.getGasNatural(), i.getTelefono(), 
-						i.getLavadero(), i.getPavimento(), i.getObservacion());
+				JPanel panelAltaInmueble = new Alta_Modificacion_Inmueble_Pagina_1(pantallaPrincipal,propietario.getNrodocumento() , i.getId());
 				
 				pantallaPrincipal.setContentPane(panelAltaInmueble);
 			}

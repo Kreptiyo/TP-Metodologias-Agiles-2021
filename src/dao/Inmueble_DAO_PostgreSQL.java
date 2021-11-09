@@ -358,6 +358,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setFondo(rs.getInt("FONDO"));
 				i.setSuperficie(rs.getInt("SUPERFICIE"));
 				i.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+				i.setSuperficieEdificio(rs.getInt("SUPERFICIE_EDIFICIO"));
 				i.setAntiguedad(rs.getInt("ANTIGUEDAD"));
 				i.setDormitorios(rs.getInt("DORMITORIOS"));
 				i.setBaños(rs.getInt("BAÑOS"));
