@@ -107,10 +107,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 					txtPropietario.setText(this.propietario.getNombre() + " " + propietario.getApellido());
 					this.listaInmuebles.clear();
 					this.listaInmuebles.addAll(gestorInmueble.buscarTodos(propietario.getNrodocumento()));
-					if(!this.listaInmuebles.isEmpty())
-					{
-						this.modeloTabla.fireTableDataChanged();
-					}
+					this.modeloTabla.fireTableDataChanged();
 				}
 			}
 		});
@@ -193,6 +190,13 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 		add(btnModificar);
 		
 		btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(e->
+		{
+			this.setVisible(false);
+			JPanel panelMenuPrincipal = new Menu_Principal(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(panelMenuPrincipal);
+			pantallaPrincipal.setTitle("MENU PRINCIPAL");
+		});
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVolver.setBounds(914, 717, 100, 40);
 		add(btnVolver);

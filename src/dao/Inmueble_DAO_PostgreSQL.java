@@ -39,6 +39,9 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	private static final String DELETE_INMUEBLE =
 			"DELETE FROM ma.inmueble WHERE ID = ?";
 	
+	private static final String DELETE_INMUEBLE_PROPIETARIO =
+			"DELETE FROM ma.inmueble WHERE NRO_DOCUMENTO_PROPIETARIO = ?";
+	
 	@Override
 	public Inmueble saveOrUpdate(Inmueble i) throws BaseDeDatosException, SQLException
 	{
@@ -261,6 +264,35 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(DELETE_INMUEBLE);
 				pstmt.setInt(1, id);
+				pstmt.executeUpdate();
+				conn.commit();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(pstmt!=null) pstmt.close();				
+			}
+			catch(SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void eliminarInmueblePropietario(Integer nroDocumento) 
+	{
+		PreparedStatement pstmt = null;
+		try 
+		{
+				conn.setAutoCommit(false);
+				pstmt = conn.prepareStatement(DELETE_INMUEBLE_PROPIETARIO);
+				pstmt.setInt(1, nroDocumento);
 				pstmt.executeUpdate();
 				conn.commit();
 		} 
