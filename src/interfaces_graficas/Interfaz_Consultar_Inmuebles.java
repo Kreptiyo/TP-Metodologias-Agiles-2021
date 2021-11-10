@@ -36,7 +36,7 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		this.armarPanel(pantallaPrincipal);
 	}
 	
-	public void armarPanel(JFrame pantallaPricipal) {
+	public void armarPanel(JFrame pantallaPrincipal) {
 		setLayout(null);
 		
 		JLabel lblFiltroDeBusqueda = new JLabel("Filtro de busqueda");
@@ -239,6 +239,13 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		add(btnLimpiarFiltro);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(e->
+		{
+			this.setVisible(false);
+			JPanel panelMenuPrincipal = new Menu_Principal(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(panelMenuPrincipal);
+			pantallaPrincipal.setTitle("MENU PRINCIPAL");
+		});
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVolver.setBounds(914, 717, 100, 40);
 		add(btnVolver);

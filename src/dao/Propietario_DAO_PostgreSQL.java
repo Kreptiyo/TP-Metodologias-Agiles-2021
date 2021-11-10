@@ -14,6 +14,7 @@ import excepciones.BaseDeDatosException;
 public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 {
 	private Connection conn = Gestor_Conexion.getConnection();
+	private Inmueble_DAO inmuebleDAO = new Inmueble_DAO_PostgreSQL();
 	
 	private static final String SELECT_ALL_PROPIETARIO =
 			"SELECT * FROM ma.propietario";
@@ -30,6 +31,9 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 	
 	private static final String DELETE_PROPIETARIO =
 			"DELETE FROM ma.propietario WHERE ID = ?";
+	
+	private static final String SELECT_NRO_DOCUMENTO_PROPIETARIO =
+			"SELECT NRO_DOCUMENTO FROM ma.propietario WHERE ID = ?";
 	
 	@Override
 	public Propietario saveOrUpdate(Propietario p) throws BaseDeDatosException, SQLException
@@ -160,12 +164,47 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 	}
 	
 	@Override
+	public Integer obtenerNroDocumentoPropietario(Integer id) 
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Integer resultado = -1;
+		try 
+		{
+				pstmt = conn.prepareStatement(SELECT_NRO_DOCUMENTO_PROPIETARIO);
+				pstmt.setInt(1, id);
+				rs = pstmt.executeQuery();
+				while(rs.next())
+				{
+					resultado = rs.getInt("NRO_DOCUMENTO");
+				}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(pstmt!=null) pstmt.close();				
+			}
+			catch(SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return resultado;
+	}
+	
+	@Override
 	public void eliminarPropietario(Integer id) 
 	{
 		PreparedStatement pstmt = null;
 		try 
 		{
 				conn.setAutoCommit(false);
+				inmuebleDAO.eliminarInmueblePropietario(this.obtenerNroDocumentoPropietario(id));
 				pstmt = conn.prepareStatement(DELETE_PROPIETARIO);
 				pstmt.setInt(1, id);
 				pstmt.executeUpdate();

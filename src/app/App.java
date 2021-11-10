@@ -1,44 +1,55 @@
 package app;
 
-
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import interfaces_graficas.Alta_Modificacion_Inmueble_Pagina_1;
-import interfaces_graficas.Alta_Modificacion_Inmueble_Pagina_2;
-import interfaces_graficas.Interfaz_Consultar_Inmuebles;
-import interfaces_graficas.Interfaz_Gestionar_Inmueble;
-import interfaces_graficas.Interfaz_Grafica_Listar_Propietarios;
+import interfaces_graficas.Menu_Principal;
 
-public class App extends JFrame {
+public class App extends JFrame 
+{
+	
+	public App() 
+	{
+		JMenuBar menuBar;
+		JMenu menuArchivo;
+		JMenu menuAyuda;
+		JMenuItem menuItemSalir;
+		menuBar = new JMenuBar();
 
-	private JPanel contentPane;
-
-	public static void main(String[] args) {
+		menuArchivo = new JMenu("Archivo");
+		menuAyuda = new JMenu("Ayuda");
+		
+		menuItemSalir = new JMenuItem("Salir");
+		menuItemSalir.addActionListener( e -> System.exit(0));
+		menuArchivo.add(menuItemSalir);
+		
+		menuBar.add(menuArchivo);
+		menuBar.add(menuAyuda);
+		this.setJMenuBar(menuBar);
+	}
+	
+	public static void main(String[] args) 
+	{
+		
 		JFrame app = new App();
 		
+		app.setTitle("MENU PRINCIPAL");
 		
-		JPanel panel1 = new Interfaz_Grafica_Listar_Propietarios(app);
-		//JPanel panel2 = new Alta_Modificacion_Inmueble_Pagina_1(app);
-		//JPanel panel3 = new Alta_Modificacion_Inmueble_Pagina_2(app, null);
-		JPanel panel4 = new Interfaz_Gestionar_Inmueble(app);
-		JPanel panel5 = new Interfaz_Consultar_Inmuebles(app);
+		JPanel panel = new Menu_Principal(app);
 		
-		app.setContentPane(panel5);
+		app.setContentPane(panel);
 		app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		app.setSize(1040, 805);
+		app.setSize(1200, 900);
 		app.setResizable(false);
 		app.setLocationRelativeTo(null);
 		app.setVisible(true);
+		  
+		  
+		
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public App() {
-
-	}
-
-
+	
 }

@@ -127,6 +127,10 @@ public class Alta_Modificacion_Inmueble_Pagina_3 extends JPanel {
 				
 				gestorInmueble.actualizarModelo_Datos_Extras(this.descripcion.getText());
 				gestorInmueble.crear_Inmueble();
+				mostrarMensajeExito(pantallaPrincipal, "Inmueble Creado", "El inmueble se ha creado exitosamente.");
+				this.setVisible(false);
+				Interfaz_Gestionar_Inmueble recarga = new Interfaz_Gestionar_Inmueble(pantallaPrincipal);
+				pantallaPrincipal.setContentPane(recarga);
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -147,6 +151,13 @@ public class Alta_Modificacion_Inmueble_Pagina_3 extends JPanel {
 		JOptionPane.showMessageDialog(padre,
 			    detalle,titulo,
 			    JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void mostrarMensajeExito(JFrame padre, String titulo,String detalle) 
+	{
+		JOptionPane.showMessageDialog(padre,
+			    detalle,titulo,
+			    JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void setearDatos(String descripcion) {
