@@ -43,7 +43,7 @@ public class App extends JFrame
 		
 		app.setContentPane(panel);
 		app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		app.setSize(1200, 900);
+		app.setSize(1040, 825);
 		app.setResizable(false);
 		app.setLocationRelativeTo(null);
 		app.setVisible(true);

@@ -24,6 +24,21 @@ public class DB
 			"				 EMAIL VARCHAR(100), "+
 			"				 PRIMARY KEY(ID)) ";
 	
+	private static final String TABLE_CREATE_CATALOGO =
+			"CREATE TABLE IF NOT EXISTS ma.catalogo ( "+
+			"				 ID_CATALOGO INTEGER, "+
+			"				 ID_CLIENTE INTEGER, "+
+			"				 FECHA_EMISION VARCHAR(30), "+
+			"				 PRIMARY KEY(ID_CATALOGO))";
+			//"				 FOREIGN KEY (ID_CLIENTE) REFERENCES ma.cliente(ID_CLIENTE))";
+	
+	private static final String TABLE_CREATE_RENGLON_CATALOGO =
+			"CREATE TABLE IF NOT EXISTS ma.renglon_catalogo ( "+
+			"				 ID_CATALOGO INTEGER, "+
+			"				 ID_INMUEBLE INTEGER, "+
+			"				 FOREIGN KEY (ID_CATALOGO) REFERENCES ma.catalogo(ID_CATALOGO), "+
+			"				 FOREIGN KEY (ID_INMUEBLE) REFERENCES ma.inmueble(ID))";
+	
     private static final String TABLE_CREATE_INMUEBLE =
     		"CREATE TABLE IF NOT EXISTS ma.inmueble ( "+
     		"				 ID SERIAL, "+
@@ -69,6 +84,8 @@ public class DB
 				stmt = conn.createStatement();
 				stmt.execute(TABLE_CREATE_PROPIETARIO);
 				stmt.execute(TABLE_CREATE_INMUEBLE);
+				stmt.execute(TABLE_CREATE_CATALOGO);
+				stmt.execute(TABLE_CREATE_RENGLON_CATALOGO);
 			}
 			catch(SQLException e)
 			{
