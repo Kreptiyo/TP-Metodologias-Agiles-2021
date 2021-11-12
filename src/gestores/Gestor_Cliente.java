@@ -26,7 +26,7 @@ public class Gestor_Cliente {
 		super();
 		this.c = new Cliente();
 		this.listaDeClientes = new ArrayList<Cliente>();
-		// this.clienteDAO = new Cliente_DAO_PostgreSQL();
+		this.clienteDAO = new Cliente_DAO_PostgreSQL();
 	}
 	
 	public Cliente crear_Cliente() throws SQLException, BaseDeDatosException 

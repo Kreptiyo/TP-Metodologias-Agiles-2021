@@ -14,7 +14,7 @@ public class Gestor_Conexion
 		String url = "jdbc:postgresql://localhost:5432/tp_metodologias_agiles?useSSL=false";
 		 String driver = "org.postgresql.Driver";
 		 String usuario = "postgres";
-		 String password = "admin44";
+		 String password = "7777";
 		 try
 		 {
 			 Class.forName(driver);

@@ -28,7 +28,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 	private static final String UPDATE_CLIENTE =
 			"UPDATE ma.cliente SET NOMBRE = ?, APELLIDO = ?, TELEFONO = ?, TIPO_INMUEBLE = ?, LOCALIDAD = ?, BARRIO = ?, MONTO = ?, ORIENTACION = ?,"
 			+ "			+ \"FRENTE = ?, FONDO = ?, SUPERFICIE = ?, PROPIEDAD_HORIZONTAL = ?, ANTIGUEDAD = ?, DORMITORIOS = ?, BAÑOS = ?, GARAJE = ?, PATIO = ?, PISCINA = ?, AGUA_CORRIENTE = ?, CLOACAS = ?, GAS_NATURAL = ?,"
-			+ "AGUA_CALIENTE = ?, HAYTELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?\"; "+
+			+ "AGUA_CALIENTE = ?, HAYTELEFONO = ?, LAVADERO = ?, PAVIMENTO = ? "+
 		    "WHERE ID = ?";
 	
 	private static final String DELETE_CLIENTE =

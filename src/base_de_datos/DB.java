@@ -57,7 +57,7 @@ public class DB
     		"				 LAVADERO BOOLEAN, "+
     		"				 PAVIMENTO BOOLEAN, "+
     		"				 PRIMARY KEY(ID), "+
-    		"				 FOREIGN KEY (ID_PROPIETARIO) REFERENCES ma.usuario(ID))";
+    		"				 FOREIGN KEY (ID_PROPIETARIO) REFERENCES ma.propietario(ID))";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{
