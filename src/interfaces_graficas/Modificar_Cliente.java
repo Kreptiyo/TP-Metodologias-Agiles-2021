@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import excepciones.BaseDeDatosException;
 import gestores.Gestor_Cliente;
 import interfaces_graficas.Lista_Cliente;
 
@@ -595,12 +597,20 @@ public class Modificar_Cliente extends JPanel {
 		
 		
 		btnModificarCliente.addActionListener(e-> {
-			this.crearCliente();
+			try {
+				this.crearCliente();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		  });
 	}
 	
-	public void crearCliente() {
+	public void crearCliente() throws SQLException, BaseDeDatosException {
 		
 		if(!validarDatosVacios()) {
 			
@@ -650,8 +660,11 @@ public class Modificar_Cliente extends JPanel {
 				baños = null;
 			}
 			
-			String orietacion = (String) this.comboBoxOrientacion.getSelectedItem();
-			String tipoInmueble = (String) this.comboBoxTipoInmueble.getSelectedItem();
+			int orietacion = this.comboBoxOrientacion.getSelectedIndex();
+			int tipoInmueble =  this.comboBoxTipoInmueble.getSelectedIndex();
+			
+			System.out.println(orietacion);
+			System.out.println(tipoInmueble);
 			
 			this.gestorCliente.actualizarModelo_Datos_Inmueble(
 					orietacion,

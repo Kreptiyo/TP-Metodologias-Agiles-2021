@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import excepciones.BaseDeDatosException;
 import gestores.Gestor_Cliente;
 
 import javax.swing.JComboBox;
@@ -436,7 +438,7 @@ public class AltaCliente extends JPanel {
 		lblPiscina.setBounds(555, 230, 130, 25);
 		panelCaracteristicas.add(lblPiscina);
 		
-		JCheckBox chckbxPiscina = new JCheckBox("Si / No");
+		 chckbxPiscina = new JCheckBox("Si / No");
 		chckbxPiscina.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPiscina.setBounds(676, 230, 93, 21);
 		panelCaracteristicas.add(chckbxPiscina);
@@ -507,57 +509,57 @@ public class AltaCliente extends JPanel {
 		aux1[7]= "SURESTE";
 		aux1[8]= "SUROESTE";
 		
-		JComboBox comboBoxOrientacion = new JComboBox(aux1);
+		comboBoxOrientacion = new JComboBox(aux1);
 		comboBoxOrientacion.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comboBoxOrientacion.setBounds(141, 230, 116, 25);
 		panelCaracteristicas.add(comboBoxOrientacion);
 		
-		JCheckBox chckbxHorizontal = new JCheckBox("Si / No");
+		 chckbxHorizontal = new JCheckBox("Si / No");
 		chckbxHorizontal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxHorizontal.setBounds(440, 30, 95, 21);
 		panelCaracteristicas.add(chckbxHorizontal);
 		
-		JCheckBox chckbxGarage = new JCheckBox("Si / No");
+		 chckbxGarage = new JCheckBox("Si / No");
 		chckbxGarage.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxGarage.setBounds(440, 70, 93, 21);
 		panelCaracteristicas.add(chckbxGarage);
 		
-		JCheckBox chckbxPatio = new JCheckBox("Si / No");
+		 chckbxPatio = new JCheckBox("Si / No");
 		chckbxPatio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPatio.setBounds(440, 110, 93, 21);
 		panelCaracteristicas.add(chckbxPatio);
 		
-		JCheckBox chckbxAguaCorriente = new JCheckBox("Si / No");
+		 chckbxAguaCorriente = new JCheckBox("Si / No");
 		chckbxAguaCorriente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxAguaCorriente.setBounds(440, 150, 93, 21);
 		panelCaracteristicas.add(chckbxAguaCorriente);
 		
-		JCheckBox chckbxCloacas = new JCheckBox("Si / No");
+		 chckbxCloacas = new JCheckBox("Si / No");
 		chckbxCloacas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxCloacas.setBounds(440, 190, 93, 21);
 		panelCaracteristicas.add(chckbxCloacas);
 		
-		JCheckBox chckbxGas = new JCheckBox("Si / No");
+		 chckbxGas = new JCheckBox("Si / No");
 		chckbxGas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxGas.setBounds(676, 30, 93, 21);
 		panelCaracteristicas.add(chckbxGas);
 		
-		JCheckBox chckbxAguaCaliente = new JCheckBox("Si / No");
+		 chckbxAguaCaliente = new JCheckBox("Si / No");
 		chckbxAguaCaliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxAguaCaliente.setBounds(676, 70, 93, 21);
 		panelCaracteristicas.add(chckbxAguaCaliente);
 		
-		JCheckBox chckbxTelefono = new JCheckBox("Si / No");
+		 chckbxTelefono = new JCheckBox("Si / No");
 		chckbxTelefono.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxTelefono.setBounds(676, 110, 93, 21);
 		panelCaracteristicas.add(chckbxTelefono);
 		
-		JCheckBox chckbxLavadero = new JCheckBox("Si / No");
+		 chckbxLavadero = new JCheckBox("Si / No");
 		chckbxLavadero.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxLavadero.setBounds(676, 150, 93, 21);
 		panelCaracteristicas.add(chckbxLavadero);
 		
-		JCheckBox chckbxPavimento = new JCheckBox("Si / No");
+		 chckbxPavimento = new JCheckBox("Si / No");
 		chckbxPavimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPavimento.setBounds(676, 190, 93, 21);
 		panelCaracteristicas.add(chckbxPavimento);
@@ -592,12 +594,20 @@ public class AltaCliente extends JPanel {
 		
 		
 		btnAñadirCliente.addActionListener(e-> {
-			this.crearCliente();
+			try {
+				this.crearCliente();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		  });
 	}
 	
-	public void crearCliente() {
+	public void crearCliente() throws SQLException, BaseDeDatosException {
 		
 		if(!validarDatosVacios()) {
 			
@@ -647,8 +657,11 @@ public class AltaCliente extends JPanel {
 				baños = null;
 			}
 			
-			String orietacion = (String) this.comboBoxOrientacion.getSelectedItem();
-			String tipoInmueble = (String) this.comboBoxTipoInmueble.getSelectedItem();
+			int orietacion = this.comboBoxOrientacion.getSelectedIndex();
+			int tipoInmueble =  this.comboBoxTipoInmueble.getSelectedIndex();
+			
+			System.out.println(orietacion);
+			System.out.println(tipoInmueble);
 			
 			this.gestorCliente.actualizarModelo_Datos_Inmueble(
 					orietacion,

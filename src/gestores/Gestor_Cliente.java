@@ -31,6 +31,7 @@ public class Gestor_Cliente {
 	
 	public Cliente crear_Cliente() throws SQLException, BaseDeDatosException 
 	{
+		c.toString();
 		return clienteDAO.saveOrUpdate(c);
 	}
 	
@@ -43,12 +44,11 @@ public class Gestor_Cliente {
 		c.setTelefono(telefono);
 		c.setBarrio(barrio);
 		c.setMonto(monto);
-		System.out.println(c.toString());
 	}
 	
 	public void actualizarModelo_Datos_Inmueble(
-			String tipoInmueble, 
-			String orientacion, 
+			int tipoInmueble, 
+			int orientacion, 
 			Integer frente, 
 			Integer fondo, 
 			Integer superficie, 
@@ -65,7 +65,7 @@ public class Gestor_Cliente {
 			Boolean aguaCaliente, 
 			Boolean telefono, 
 			Boolean lavadero, 
-			Boolean pavimento)
+			Boolean pavimento) throws SQLException, BaseDeDatosException
 	{
 		
 		c.setFrente(frente);
@@ -88,54 +88,55 @@ public class Gestor_Cliente {
 
 		switch (tipoInmueble) 
 		{
-		case "LOCAL U OFICINA":
+		case 1:
 			c.setTipoInmueble(Tipo_Inmueble.L);
 			break;
-		case "CASA":
+		case 2:
 			c.setTipoInmueble(Tipo_Inmueble.C);
 			break;
-		case "DEPARTAMENTO":
+		case 3:
 			c.setTipoInmueble(Tipo_Inmueble.D);
 			break;
-		case "TERRENO":
+		case 4:
 			c.setTipoInmueble(Tipo_Inmueble.T);
 			break;
-		case "QUINTA":
+		case 5:
 			c.setTipoInmueble(Tipo_Inmueble.Q);
 			break;
-		case "GALPON":
+		case 6:
 			c.setTipoInmueble(Tipo_Inmueble.G);
 			break;
 		}
 
 		switch(orientacion)
 		{
-		case "NORTE":
+		case 1:
 			c.setOrientacion(Orientacion.NORTE);
 			break;
-		case "SUR":
+		case 2:
 			c.setOrientacion(Orientacion.SUR);
 			break;
-		case "ESTE":
+		case 3:
 			c.setOrientacion(Orientacion.ESTE);
 			break;
-		case "OESTE":
+		case 4:
 			c.setOrientacion(Orientacion.OESTE);
 			break;
-		case "NORESTE":
+		case 5:
 			c.setOrientacion(Orientacion.NORESTE);
 			break;
-		case "NOROESTE":
+		case 6:
 			c.setOrientacion(Orientacion.NOROESTE);
 			break;
-		case "SURESTE":
+		case 7:
 			c.setOrientacion(Orientacion.SURESTE);
 			break;
-		case "SUROESTE":
+		case 8:
 			c.setOrientacion(Orientacion.SUROESTE);
 			break;
 		}
 		
+		this.crear_Cliente();
 	}	
 	
 	
