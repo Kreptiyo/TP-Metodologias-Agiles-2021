@@ -25,6 +25,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import gestores.Gestor_Cliente;
+
 
 public class ListaClientes  extends JFrame{
 	private JFrame frmAbmCliente;
@@ -39,7 +41,7 @@ public class ListaClientes  extends JFrame{
 	private JButton btnModificarCliente;
 	private JLabel lblNombreCliente;
 	private JLabel lblApellidoCliente;
-
+	private Gestor_Cliente gestorCliente;
 
 	
 	
@@ -63,6 +65,9 @@ public class ListaClientes  extends JFrame{
 
 
 	private void initialize() {
+		
+		this.gestorCliente = new Gestor_Cliente();
+		
 		frmAbmCliente = new JFrame();
 		frmAbmCliente.setTitle("Listar Cliente");
 		frmAbmCliente.setBounds(100, 100, 1024, 768);
