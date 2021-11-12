@@ -10,7 +10,7 @@ import excepciones.BaseDeDatosException;
 public interface Cliente_DAO {
 
 	public Cliente saveOrUpdate(Cliente c) throws BaseDeDatosException, SQLException;
-	public List<Cliente> buscarTodas();
+	public List<Cliente> buscarTodos();
 	public void eliminarCliente(Integer id);
 	
 	

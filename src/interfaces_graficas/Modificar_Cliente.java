@@ -28,11 +28,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import gestores.Gestor_Cliente;
+import interfaces_graficas.Lista_Cliente;
 
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 
-public class AltaCliente extends JPanel {
+public class Modificar_Cliente extends JPanel {
 
 	
 	private JFrame frmModificarCliente;
@@ -74,7 +75,7 @@ public class AltaCliente extends JPanel {
 	private JLabel lbldormitorios;
 	private JLabel lblPiscina;
 	
-	public AltaCliente(JFrame pantallaPrincipal) {
+	public Modificar_Cliente(JFrame pantallaPrincipal) {
 		armarPanel(pantallaPrincipal);
 	}
 	
@@ -234,6 +235,7 @@ public class AltaCliente extends JPanel {
 		panelDatosInmueble.add(lblErrorMonto);
 		
 		textFieldNombre = new JTextField();
+		textFieldNombre.setEditable(false);
 		textFieldNombre.setBounds(468, 43, 200, 25);
 		add(textFieldNombre);
 		textFieldNombre.setColumns(10);
@@ -257,6 +259,7 @@ public class AltaCliente extends JPanel {
 			}
 		});
 		textFieldApellido = new JTextField();
+		textFieldApellido.setEditable(false);
 		textFieldApellido.setColumns(10);
 		textFieldApellido.setBounds(468, 81, 200, 25);
 		add(textFieldApellido);
@@ -294,10 +297,10 @@ public class AltaCliente extends JPanel {
 		   });
 		add(textFieldTelefono);
 		
-		JButton btnAñadirCliente = new JButton("A\u00F1adir");
-		btnAñadirCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAñadirCliente.setBounds(298, 669, 140, 30);
-		add(btnAñadirCliente);
+		JButton btnModificarCliente = new JButton("Modificar");
+		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnModificarCliente.setBounds(298, 669, 140, 30);
+		add(btnModificarCliente);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -591,7 +594,7 @@ public class AltaCliente extends JPanel {
 		add(lblErrorCaractersiticas);
 		
 		
-		btnAñadirCliente.addActionListener(e-> {
+		btnModificarCliente.addActionListener(e-> {
 			this.crearCliente();
 			
 		  });
@@ -794,3 +797,5 @@ public class AltaCliente extends JPanel {
 	}		
 		
 	}
+
+
