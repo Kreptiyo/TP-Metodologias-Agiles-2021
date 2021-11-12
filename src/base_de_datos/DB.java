@@ -15,7 +15,7 @@ public class DB
 			"				 NOMBRE VARCHAR(30), "+
 			"				 APELLIDO VARCHAR(30), "+
 			"				 TIPO_DOCUMENTO VARCHAR(9), "+
-			"				 NRO_DOCUMENTO INTEGER, "+
+			"				 NRO_DOCUMENTO INTEGER UNIQUE, "+
 			"				 CALLE VARCHAR(100), "+
 			"				 NRO_CALLE INTEGER, "+
 			"				 LOCALIDAD VARCHAR(30), "+
@@ -27,9 +27,11 @@ public class DB
     private static final String TABLE_CREATE_INMUEBLE =
     		"CREATE TABLE IF NOT EXISTS ma.inmueble ( "+
     		"				 ID SERIAL, "+
+    		"				 NRO_DOCUMENTO_PROPIETARIO INTEGER, "+
     		"				 PROVINCIA VARCHAR(30), "+
     		"				 LOCALIDAD VARCHAR(30), "+
-    		"				 CALLE_NUMERO VARCHAR(30), "+
+    		"				 CALLE VARCHAR(30), "+
+    		"				 CALLE_NUMERO INTEGER, "+
     		"				 PISO_DEPARTAMENTO INTEGER, "+
     		"				 BARRIO VARCHAR(30), "+
     		"				 TIPO_INMUEBLE VARCHAR(1), "+
@@ -40,6 +42,7 @@ public class DB
     		"				 FONDO INTEGER, "+
     		"				 SUPERFICIE INTEGER, "+
     		"				 PROPIEDAD_HORIZONTAL BOOLEAN, "+
+    		"				 SUPERFICIE_EDIFICIO INTEGER, "+
     		"				 ANTIGUEDAD INTEGER, "+
     		"				 DORMITORIOS INTEGER, "+
     		"				 BAÑOS INTEGER, "+
@@ -53,7 +56,8 @@ public class DB
     		"				 TELEFONO BOOLEAN, "+
     		"				 LAVADERO BOOLEAN, "+
     		"				 PAVIMENTO BOOLEAN, "+
-    		"				 PRIMARY KEY(ID)) ";
+    		"				 PRIMARY KEY(ID), "+
+    		"				 FOREIGN KEY (NRO_DOCUMENTO_PROPIETARIO) REFERENCES ma.propietario(NRO_DOCUMENTO))";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{

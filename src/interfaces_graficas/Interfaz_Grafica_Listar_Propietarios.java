@@ -206,6 +206,13 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 		add(btnLimpiarFiltro);
 		
 		btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(e->
+		{
+			this.setVisible(false);
+			JPanel panelMenuPrincipal = new Menu_Principal(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(panelMenuPrincipal);
+			pantallaPrincipal.setTitle("MENU PRINCIPAL");
+		});
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVolver.setBounds(914, 717, 100, 40);
 		add(btnVolver);

@@ -3,9 +3,11 @@ package dominio;
 public class Inmueble 
 {
 	Integer id;
+	Propietario propietario;
 	String provincia;
 	String localidad;
-	String calleNumero;
+	String calle;
+	Integer calleNumero;
 	Integer pisoDepartamento;
 	String barrio;
 	Tipo_Inmueble tipoDeInmueble;
@@ -17,6 +19,7 @@ public class Inmueble
 	Integer fondo;
 	Integer superficie;
 	Boolean propiedadHorizontal;
+	Integer superficieEdificio;
 	Integer antiguedad;
 	Integer dormitorios;
 	Integer baños;
@@ -53,6 +56,14 @@ public class Inmueble
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public Propietario getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
+	}
 
 	public String getProvincia() {
 		return provincia;
@@ -70,11 +81,19 @@ public class Inmueble
 		this.localidad = localidad;
 	}
 
-	public String getCalleNumero() {
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public Integer getCalleNumero() {
 		return calleNumero;
 	}
 
-	public void setCalleNumero(String calleNumero) {
+	public void setCalleNumero(Integer calleNumero) {
 		this.calleNumero = calleNumero;
 	}
 
@@ -156,6 +175,15 @@ public class Inmueble
 
 	public void setPropiedadHorizontal(Boolean propiedadHorizontal) {
 		this.propiedadHorizontal = propiedadHorizontal;
+	}
+	
+	
+	public Integer getSuperficieEdificio() {
+		return superficieEdificio;
+	}
+
+	public void setSuperficieEdificio(Integer superficieEdificio) {
+		this.superficieEdificio = superficieEdificio;
 	}
 
 	public Integer getAntiguedad() {

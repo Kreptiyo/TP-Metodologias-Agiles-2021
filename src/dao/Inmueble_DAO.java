@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import dominio.Inmueble;
@@ -11,4 +12,7 @@ public interface Inmueble_DAO
 	public Inmueble saveOrUpdate(Inmueble i) throws BaseDeDatosException, SQLException;
 	public List<Inmueble> buscarTodos();
 	public void eliminarInmueble(Integer id);
+	public Inmueble buscarPorId(Integer id);
+	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(Integer nroDocumento);
+	void eliminarInmueblePropietario(Integer nroDocumento);
 }
