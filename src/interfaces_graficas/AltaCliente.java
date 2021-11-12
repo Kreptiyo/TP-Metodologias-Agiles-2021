@@ -26,6 +26,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.TitledBorder;
+
+import gestores.Gestor_Cliente;
+
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.border.EtchedBorder;
@@ -53,7 +56,7 @@ public class AltaCliente extends JFrame{
 	private JCheckBox chckbxCloacas;
 	private JCheckBox chckbxGas;
 	private JCheckBox chckbxAguaCaliente;
-	private JCheckBox chckbxTelofono;
+	private JCheckBox chckbxTelefono;
 	private JCheckBox chckbxLavadero;
 	private JCheckBox chckbxPavimento;
 	private JLabel lblErrorTipoInmueble;
@@ -64,10 +67,20 @@ public class AltaCliente extends JFrame{
 	private JLabel lblErrorApellido;
 	private JLabel lblErrorTelefono;
 	private  JLabel lblErrorCaractersiticas;
+	private Gestor_Cliente gestorCliente;
+	private JTextField textFieldDormitorios;
+	private JCheckBox chckbxPiscina;
+	private JLabel lbldormitorios;
+	private JLabel lblPiscina;
+	
 	
 	public AltaCliente() {
 		
+		
+		
 		super();
+
+		this.gestorCliente = new Gestor_Cliente();
 		setBounds(100, 100, 1024, 768);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -180,19 +193,20 @@ public class AltaCliente extends JFrame{
 		      }
 		   });
 		
-		String[] aux = new String[8];
-		aux[1]= "Local";
-		aux[2]= "Casa";
-		aux[3]= "Departamento";
-		aux[4]= "Terreno";
-		aux[5]= "Quinta";
-		aux[6]= "Galpon";
-		aux[7]= "Oficina";
+		String[] aux = new String[7];
+		aux[0]="";
+		aux[1]= "LOCAL U OFICINA";
+		aux[2]= "CASA";
+		aux[3]= "DEPARTAMENTO";
+		aux[4]= "TERRENO";
+		aux[5]= "QUINTA";
+		aux[6]= "GALPON";
 		
 		
 		comboBoxTipoInmueble = new JComboBox(aux);
 		comboBoxTipoInmueble.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxTipoInmueble.setBounds(190, 20, 200, 25);
+		comboBoxTipoInmueble.setSelectedIndex(0);
 		panelDatosInmueble.add(comboBoxTipoInmueble);
 		
 		lblErrorTipoInmueble = new JLabel("(!)");
@@ -450,69 +464,100 @@ public class AltaCliente extends JFrame{
 		panelCaracteristicas.add(lblOrientacion);
 		
 		String[] aux1 = new String[9];
-		aux1[1]= "Norte";
-		aux1[2]= "Sur";
-		aux1[3]= "Este";
-		aux1[4]= "Oeste";
-		aux1[5]= "Noreste";
-		aux1[6]= "Noroeste";
-		aux1[7]= "Sureste";
-		aux1[8]= "Suroeste";
+		aux1[0]= "";
+		aux1[1]= "NORTE";
+		aux1[2]= "SUR";
+		aux1[3]= "ESTE";
+		aux1[4]= "OESTE";
+		aux1[5]= "NORESTE";
+		aux1[6]= "NOROESTE";
+		aux1[7]= "SURESTE";
+		aux1[8]= "SUROESTE";
 		
-		JComboBox comboBoxOrientacion = new JComboBox(aux1);
+		comboBoxOrientacion = new JComboBox(aux1);
 		comboBoxOrientacion.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comboBoxOrientacion.setBounds(141, 230, 116, 25);
+		comboBoxOrientacion.setSelectedIndex(0);
 		panelCaracteristicas.add(comboBoxOrientacion);
 		
-		JCheckBox chckbxHorizontal = new JCheckBox("Si / No");
+		 chckbxHorizontal = new JCheckBox("Si / No");
 		chckbxHorizontal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxHorizontal.setBounds(440, 30, 95, 21);
 		panelCaracteristicas.add(chckbxHorizontal);
 		
-		JCheckBox chckbxGarage = new JCheckBox("Si / No");
+		 chckbxGarage = new JCheckBox("Si / No");
 		chckbxGarage.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxGarage.setBounds(440, 70, 93, 21);
 		panelCaracteristicas.add(chckbxGarage);
 		
-		JCheckBox chckbxPatio = new JCheckBox("Si / No");
+		 chckbxPatio = new JCheckBox("Si / No");
 		chckbxPatio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPatio.setBounds(440, 110, 93, 21);
 		panelCaracteristicas.add(chckbxPatio);
 		
-		JCheckBox chckbxAguaCorriente = new JCheckBox("Si / No");
+		 chckbxAguaCorriente = new JCheckBox("Si / No");
 		chckbxAguaCorriente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxAguaCorriente.setBounds(440, 150, 93, 21);
 		panelCaracteristicas.add(chckbxAguaCorriente);
 		
-		JCheckBox chckbxCloacas = new JCheckBox("Si / No");
+		 chckbxCloacas = new JCheckBox("Si / No");
 		chckbxCloacas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxCloacas.setBounds(440, 190, 93, 21);
 		panelCaracteristicas.add(chckbxCloacas);
 		
-		JCheckBox chckbxGas = new JCheckBox("Si / No");
+		 chckbxGas = new JCheckBox("Si / No");
 		chckbxGas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxGas.setBounds(676, 30, 93, 21);
 		panelCaracteristicas.add(chckbxGas);
 		
-		JCheckBox chckbxAguaCaliente = new JCheckBox("Si / No");
+		 chckbxAguaCaliente = new JCheckBox("Si / No");
 		chckbxAguaCaliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxAguaCaliente.setBounds(676, 70, 93, 21);
 		panelCaracteristicas.add(chckbxAguaCaliente);
 		
-		JCheckBox chckbxTelefono = new JCheckBox("Si / No");
+		 chckbxTelefono = new JCheckBox("Si / No");
 		chckbxTelefono.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxTelefono.setBounds(676, 110, 93, 21);
 		panelCaracteristicas.add(chckbxTelefono);
 		
-		JCheckBox chckbxLavadero = new JCheckBox("Si / No");
+		 chckbxLavadero = new JCheckBox("Si / No");
 		chckbxLavadero.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxLavadero.setBounds(676, 150, 93, 21);
 		panelCaracteristicas.add(chckbxLavadero);
 		
-		JCheckBox chckbxPavimento = new JCheckBox("Si / No");
+		chckbxPavimento = new JCheckBox("Si / No");
 		chckbxPavimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPavimento.setBounds(676, 190, 93, 21);
 		panelCaracteristicas.add(chckbxPavimento);
+		
+		JLabel lbldormitorios = new JLabel("Dormitorios");
+		lbldormitorios.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbldormitorios.setBounds(319, 230, 130, 25);
+		panelCaracteristicas.add(lbldormitorios);
+		
+		textFieldDormitorios = new JTextField();
+		textFieldDormitorios.setColumns(10);
+		textFieldDormitorios.setBounds(439, 230, 82, 25);
+		textFieldDormitorios.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldDormitorios.setEditable(true);
+		         } else {
+		        	 textFieldDormitorios.setEditable(false);
+		         }
+		      }
+		   });
+		panelCaracteristicas.add(textFieldDormitorios);
+		
+		JLabel lblPiscina = new JLabel("Piscina");
+		lblPiscina.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPiscina.setBounds(555, 230, 130, 25);
+		panelCaracteristicas.add(lblPiscina);
+		
+	    chckbxPiscina = new JCheckBox("Si / No");
+		chckbxPiscina.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxPiscina.setBounds(676, 230, 93, 21);
+		panelCaracteristicas.add(chckbxPiscina);
 
 		lblErrorNombre = new JLabel("(!)");
 		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -541,9 +586,98 @@ public class AltaCliente extends JFrame{
 		lblErrorCaractersiticas.setBounds(81, 358, 23, 40);
 		lblErrorCaractersiticas.setVisible(false);
 		panelAltaCliente.add(lblErrorCaractersiticas);
+		
+		this.chckbxAguaCaliente.setSelected(false);
+		this.chckbxPiscina.setSelected(false);
+		this.chckbxAguaCorriente.setSelected(false);
+		this.chckbxCloacas.setSelected(false);
+		this.chckbxGarage.setSelected(false);
+		this.chckbxAguaCaliente.setSelected(false);
+		this.chckbxHorizontal.setSelected(false);
+		this.chckbxLavadero.setSelected(false);
+		this.chckbxPatio.setSelected(false);
+		this.chckbxPavimento.setSelected(false);
+		this.chckbxTelefono.setSelected(false);
+		this.chckbxGas.setSelected(false);
+		
+		
 		btnAñadirCliente.addActionListener(e-> {
-			validarDatosVacios();
+			this.crearCliente();
+			
 		  });
+	}
+	
+	public void crearCliente() {
+		
+		if(!validarDatosVacios()) {
+			
+			this.gestorCliente.actualizarCliente(
+					this.textFieldNombre.getText(), 
+					this.textFieldLocalidad.getText(),
+					this.textFieldApellido.getText(),
+					Integer.parseInt(this.textFieldTelefono.getText()),
+					this.textFieldBarrio.getText(),
+					Integer.parseInt(this.textFieldMonto.getText()));
+			
+			Integer frente, fondo, superficie, antiguedad, dormitorios, baños;
+			
+			if(!this.textFieldFrente.getText().isEmpty()) {
+				frente = Integer.parseInt(this.textFieldFrente.getText());
+			}else {
+				frente = null;
+			}
+			
+			if(!this.textFieldFondo.getText().isEmpty()) {
+				fondo = Integer.parseInt(this.textFieldFondo.getText());
+			}else {
+				fondo = null;
+			}
+			
+			if(!this.textFieldSuperficie.getText().isEmpty()) {
+				superficie = Integer.parseInt(this.textFieldSuperficie.getText());
+			}else {
+				superficie = null;
+			}
+			
+			if(!this.textFieldAntiguedad.getText().isEmpty()) {
+				antiguedad = Integer.parseInt(this.textFieldAntiguedad.getText());
+			}else {
+				antiguedad = null;
+			}
+			
+			if(!this.textFieldDormitorios.getText().isEmpty()) {
+				dormitorios = Integer.parseInt(this.textFieldDormitorios.getText());
+			}else {
+				dormitorios = null;
+			}
+			
+			if(!this.textFieldBaños.getText().isEmpty()) {
+				baños = Integer.parseInt(this.textFieldBaños.getText());
+			}else {
+				baños = null;
+			}
+			
+			String orietacion = (String) this.comboBoxOrientacion.getSelectedItem();
+			String tipoInmueble = (String) this.comboBoxTipoInmueble.getSelectedItem();
+			
+			this.gestorCliente.actualizarModelo_Datos_Inmueble(
+					orietacion,
+					tipoInmueble,
+					frente, fondo, superficie, 
+					this.chckbxHorizontal.isSelected(), 
+					antiguedad, dormitorios, baños, 
+					this.chckbxGarage.isSelected(), 
+					this.chckbxPatio.isSelected(), 
+					this.chckbxPiscina.isSelected(), 
+					this.chckbxAguaCorriente.isSelected(), 
+					this.chckbxCloacas.isSelected(), 
+					this.chckbxGas.isSelected(), 
+					this.chckbxAguaCaliente.isSelected(), 
+					this.chckbxTelefono.isSelected(), 
+					this.chckbxLavadero.isSelected(), 
+					this.chckbxPavimento.isSelected());
+			
+		}
 	}
  
 	
@@ -554,53 +688,76 @@ public class AltaCliente extends JFrame{
 		if(this.textFieldNombre.getText().isEmpty()) {
 			this.lblErrorNombre.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorNombre.setVisible(false);
 		}
+		
 		if(this.textFieldApellido.getText().isEmpty()) {
 			this.lblErrorApellido.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorApellido.setVisible(false);
 		}
+		
 		if(this.textFieldBarrio.getText().isEmpty()) {
 			this.lblErrorBarrio.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorBarrio.setVisible(false);
 		}
+		
 		if(this.textFieldMonto.getText().isEmpty()) {
 			this.lblErrorMonto.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorMonto.setVisible(false);
 		}
+		
 		if(this.textFieldLocalidad.getText().isEmpty()) {
 			this.lblErrorLocalidad.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorLocalidad.setVisible(false);
 		}
+		
 		if(this.textFieldTelefono.getText().isEmpty()) {
 			this.lblErrorTelefono.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorTelefono.setVisible(false);
 		}
-		if(this.comboBoxTipoInmueble.getSelectedItem() == null) {
+		
+		if(this.comboBoxTipoInmueble.getSelectedItem() == "") {
 			this.lblErrorTipoInmueble.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorTipoInmueble.setVisible(false);
 		}
 		
 		if(
-		this.textFieldAntiguedad.getText().isEmpty() ||
-		this.textFieldBaños.getText().isEmpty()|| 
-		this.textFieldFondo.getText().isEmpty()||
-		this.textFieldFrente.getText().isEmpty()||
-		this.textFieldSuperficie.getText().isEmpty()||
-		this.comboBoxOrientacion.getSelectedItem() == null 
-			
+		this.textFieldAntiguedad.getText().isEmpty() &&
+		this.textFieldBaños.getText().isEmpty()&&
+		this.textFieldFondo.getText().isEmpty()&&
+		this.textFieldFrente.getText().isEmpty()&&
+		this.textFieldSuperficie.getText().isEmpty()&&
+		this.textFieldDormitorios.getText().isEmpty()
 		) {
 			this.lblErrorCaractersiticas.setVisible(true);
 			error = true;
+		}else {
+			this.lblErrorCaractersiticas.setVisible(false);
 		}
 		
 		
 		if(error == true)		
 		{
 			JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
-			return false;
+			return error;
+		}else {
+			JOptionPane.showMessageDialog(null, "Cliente creado");
 		}
 		
-		return true;
+		return error;
 	}
 	
 	private void limpiarFormulario() {
@@ -616,8 +773,10 @@ public class AltaCliente extends JFrame{
 		this.textFieldFondo.setText("");
 		this.textFieldFrente.setText("");
 		this.textFieldSuperficie.setText("");
+		this.textFieldDormitorios.setText("");
 		this.comboBoxOrientacion.setSelectedIndex(0);
 		this.chckbxAguaCaliente.setSelected(false);
+		this.chckbxPiscina.setSelected(false);
 		this.chckbxAguaCorriente.setSelected(false);
 		this.chckbxCloacas.setSelected(false);
 		this.chckbxGarage.setSelected(false);
@@ -626,7 +785,7 @@ public class AltaCliente extends JFrame{
 		this.chckbxLavadero.setSelected(false);
 		this.chckbxPatio.setSelected(false);
 		this.chckbxPavimento.setSelected(false);
-		this.chckbxTelofono.setSelected(false);
+		this.chckbxTelefono.setSelected(false);
 		this.chckbxGas.setSelected(false);
 	}
 	
@@ -643,5 +802,4 @@ public class AltaCliente extends JFrame{
 		this.lblErrorTelefono.setVisible(false);
 		this.lblErrorTipoInmueble.setVisible(false);
 	}
-		
 }

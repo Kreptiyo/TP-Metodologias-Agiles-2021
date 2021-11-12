@@ -118,7 +118,8 @@ public class ListaClientes  extends JFrame{
 		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnModificarCliente.setBounds(440, 600, 140, 30);
 		btnModificarCliente.setEnabled(false);
-		btnModificarCliente.addActionListener(e->{	
+		btnModificarCliente.addActionListener(e->{				
+			
 					ModificarCliente mc = new ModificarCliente();
 			  		mc.setVisible(true);
 			  		

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominio.Cliente;
+import dominio.Inmueble.Tipo_Inmueble;
 import dominio.Propietario;
 import dominio.Propietario.Tipo_Documento;
 import dominio.TipoInmueble;
@@ -16,7 +17,7 @@ import gestores.Gestor_Conexion;
 
 public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 
-private Connection conn = Gestor_Conexion.getConnection();
+	private Connection conn = Gestor_Conexion.getConnection();
 	
 	private static final String SELECT_ALL_CLIENTE =
 			"SELECT * FROM ma.cliente";
@@ -92,7 +93,7 @@ private Connection conn = Gestor_Conexion.getConnection();
 	}
 
 	@Override
-	public List<Cliente> buscarTodas() 
+	public List<Cliente> buscarTodos() 
 	{
 		List<Cliente> lista = new ArrayList<Cliente>();
 		PreparedStatement pstmt = null;
@@ -113,25 +114,22 @@ private Connection conn = Gestor_Conexion.getConnection();
 				switch(rs.getString("TIPO_INMUEBLE"))
 				{
 				case "L":
-					c.setTipoInmueble(TipoInmueble.L);
-					break;
-				case "O":
-					c.setTipoInmueble(TipoInmueble.O);
+					c.setTipoInmueble(Tipo_Inmueble.L);
 					break;
 				case "C":
-					c.setTipoInmueble(TipoInmueble.C);
+					c.setTipoInmueble(Tipo_Inmueble.C);
 					break;
 				case "D":
-					c.setTipoInmueble(TipoInmueble.C);
+					c.setTipoInmueble(Tipo_Inmueble.C);
 					break;
 				case "T":
-					c.setTipoInmueble(TipoInmueble.T);
+					c.setTipoInmueble(Tipo_Inmueble.T);
 					break;
 				case "Q":
-					c.setTipoInmueble(TipoInmueble.Q);
+					c.setTipoInmueble(Tipo_Inmueble.Q);
 					break;
 				case "G":
-					c.setTipoInmueble(TipoInmueble.G);
+					c.setTipoInmueble(Tipo_Inmueble.G);
 					break;
 				}
 				c.setLocalidad(rs.getString("LOCALIDAD"));
