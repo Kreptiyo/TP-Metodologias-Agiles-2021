@@ -25,6 +25,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import gestores.Gestor_Cliente;
+
 
 public class ListaClientes  extends JFrame{
 	private JFrame frmAbmCliente;
@@ -32,10 +34,17 @@ public class ListaClientes  extends JFrame{
 	private DefaultTableModel modelo;
 	private JTextField textFieldFiltrarNombre;
 	private JTextField textFieldFiltrarApellido;
+	private JButton btnFlitrarCliente ;
+	private JButton btnEliminarCliente;
+	private JButton btnVolver;
+	private JButton btnAñadirCliente;
+	private JButton btnModificarCliente;
+	private JLabel lblNombreCliente;
+	private JLabel lblApellidoCliente;
+	private Gestor_Cliente gestorCliente;
+
 	
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -49,17 +58,16 @@ public class ListaClientes  extends JFrame{
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public ListaClientes() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
+		
+		this.gestorCliente = new Gestor_Cliente();
+		
 		frmAbmCliente = new JFrame();
 		frmAbmCliente.setTitle("Listar Cliente");
 		frmAbmCliente.setBounds(100, 100, 1024, 768);
@@ -111,18 +119,19 @@ public class ListaClientes  extends JFrame{
 		this.modelo.addRow(new Object[]{"CC","CC","CC","CC","CC","CC"});
 		scrollPanelTablaClientes.setViewportView(tablaClientes);
 		
-		JButton btnModificarCliente = new JButton("Modificar");
+		btnModificarCliente = new JButton("Modificar");
 		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnModificarCliente.setBounds(440, 600, 140, 30);
 		btnModificarCliente.setEnabled(false);
-		btnModificarCliente.addActionListener(e->{	
+		btnModificarCliente.addActionListener(e->{				
+			
 					ModificarCliente mc = new ModificarCliente();
 			  		mc.setVisible(true);
 			  		
 		});
 		panelClientes.add(btnModificarCliente);
 		
-		JButton btnAñadirCliente = new JButton("A\u00F1adir");
+		btnAñadirCliente = new JButton("A\u00F1adir");
 		btnAñadirCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAñadirCliente.setBounds(114, 600, 140, 30);
 		btnAñadirCliente.addActionListener(e-> {
@@ -133,18 +142,18 @@ public class ListaClientes  extends JFrame{
 		});
 		panelClientes.add(btnAñadirCliente);
 		
-		JButton btnEliminarCliente = new JButton("Eliminar");
+		btnEliminarCliente = new JButton("Eliminar");
 		btnEliminarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEliminarCliente.setBounds(774, 600, 140, 30);
 		btnEliminarCliente.setEnabled(false);
 		panelClientes.add(btnEliminarCliente);
 		
-		JLabel lblNombreCliente = new JLabel("Nombre");
+		lblNombreCliente = new JLabel("Nombre");
 		lblNombreCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNombreCliente.setBounds(296, 74, 130, 25);
 		panelClientes.add(lblNombreCliente);
 		
-		JLabel lblApellidoCliente = new JLabel("Apellido");
+		lblApellidoCliente = new JLabel("Apellido");
 		lblApellidoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblApellidoCliente.setBounds(296, 114, 130, 25);
 		panelClientes.add(lblApellidoCliente);
@@ -153,18 +162,62 @@ public class ListaClientes  extends JFrame{
 		textFieldFiltrarNombre.setColumns(10);
 		textFieldFiltrarNombre.setBounds(466, 76, 200, 25);
 		panelClientes.add(textFieldFiltrarNombre);
+		textFieldFiltrarNombre.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldFiltrarNombre.getText().length()>30) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		
 		textFieldFiltrarApellido = new JTextField();
 		textFieldFiltrarApellido.setColumns(10);
 		textFieldFiltrarApellido.setBounds(466, 114, 200, 25);
 		panelClientes.add(textFieldFiltrarApellido);
+		textFieldFiltrarApellido.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldFiltrarApellido.getText().length()>30) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		
-		JButton btnFlitrarCliente = new JButton("Filtrar");
+		btnFlitrarCliente = new JButton("Filtrar");
 		btnFlitrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFlitrarCliente.setBounds(501, 161, 140, 30);
 		panelClientes.add(btnFlitrarCliente);
+		btnFlitrarCliente.addActionListener(e-> {
+			while (modelo.getRowCount() > 0) {
+				 modelo.removeRow(0);
+			}
+		});
 		
-		JButton btnVolver = new JButton("Volver");
+		
+		btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnVolver.setBounds(774, 675, 140, 30);
 		panelClientes.add(btnVolver);
