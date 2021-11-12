@@ -3,10 +3,16 @@ package interfaces_graficas;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Array;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
@@ -16,12 +22,16 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import excepciones.BaseDeDatosException;
+import gestores.Gestor_Catalogo;
 import gestores.Gestor_Inmueble;
 import modelos_tablas.Modelo_Tabla_Consultar_Inmuebles;
 
 import javax.swing.JSlider;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Interfaz_Consultar_Inmuebles extends JPanel {
 	
@@ -29,10 +39,12 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 	private JTable table;
 	private Modelo_Tabla_Consultar_Inmuebles modeloTabla;
 	private Gestor_Inmueble gestorInmueble;
+	private Gestor_Catalogo gestorCatalogo;
 
 	public Interfaz_Consultar_Inmuebles(JFrame pantallaPrincipal) 
 	{
 		gestorInmueble = new Gestor_Inmueble();
+		gestorCatalogo = new Gestor_Catalogo();
 		this.armarPanel(pantallaPrincipal);
 	}
 	
@@ -133,8 +145,8 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		lbl0.setBounds(259, 213, 46, 14);
 		add(lbl0);
 		
-		JLabel lbl0_1 = new JLabel("1000000");
-		lbl0_1.setBounds(485, 213, 46, 14);
+		JLabel lbl0_1 = new JLabel("100.000");
+		lbl0_1.setBounds(485, 213, 59, 14);
 		add(lbl0_1);
 		
 		JLabel lblRangoPrecios = new JLabel("Rango Precios:");
@@ -152,6 +164,7 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		TableRowSorter<TableModel> orden =  new TableRowSorter<TableModel>(modeloTabla);
 		table.setRowSorter(orden);
 		add(scrollPane);
+		
 		
 		JButton btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -256,9 +269,44 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		add(btnVerDetalles);
 		
 		JButton btnGenerarCatalogo = new JButton("Generar Catalogo");
+		btnGenerarCatalogo.addActionListener(e-> {
+			if(table.getRowCount()==0) {
+				this.mostrarMensajeAdvertencia(pantallaPrincipal, "No seleccionó ningun inmueble.", "Debe seleccionar al menos un inmueble");
+			}
+			else {
+				
+				List<String> idsInmuebles = new ArrayList<String>();
+				for(int i=0; i<table.getRowCount();i++) {
+					idsInmuebles.add(modeloTabla.obtenerIdInmueble(i).toString());
+					System.out.println("id del inmueble seleccionado para catalogo: "+modeloTabla.obtenerIdInmueble(i).toString());
+				}
+				try {
+					gestorCatalogo.generarCatalogo(1, idsInmuebles);
+					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Generar catalogo", "Se ha creado el catalogo con exito!");
+				} catch (BaseDeDatosException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnGenerarCatalogo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnGenerarCatalogo.setBounds(161, 675, 185, 40);
 		add(btnGenerarCatalogo);
 
 	}
+	
+	public void mostrarMensajeAdvertencia(JFrame padre ,String titulo,String detalle) 
+	{
+		JOptionPane.showMessageDialog(padre,
+			    detalle,titulo,
+			    JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void mostrarMensajeExito(JFrame padre ,String titulo,String detalle) 
+	{
+		JOptionPane.showMessageDialog(padre,
+			    detalle,titulo,
+			    JOptionPane.INFORMATION_MESSAGE);
+	}
+	
 }

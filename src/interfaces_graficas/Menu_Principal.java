@@ -33,7 +33,7 @@ public class Menu_Principal extends JPanel
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelMenu.setBackground(SystemColor.scrollbar);
-		panelMenu.setBounds(374, 193, 450, 360);
+		panelMenu.setBounds(305, 200, 450, 360);
 		add(panelMenu);
 		panelMenu.setLayout(null);
 		
