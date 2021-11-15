@@ -43,6 +43,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 		{
 				if(c.getId() != null && c.getId() > 0)
 				{
+					System.out.println("Ejecuta update");
 					conn.setAutoCommit(false);
 					pstmt = conn.prepareStatement(UPDATE_CLIENTE);
 					pstmt.setString(1, c.getNombre());
@@ -77,6 +78,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 				}
 				else
 				{
+					System.out.println("Ejecuta insert");
 					conn.setAutoCommit(false);
 					pstmt = conn.prepareStatement(INSERT_CLIENTE);
 					pstmt.setString(1, c.getNombre());
@@ -104,7 +106,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					pstmt.setBoolean(23, c.getHaytelefono());
 					pstmt.setBoolean(24, c.getLavadero());
 					pstmt.setBoolean(25, c.getPavimento());
-					pstmt.setInt(26, c.getId());
+					//pstmt.setInt(26, c.getId());
 					conn.commit();
 				}					
 		} 
@@ -125,6 +127,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Listo");
 		return c;
 	}
 

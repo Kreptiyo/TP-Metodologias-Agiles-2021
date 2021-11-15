@@ -140,6 +140,14 @@ public class Lista_Cliente extends JPanel {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnVolver.setBounds(774, 675, 140, 30);
+		btnVolver.addActionListener(e->
+		{
+			this.setVisible(false);
+			JPanel panelMenu = new Menu_Principal(pantallaPrincipal);
+			panelMenu.setVisible(true);
+			pantallaPrincipal.setContentPane(panelMenu);
+			pantallaPrincipal.setTitle("Menu Principal");
+		});
 		add(btnVolver);
 		
 		tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
