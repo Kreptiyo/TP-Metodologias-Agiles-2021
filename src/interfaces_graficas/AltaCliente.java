@@ -624,44 +624,41 @@ public class AltaCliente extends JPanel {
 			if(!this.textFieldFrente.getText().isEmpty()) {
 				frente = Integer.parseInt(this.textFieldFrente.getText());
 			}else {
-				frente = null;
+				frente = 0;
 			}
 			
 			if(!this.textFieldFondo.getText().isEmpty()) {
 				fondo = Integer.parseInt(this.textFieldFondo.getText());
 			}else {
-				fondo = null;
+				fondo = 0;
 			}
 			
 			if(!this.textFieldSuperficie.getText().isEmpty()) {
 				superficie = Integer.parseInt(this.textFieldSuperficie.getText());
 			}else {
-				superficie = null;
+				superficie = 0;
 			}
 			
 			if(!this.textFieldAntiguedad.getText().isEmpty()) {
 				antiguedad = Integer.parseInt(this.textFieldAntiguedad.getText());
 			}else {
-				antiguedad = null;
+				antiguedad = 0;
 			}
 			
 			if(!this.textFieldDormitorios.getText().isEmpty()) {
 				dormitorios = Integer.parseInt(this.textFieldDormitorios.getText());
 			}else {
-				dormitorios = null;
+				dormitorios = 0;
 			}
 			
 			if(!this.textFieldBaños.getText().isEmpty()) {
 				baños = Integer.parseInt(this.textFieldBaños.getText());
 			}else {
-				baños = null;
+				baños = 0;
 			}
 			
 			int orietacion = this.comboBoxOrientacion.getSelectedIndex();
 			int tipoInmueble =  this.comboBoxTipoInmueble.getSelectedIndex();
-			
-			System.out.println(orietacion);
-			System.out.println(tipoInmueble);
 			
 			this.gestorCliente.actualizarModelo_Datos_Inmueble(
 					orietacion,

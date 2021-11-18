@@ -36,8 +36,19 @@ public class Gestor_Cliente {
 	}
 	
 	
+	public void actualizarCliente(Integer id, String nombre, String localidad, String apellido, Integer telefono, String barrio, Integer monto)
+	{	
+		c.setId(id);
+		c.setNombre(nombre);
+		c.setLocalidad(localidad);
+		c.setApellido(apellido);
+		c.setTelefono(telefono);
+		c.setBarrio(barrio);
+		c.setMonto(monto);
+	}
+	
 	public void actualizarCliente(String nombre, String localidad, String apellido, Integer telefono, String barrio, Integer monto)
-	{
+	{	
 		c.setNombre(nombre);
 		c.setLocalidad(localidad);
 		c.setApellido(apellido);
@@ -144,6 +155,13 @@ public class Gestor_Cliente {
 	{
 		this.listaDeClientes.clear();
 		this.listaDeClientes.addAll(clienteDAO.buscarTodos());
+		return this.listaDeClientes;
+	}
+	
+	public List<Cliente> buscarPorNombreApellido(String nom, String ape)
+	{
+		this.listaDeClientes.clear();
+		this.listaDeClientes.addAll(clienteDAO.buscarTodos(nom,ape));
 		return this.listaDeClientes;
 	}
 	

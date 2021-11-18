@@ -6,10 +6,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,6 +21,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import dominio.Cliente;
+import gestores.Gestor_Cliente;
 
 public class Lista_Cliente extends JPanel {
 
@@ -24,7 +32,8 @@ public class Lista_Cliente extends JPanel {
 	private DefaultTableModel modelo;
 	private JTextField textFieldFiltrarNombre;
 	private JTextField textFieldFiltrarApellido;
-	
+	private List<Cliente> clientes;
+	private Gestor_Cliente gestorClientes;
 	
 	public Lista_Cliente(JFrame pantallaPrincipal) {
 		armarPanel(pantallaPrincipal);
@@ -32,6 +41,10 @@ public class Lista_Cliente extends JPanel {
 
 	
 	public void armarPanel(JFrame pantallaPrincipal) {
+		
+		gestorClientes = new Gestor_Cliente();
+		clientes = gestorClientes.listarTodos();
+		
 		
 		setLayout(null);
 		JPanel panelTablaClientes = new JPanel();
@@ -63,16 +76,17 @@ public class Lista_Cliente extends JPanel {
 		         return false;//This causes all cells to be not editable
 		       }
 		};    
+		modelo.addColumn("ID");
 		modelo.addColumn("Nombre");
 		modelo.addColumn("Apellido");
 		modelo.addColumn("Tipo Inmueble");
 		modelo.addColumn("Localidad");
 		modelo.addColumn("Barrio");
 		modelo.addColumn("Monto");
+		
+		
 		tablaClientes.setModel(modelo);
-		this.modelo.addRow(new Object[]{"AA","AA","AA","AA","AA","AA"});
-		this.modelo.addRow(new Object[]{"BB","BB","BB","BB","BB","BB"});
-		this.modelo.addRow(new Object[]{"CC","CC","CC","CC","CC","CC"});
+		tablaClientes.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(30);
 		scrollPanelTablaClientes.setViewportView(tablaClientes);
 		
 		JButton btnModificarCliente = new JButton("Modificar");
@@ -81,9 +95,13 @@ public class Lista_Cliente extends JPanel {
 		btnModificarCliente.setEnabled(false);
 		btnModificarCliente.addActionListener(e->{	
 				
-			  		
+			
+			String nombre = (String) modelo.getValueAt(tablaClientes.getSelectedRow(), 1);
+			String apellido = (String) modelo.getValueAt(tablaClientes.getSelectedRow(), 2);
+			String id = (String) modelo.getValueAt(tablaClientes.getSelectedRow(), 0);
+			
 			  		this.setVisible(false);
-					JPanel panelModificarClientes = new Modificar_Cliente(pantallaPrincipal);
+					JPanel panelModificarClientes = new Modificar_Cliente(pantallaPrincipal, nombre, apellido, id);
 					panelModificarClientes.setVisible(true);
 					pantallaPrincipal.setContentPane(panelModificarClientes);
 					pantallaPrincipal.setTitle("Modificar Clientes");
@@ -110,6 +128,13 @@ public class Lista_Cliente extends JPanel {
 		btnEliminarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEliminarCliente.setBounds(774, 600, 140, 30);
 		btnEliminarCliente.setEnabled(false);
+		btnEliminarCliente.addActionListener(e-> {
+			
+			String id = (String) modelo.getValueAt(tablaClientes.getSelectedRow(), 0);			
+			this.gestorClientes.eliminarCliente(Integer.parseInt(id));
+			clientes = gestorClientes.listarTodos();
+			this.mostrarResultados(clientes);
+		});
 		add(btnEliminarCliente);
 		
 		JLabel lblNombreCliente = new JLabel("Nombre");
@@ -125,16 +150,73 @@ public class Lista_Cliente extends JPanel {
 		textFieldFiltrarNombre = new JTextField();
 		textFieldFiltrarNombre.setColumns(10);
 		textFieldFiltrarNombre.setBounds(466, 76, 200, 25);
+		textFieldFiltrarNombre.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldFiltrarNombre.getText().length()>30) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		add(textFieldFiltrarNombre);
 		
 		textFieldFiltrarApellido = new JTextField();
 		textFieldFiltrarApellido.setColumns(10);
 		textFieldFiltrarApellido.setBounds(466, 114, 200, 25);
+		textFieldFiltrarApellido.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldFiltrarApellido.getText().length()>30) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
 		add(textFieldFiltrarApellido);
 		
 		JButton btnFlitrarCliente = new JButton("Filtrar");
 		btnFlitrarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFlitrarCliente.setBounds(501, 161, 140, 30);
+		btnFlitrarCliente.addActionListener(e-> {
+              
+              		
+  			while (modelo.getRowCount() > 0) {
+  				 modelo.removeRow(0);
+  			}
+
+              if(textFieldFiltrarNombre.getText().isEmpty() && textFieldFiltrarApellido.getText().isEmpty()) {
+            	  JOptionPane.showMessageDialog(null, "Debe ingresar al menos un filtro");
+            	  mostrarResultados(gestorClientes.listarTodos());
+              }else {
+            	  
+                  mostrarResultados(gestorClientes.buscarPorNombreApellido(textFieldFiltrarNombre.getText(), textFieldFiltrarApellido.getText()));
+              }
+
+          }
+
+
+      );
 		add(btnFlitrarCliente);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -161,8 +243,30 @@ public class Lista_Cliente extends JPanel {
 		        }
 		});
 		
-		
+		this.mostrarResultados(clientes);
 		
 		
 	}
+	
+	private void mostrarResultados(List<Cliente> clientes){
+		
+		while (modelo.getRowCount() > 0) {
+			 modelo.removeRow(0);
+		}
+		
+		for(Integer i = 0; i< this.clientes.size(); i++) {
+			  String[] dato = new String[8];
+			  dato[7]= clientes.get(i).getId().toString();
+			  dato[0] = clientes.get(i).getNombre();
+			  dato[1] = clientes.get(i).getApellido();
+			  dato[2] = clientes.get(i).getTipoInmueble().name();
+			  dato[3] =  clientes.get(i).getLocalidad();
+			  dato[4] =  clientes.get(i).getBarrio();
+			  dato[5] =  clientes.get(i).getMonto().toString();
+			  this.modelo.addRow(new Object[]{dato[7],dato[0], dato[1],dato[2], dato[3],dato[4], dato[5]});
+			    
+		  }
+	}
+	
+	
 }
