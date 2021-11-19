@@ -79,6 +79,16 @@ public class Menu_Principal extends JPanel
 		btnABMCliente = new JButton("ABM Cliente");
 		btnABMCliente.setBounds(85, 230, 280, 40);
 		btnABMCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnABMCliente.addActionListener(e->
+		{
+			
+			this.setVisible(false);
+			JPanel panelListaDeClientes = new Lista_Cliente(pantallaPrincipal);
+			panelListaDeClientes.setVisible(true);
+			pantallaPrincipal.setContentPane(panelListaDeClientes);
+			pantallaPrincipal.setTitle("Lista de Clientes");
+			
+		});
 		panelMenu.add(btnABMCliente);
 		
 		lblMenuPrincipal = new JLabel("Men\u00FA Principal");

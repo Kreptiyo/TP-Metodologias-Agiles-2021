@@ -28,13 +28,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import dominio.Cliente;
 import excepciones.BaseDeDatosException;
 import gestores.Gestor_Cliente;
+import interfaces_graficas.Lista_Cliente;
 
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 
-public class AltaCliente extends JPanel {
+public class Modificar_Cliente extends JPanel {
 
 	
 	private JFrame frmModificarCliente;
@@ -76,13 +78,15 @@ public class AltaCliente extends JPanel {
 	private JLabel lbldormitorios;
 	private JLabel lblPiscina;
 	
-	public AltaCliente(JFrame pantallaPrincipal) {
-		armarPanel(pantallaPrincipal);
+	public Modificar_Cliente(JFrame pantallaPrincipal, String nombre, String apellido, String id) {
+		armarPanel(pantallaPrincipal, nombre, apellido, id);
 	}
 	
-	public void armarPanel(JFrame pantallaPrincipal) {
+	public void armarPanel(JFrame pantallaPrincipal, String nombre, String apellido, String id) {
 		
 		this.gestorCliente = new Gestor_Cliente();
+		
+		Cliente cliente = this.gestorCliente.buscarPorNombreApellido(nombre, apellido).get(0);
 		
 		setBounds(100, 100, 1024, 768);
 		setLayout(null);	
@@ -130,7 +134,7 @@ public class AltaCliente extends JPanel {
 		lblMonto.setBounds(30, 140, 130, 25);
 		panelDatosInmueble.add(lblMonto);
 		
-		textFieldLocalidad = new JTextField();
+		textFieldLocalidad = new JTextField(cliente.getLocalidad());
 		textFieldLocalidad.setColumns(10);
 		textFieldLocalidad.setBounds(190, 60, 200, 25);
 		panelDatosInmueble.add(textFieldLocalidad);
@@ -154,7 +158,7 @@ public class AltaCliente extends JPanel {
 			}
 		});
 		
-		textFieldBarrio = new JTextField();
+		textFieldBarrio = new JTextField(cliente.getBarrio());
 		textFieldBarrio.setColumns(10);
 		textFieldBarrio.setBounds(190, 100, 200, 25);
 		panelDatosInmueble.add(textFieldBarrio);
@@ -178,7 +182,7 @@ public class AltaCliente extends JPanel {
 			}
 		});
 		
-		textFieldMonto = new JTextField();
+		textFieldMonto = new JTextField(cliente.getMonto().toString());
 		textFieldMonto.setColumns(10);
 		textFieldMonto.setBounds(190, 140, 200, 25);
 		panelDatosInmueble.add(textFieldMonto);
@@ -235,7 +239,8 @@ public class AltaCliente extends JPanel {
 		lblErrorMonto.setVisible(false);
 		panelDatosInmueble.add(lblErrorMonto);
 		
-		textFieldNombre = new JTextField();
+		textFieldNombre = new JTextField(cliente.getNombre());
+		textFieldNombre.setEditable(false);
 		textFieldNombre.setBounds(468, 43, 200, 25);
 		add(textFieldNombre);
 		textFieldNombre.setColumns(10);
@@ -258,7 +263,8 @@ public class AltaCliente extends JPanel {
 
 			}
 		});
-		textFieldApellido = new JTextField();
+		textFieldApellido = new JTextField(cliente.getApellido());
+		textFieldApellido.setEditable(false);
 		textFieldApellido.setColumns(10);
 		textFieldApellido.setBounds(468, 81, 200, 25);
 		add(textFieldApellido);
@@ -282,7 +288,7 @@ public class AltaCliente extends JPanel {
 			}
 		});
 		
-		textFieldTelefono = new JTextField();
+		textFieldTelefono = new JTextField(cliente.getTelefono().toString());
 		textFieldTelefono.setColumns(10);
 		textFieldTelefono.setBounds(468, 121, 200, 25);
 		textFieldTelefono.addKeyListener(new KeyAdapter() {
@@ -296,10 +302,10 @@ public class AltaCliente extends JPanel {
 		   });
 		add(textFieldTelefono);
 		
-		JButton btnAñadirCliente = new JButton("A\u00F1adir");
-		btnAñadirCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAñadirCliente.setBounds(298, 669, 140, 30);
-		add(btnAñadirCliente);
+		JButton btnModificarCliente = new JButton("Modificar");
+		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnModificarCliente.setBounds(298, 669, 140, 30);
+		add(btnModificarCliente);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -335,7 +341,7 @@ public class AltaCliente extends JPanel {
 		lblSuperficie.setBounds(21, 110, 130, 25);
 		panelCaracteristicas.add(lblSuperficie);
 		
-		textFieldFrente = new JTextField();
+		textFieldFrente = new JTextField(cliente.getFrente().toString());
 		textFieldFrente.setColumns(10);
 		textFieldFrente.setBounds(141, 30, 116, 25);
 		panelCaracteristicas.add(textFieldFrente);
@@ -359,7 +365,7 @@ public class AltaCliente extends JPanel {
 		lblBaos.setBounds(21, 190, 130, 25);
 		panelCaracteristicas.add(lblBaos);
 		
-		textFieldFondo = new JTextField();
+		textFieldFondo = new JTextField(cliente.getFondo().toString());
 		textFieldFondo.setColumns(10);
 		textFieldFondo.setBounds(141, 70, 116, 25);
 		panelCaracteristicas.add(textFieldFondo);
@@ -373,7 +379,7 @@ public class AltaCliente extends JPanel {
 		      }
 		   });
 		
-		textFieldSuperficie = new JTextField();
+		textFieldSuperficie = new JTextField(cliente.getSuperficie().toString());
 		textFieldSuperficie.setColumns(10);
 		textFieldSuperficie.setBounds(141, 110, 116, 25);
 		panelCaracteristicas.add(textFieldSuperficie);
@@ -387,7 +393,7 @@ public class AltaCliente extends JPanel {
 		      }
 		   });
 		
-		textFieldAntiguedad = new JTextField();
+		textFieldAntiguedad = new JTextField(cliente.getAntiguedad().toString());
 		textFieldAntiguedad.setColumns(10);
 		textFieldAntiguedad.setBounds(141, 150, 116, 25);
 		panelCaracteristicas.add(textFieldAntiguedad);
@@ -400,7 +406,7 @@ public class AltaCliente extends JPanel {
 		         }
 		      }
 		   });
-		textFieldBaños = new JTextField();
+		textFieldBaños = new JTextField(cliente.getBaños().toString());
 		textFieldBaños.setColumns(10);
 		textFieldBaños.setBounds(141, 190, 116, 25);
 		panelCaracteristicas.add(textFieldBaños);
@@ -419,7 +425,7 @@ public class AltaCliente extends JPanel {
 		lbldormitorios.setBounds(319, 230, 130, 25);
 		panelCaracteristicas.add(lbldormitorios);
 		
-		textFieldDormitorios = new JTextField();
+		textFieldDormitorios = new JTextField(cliente.getDormitorios().toString());
 		textFieldDormitorios.setColumns(10);
 		textFieldDormitorios.setBounds(439, 230, 82, 25);
 		textFieldDormitorios.addKeyListener(new KeyAdapter() {
@@ -438,7 +444,7 @@ public class AltaCliente extends JPanel {
 		lblPiscina.setBounds(555, 230, 130, 25);
 		panelCaracteristicas.add(lblPiscina);
 		
-		 chckbxPiscina = new JCheckBox("Si / No");
+		chckbxPiscina = new JCheckBox("Si / No");
 		chckbxPiscina.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chckbxPiscina.setBounds(676, 230, 93, 21);
 		panelCaracteristicas.add(chckbxPiscina);
@@ -593,9 +599,9 @@ public class AltaCliente extends JPanel {
 		add(lblErrorCaractersiticas);
 		
 		
-		btnAñadirCliente.addActionListener(e-> {
+		btnModificarCliente.addActionListener(e-> {
 			try {
-				this.crearCliente();
+				this.crearCliente(id);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -607,11 +613,12 @@ public class AltaCliente extends JPanel {
 		  });
 	}
 	
-	public void crearCliente() throws SQLException, BaseDeDatosException {
+	public void crearCliente(String id) throws SQLException, BaseDeDatosException {
 		
 		if(!validarDatosVacios()) {
 			
 			this.gestorCliente.actualizarCliente(
+					Integer.parseInt(id),
 					this.textFieldNombre.getText(), 
 					this.textFieldLocalidad.getText(),
 					this.textFieldApellido.getText(),
@@ -659,6 +666,9 @@ public class AltaCliente extends JPanel {
 			
 			int orietacion = this.comboBoxOrientacion.getSelectedIndex();
 			int tipoInmueble =  this.comboBoxTipoInmueble.getSelectedIndex();
+			
+			System.out.println(orietacion);
+			System.out.println(tipoInmueble);
 			
 			this.gestorCliente.actualizarModelo_Datos_Inmueble(
 					orietacion,
@@ -804,3 +814,5 @@ public class AltaCliente extends JPanel {
 	}		
 		
 	}
+
+
