@@ -73,6 +73,36 @@ public class DB
     		"				 PAVIMENTO BOOLEAN, "+
     		"				 PRIMARY KEY(ID), "+
     		"				 FOREIGN KEY (NRO_DOCUMENTO_PROPIETARIO) REFERENCES ma.propietario(NRO_DOCUMENTO))";
+    
+    private static final String TABLE_CREATE_CLIENTE =
+    		"CREATE TABLE IF NOT EXISTS ma.cliente ( "+
+    		"				 NOMBRE VARCHAR(30),"+
+    		"				 APELLIDO VARCHAR(30),"+
+    		"				 TELEFONO INTEGER, "+
+    		"				 TIPO_INMUEBLE VARCHAR(1), "+
+    		"				 LOCALIDAD VARCHAR(30), "+
+    		"				 BARRIO VARCHAR(30), "+
+    		"				 MONTO INTEGER, "+
+    		"				 ORIENTACION VARCHAR(10), "+
+    		"				 FRENTE INTEGER, "+
+    		"				 FONDO INTEGER, "+
+    		"				 SUPERFICIE INTEGER, "+
+    		"				 PROPIEDAD_HORIZONTAL BOOLEAN, "+
+    		"				 ANTIGUEDAD INTEGER, "+
+    		"				 DORMITORIOS INTEGER, "+
+    		"				 BANOS INTEGER, "+
+    		"				 GARAJE BOOLEAN, "+
+    		"				 PATIO BOOLEAN, "+
+    		"				 PISCINA BOOLEAN, "+
+    		"				 AGUA_CORRIENTE BOOLEAN, "+
+    		" 				 CLOACAS BOOLEAN, "+
+    		"				 AGUA_CALIENTE BOOLEAN, "+
+    		"				 HAYTELEFONO BOOLEAN, "+
+    		"				 LAVADERO BOOLEAN, "+
+    		"				 PAVIMENTO BOOLEAN, "+
+    		"				 ID SERIAL, "+
+    		"				 GAS_NATURAL BOOLEAN, "+
+    		"				 PRIMARY KEY(ID), ";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{
@@ -86,6 +116,7 @@ public class DB
 				stmt.execute(TABLE_CREATE_INMUEBLE);
 				stmt.execute(TABLE_CREATE_CATALOGO);
 				stmt.execute(TABLE_CREATE_RENGLON_CATALOGO);
+				stmt.execute(TABLE_CREATE_CLIENTE);
 			}
 			catch(SQLException e)
 			{
