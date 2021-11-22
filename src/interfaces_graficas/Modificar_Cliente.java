@@ -288,7 +288,7 @@ public class Modificar_Cliente extends JPanel {
 			}
 		});
 		
-		textFieldTelefono = new JTextField(cliente.getTelefono().toString());
+		textFieldTelefono = new JTextField(String.valueOf(cliente.getTelefono()));
 		textFieldTelefono.setColumns(10);
 		textFieldTelefono.setBounds(468, 121, 200, 25);
 		textFieldTelefono.addKeyListener(new KeyAdapter() {

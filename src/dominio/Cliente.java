@@ -8,7 +8,7 @@ public class Cliente {
 	private Integer id;
 	private String nombre;
 	private String apellido;
-	private Integer telefono;
+	private long telefono;
 	private String localidad;
 	private String barrio;
 	private Integer monto;
@@ -77,10 +77,10 @@ public class Cliente {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public Integer getTelefono() {
+	public long getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(long telefono) {
 		this.telefono = telefono;
 	}
 	public Tipo_Inmueble getTipoInmueble() {

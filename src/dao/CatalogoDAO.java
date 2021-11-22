@@ -11,5 +11,6 @@ public interface CatalogoDAO
 	
 	public Catalogo saveOrUpdate(Catalogo c) throws BaseDeDatosException, SQLException;
 	public Catalogo buscarCatalogo();
+	void eliminarCatalogoPorInmueble(Integer idInmueble);
 
 }

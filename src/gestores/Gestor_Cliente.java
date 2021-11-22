@@ -36,7 +36,7 @@ public class Gestor_Cliente {
 	}
 	
 	
-	public void actualizarCliente(Integer id, String nombre, String localidad, String apellido, Integer telefono, String barrio, Integer monto)
+	public void actualizarCliente(Integer id, String nombre, String localidad, String apellido, long telefono, String barrio, Integer monto)
 	{	
 		c.setId(id);
 		c.setNombre(nombre);
@@ -47,7 +47,7 @@ public class Gestor_Cliente {
 		c.setMonto(monto);
 	}
 	
-	public void actualizarCliente(String nombre, String localidad, String apellido, Integer telefono, String barrio, Integer monto)
+	public void actualizarCliente(String nombre, String localidad, String apellido, long telefono, String barrio, Integer monto)
 	{	
 		c.setNombre(nombre);
 		c.setLocalidad(localidad);

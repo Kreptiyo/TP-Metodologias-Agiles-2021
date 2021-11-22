@@ -102,7 +102,7 @@ public class DB
     		"				 PAVIMENTO BOOLEAN, "+
     		"				 ID SERIAL, "+
     		"				 GAS_NATURAL BOOLEAN, "+
-    		"				 PRIMARY KEY(ID), ";
+    		"				 PRIMARY KEY(ID)) ";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{

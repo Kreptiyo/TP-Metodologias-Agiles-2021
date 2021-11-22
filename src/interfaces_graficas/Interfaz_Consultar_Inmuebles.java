@@ -22,6 +22,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import dominio.Inmueble;
 import excepciones.BaseDeDatosException;
 import gestores.Gestor_Catalogo;
 import gestores.Gestor_Inmueble;
@@ -40,11 +41,13 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 	private Modelo_Tabla_Consultar_Inmuebles modeloTabla;
 	private Gestor_Inmueble gestorInmueble;
 	private Gestor_Catalogo gestorCatalogo;
+	private List<Inmueble> listaInmuebles;
 
 	public Interfaz_Consultar_Inmuebles(JFrame pantallaPrincipal) 
 	{
 		gestorInmueble = new Gestor_Inmueble();
 		gestorCatalogo = new Gestor_Catalogo();
+		this.listaInmuebles = gestorInmueble.listarTodos();
 		this.armarPanel(pantallaPrincipal);
 	}
 	
@@ -103,12 +106,12 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		JComboBox cbxTipoInmueble = new JComboBox();
 		cbxTipoInmueble.setBounds(207, 140, 135, 25);
 		cbxTipoInmueble.addItem("SELECCIONAR");
-		cbxTipoInmueble.addItem("L / LOCAL U OFICINA");
-		cbxTipoInmueble.addItem("C / CASA");
-		cbxTipoInmueble.addItem("D / DEPARTAMENTO");
-		cbxTipoInmueble.addItem("T / TERRENO");
-		cbxTipoInmueble.addItem("Q / QUINTA");
-		cbxTipoInmueble.addItem("G / GALPÓN");
+		cbxTipoInmueble.addItem("L");
+		cbxTipoInmueble.addItem("C");
+		cbxTipoInmueble.addItem("D");
+		cbxTipoInmueble.addItem("T");
+		cbxTipoInmueble.addItem("Q");
+		cbxTipoInmueble.addItem("G");
 		add(cbxTipoInmueble);
 		
 		JLabel lblDormitorios = new JLabel("Dormitorios:");
@@ -154,7 +157,7 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		lblRangoPrecios.setBounds(66, 208, 185, 25);
 		add(lblRangoPrecios);
 		
-		modeloTabla = new Modelo_Tabla_Consultar_Inmuebles(gestorInmueble.listarTodos());
+		modeloTabla = new Modelo_Tabla_Consultar_Inmuebles(this.listaInmuebles);
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(modeloTabla);
@@ -172,66 +175,54 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		btnFiltrar.addActionListener(e->
 		{
 			
+				String provincia = null;
+				String localidad = null;
+				String barrio = null;
+				String tipoInmueble = null;
+				Integer dormitorios = null;
 				
-				LinkedList<RowFilter> listaDeFiltros = new LinkedList<RowFilter>();
 				
 				if(cbxProvincia.getSelectedIndex() != 0) {
 					
-					listaDeFiltros.add(RowFilter.regexFilter(cbxProvincia.getSelectedItem().toString(),1));
+					provincia = cbxProvincia.getSelectedItem().toString();
 					
 				}
 				
 				if(cbxLocalidad.getSelectedIndex() != 0) {
 					
-					listaDeFiltros.add(RowFilter.regexFilter(cbxLocalidad.getSelectedItem().toString(),2));
+					localidad = cbxLocalidad.getSelectedItem().toString();
 					
 				}
 				
 				if(cbxBarrio.getSelectedIndex() != 0) {
 					
-					listaDeFiltros.add(RowFilter.regexFilter(cbxBarrio.getSelectedItem().toString(),5));
+					barrio = cbxBarrio.getSelectedItem().toString();
 					
 				}
 				
 				if(cbxTipoInmueble.getSelectedIndex() != 0) {
 					
-					switch (cbxTipoInmueble.getSelectedItem().toString()) {
-					case "L / LOCAL U OFICINA":
-						listaDeFiltros.add(RowFilter.regexFilter("L",6));
-						break;
-					case "C / CASA":
-						listaDeFiltros.add(RowFilter.regexFilter("C",6));
-						break;
-					case "D / DEPARTAMENTO":
-						listaDeFiltros.add(RowFilter.regexFilter("D",6));
-						break;
-					case "T / TERRENO":
-						listaDeFiltros.add(RowFilter.regexFilter("T",6));
-						break;
-					case "Q / QUINTA":
-						listaDeFiltros.add(RowFilter.regexFilter("Q",6));
-						break;
-					case "G / GALPÓN":
-						listaDeFiltros.add(RowFilter.regexFilter("G",6));
-						break;
-					}
+					tipoInmueble = cbxTipoInmueble.getSelectedItem().toString();
 					
 				}
 				
-				if(txtDormitorios.getText() != null) {
+				if(!txtDormitorios.getText().isEmpty()) {
 					
-					listaDeFiltros.add(RowFilter.regexFilter(txtDormitorios.getText().toString(),8));
+					dormitorios = Integer.parseInt(txtDormitorios.getText().toString());
 					
 				}
 				
-				if(listaDeFiltros.size()!=0) {
-					
-					orden.setRowFilter(RowFilter.andFilter((Iterable)listaDeFiltros));
-					
+				this.listaInmuebles = this.gestorInmueble.buscarTodosConFiltros(provincia, localidad, barrio, tipoInmueble, dormitorios);
+				if(this.listaInmuebles.size() > 0)
+				{
+					modeloTabla.fireTableDataChanged();
+				}
+				else
+				{
+					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Filtros", "No se encontro ningun inmueble con los filtros establecidos");
 				}
 				
 			});
-		add(btnFiltrar);
 		add(btnFiltrar);
 		
 		JButton btnLimpiarFiltro = new JButton("Limpiar Filtros");

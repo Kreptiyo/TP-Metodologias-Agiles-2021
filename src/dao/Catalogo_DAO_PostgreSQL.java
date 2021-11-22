@@ -32,6 +32,9 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 	
 	private static final String ELIMINAR_RENGLON_CATALOGO =
 			"DELETE FROM ma.renglon_catalogo where ID_CATALOGO = ?";
+	
+	private static final String ELIMINAR_RENGLON_CATALOGO_POR_INMUEBLE =
+			"DELETE FROM ma.renglon_catalogo where ID_INMUEBLE = ?";
 
 	@Override
 	public Catalogo saveOrUpdate(Catalogo c) throws BaseDeDatosException, SQLException {
@@ -114,6 +117,33 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 				pstmt.executeUpdate();
 				pstmt = conn.prepareStatement(ELIMINAR_CATALOGO);
 				pstmt.setInt(1, idCatalogo);
+				pstmt.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(pstmt!=null) pstmt.close();				
+			}
+			catch(SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void eliminarCatalogoPorInmueble(Integer idInmueble) 
+	{
+		PreparedStatement pstmt = null;
+		try 
+		{
+				pstmt = conn.prepareStatement(ELIMINAR_RENGLON_CATALOGO_POR_INMUEBLE);
+				pstmt.setInt(1, idInmueble);
 				pstmt.executeUpdate();
 		} 
 		catch (SQLException e) 

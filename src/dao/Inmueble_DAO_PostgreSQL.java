@@ -259,9 +259,11 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	public void eliminarInmueble(Integer id) 
 	{
 		PreparedStatement pstmt = null;
+		CatalogoDAO catalogo_DAO = new Catalogo_DAO_PostgreSQL();
 		try 
 		{
 				conn.setAutoCommit(false);
+				catalogo_DAO.eliminarCatalogoPorInmueble(id);
 				pstmt = conn.prepareStatement(DELETE_INMUEBLE);
 				pstmt.setInt(1, id);
 				pstmt.executeUpdate();
@@ -536,6 +538,148 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			}
 		}
 		return lista;
+	}
+
+	@Override
+	public List<Inmueble> buscarTodosConFiltros(String provincia, String localidad, String barrio, String tipoInmueble,
+			Integer dormitorios) {
+		//crear sentencia SQL
+		StringBuilder statement = new StringBuilder("SELECT * FROM ma.inmueble WHERE ");
+		if(provincia != null)
+		{
+			statement.append("PROVINCIA = '"+ provincia + "' AND ");
+		}
+		if(localidad != null)
+		{
+			statement.append("LOCALIDAD = '"+ localidad + "' AND ");
+		}
+		if(barrio != null)
+		{
+			statement.append("BARRIO = '"+ barrio + "' AND ");
+		}
+		if(tipoInmueble != null)
+		{
+			statement.append("TIPO_INMUEBLE = '"+ tipoInmueble + "' AND ");
+		}
+		if(dormitorios != null)
+		{
+			statement.append("DORMITORIOS = "+ dormitorios + " AND ");
+		}
+		statement.append("TRUE");
+		String final_statement = statement.toString();
+		
+		//TEST
+		
+		List <Inmueble> lista = new ArrayList<Inmueble>();
+		Propietario_DAO propietarioDAO = new Propietario_DAO_PostgreSQL();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(final_statement);
+			System.out.println(pstmt);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				Inmueble i = new Inmueble();
+				i.setId(rs.getInt("ID"));
+				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getInt("NRO_DOCUMENTO_PROPIETARIO")));
+				i.setProvincia(rs.getString("PROVINCIA"));
+				i.setLocalidad(rs.getString("LOCALIDAD"));
+				i.setCalle(rs.getString("CALLE"));
+				i.setCalleNumero(rs.getInt("CALLE_NUMERO"));
+				i.setPisoDepartamento(rs.getInt("PISO_DEPARTAMENTO"));
+				i.setBarrio(rs.getString("BARRIO"));
+				switch(rs.getString("TIPO_INMUEBLE"))
+				{
+				case "L":
+					i.setTipoDeInmueble(Tipo_Inmueble.L);
+					break;
+				case "C":
+					i.setTipoDeInmueble(Tipo_Inmueble.C);
+					break;
+				case "D":
+					i.setTipoDeInmueble(Tipo_Inmueble.D);
+					break;
+				case "T":
+					i.setTipoDeInmueble(Tipo_Inmueble.T);
+					break;
+				case "Q":
+					i.setTipoDeInmueble(Tipo_Inmueble.Q);
+					break;
+				case "G":
+					i.setTipoDeInmueble(Tipo_Inmueble.G);
+					break;
+				}
+				i.setPrecioDeVenta(rs.getInt("PRECIO"));
+				i.setObservacion(rs.getString("OBSERVACION"));
+				//FALTA VER COMO HACER EL TEMA DE LAS FOTOS
+				switch(rs.getString("ORIENTACION"))
+				{
+				case "NORTE":
+					i.setOrientacion(Orientacion.NORTE);
+					break;
+				case "SUR":
+					i.setOrientacion(Orientacion.SUR);
+					break;
+				case "ESTE":
+					i.setOrientacion(Orientacion.ESTE);
+					break;
+				case "OESTE":
+					i.setOrientacion(Orientacion.OESTE);
+					break;
+				case "NORESTE":
+					i.setOrientacion(Orientacion.NORESTE);
+					break;
+				case "NOROESTE":
+					i.setOrientacion(Orientacion.NOROESTE);
+					break;
+				case "SURESTE":
+					i.setOrientacion(Orientacion.SURESTE);
+					break;
+				case "SUROESTE":
+					i.setOrientacion(Orientacion.SUROESTE);
+					break;
+				}
+				i.setFrente(rs.getInt("FRENTE"));
+				i.setFondo(rs.getInt("FONDO"));
+				i.setSuperficie(rs.getInt("SUPERFICIE"));
+				i.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+				i.setAntiguedad(rs.getInt("ANTIGUEDAD"));
+				i.setDormitorios(rs.getInt("DORMITORIOS"));
+				i.setBaños(rs.getInt("BAÑOS"));
+				i.setGaraje(rs.getBoolean("GARAJE"));
+				i.setPatio(rs.getBoolean("PATIO"));
+				i.setPiscina(rs.getBoolean("PISCINA"));
+				i.setAguaCorriente(rs.getBoolean("AGUA_CORRIENTE"));
+				i.setCloacas(rs.getBoolean("CLOACAS"));
+				i.setGasNatural(rs.getBoolean("GAS_NATURAL"));
+				i.setAguaCaliente(rs.getBoolean("AGUA_CALIENTE"));
+				i.setTelefono(rs.getBoolean("TELEFONO"));
+				i.setLavadero(rs.getBoolean("LAVADERO"));
+				i.setPavimento(rs.getBoolean("PAVIMENTO"));
+				lista.add(i);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return lista;
+		
 	}
 	
 	
