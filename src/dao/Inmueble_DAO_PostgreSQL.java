@@ -263,7 +263,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 		try 
 		{
 				conn.setAutoCommit(false);
-				catalogo_DAO.eliminarCatalogoPorInmueble(id);
+				catalogo_DAO.eliminarCatalogoPorInmueble(id, conn);
 				pstmt = conn.prepareStatement(DELETE_INMUEBLE);
 				pstmt.setInt(1, id);
 				pstmt.executeUpdate();
@@ -568,7 +568,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 		statement.append("TRUE");
 		String final_statement = statement.toString();
 		
-		//TEST
+		
 		
 		List <Inmueble> lista = new ArrayList<Inmueble>();
 		Propietario_DAO propietarioDAO = new Propietario_DAO_PostgreSQL();
@@ -578,7 +578,6 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 		try
 		{
 			pstmt = conn.prepareStatement(final_statement);
-			System.out.println(pstmt);
 			rs = pstmt.executeQuery();
 			while(rs.next())
 			{

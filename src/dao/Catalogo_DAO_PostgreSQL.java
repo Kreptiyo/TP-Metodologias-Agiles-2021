@@ -137,7 +137,7 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 	}
 	
 	@Override
-	public void eliminarCatalogoPorInmueble(Integer idInmueble) 
+	public void eliminarCatalogoPorInmueble(Integer idInmueble, Connection conn) 
 	{
 		PreparedStatement pstmt = null;
 		try 

@@ -212,14 +212,18 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 					
 				}
 				
-				this.listaInmuebles = this.gestorInmueble.buscarTodosConFiltros(provincia, localidad, barrio, tipoInmueble, dormitorios);
-				if(this.listaInmuebles.size() > 0)
+				if(this.gestorInmueble.buscarTodosConFiltros(provincia, localidad, barrio, tipoInmueble, dormitorios).size() > 0)
 				{
+					this.listaInmuebles = this.gestorInmueble.buscarTodosConFiltros(provincia, localidad, barrio, tipoInmueble, dormitorios);
 					modeloTabla.fireTableDataChanged();
 				}
 				else
 				{
 					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Filtros", "No se encontro ningun inmueble con los filtros establecidos");
+					this.setVisible(false);
+					JPanel refrescar = new Interfaz_Consultar_Inmuebles(pantallaPrincipal);
+					pantallaPrincipal.setContentPane(refrescar);
+					pantallaPrincipal.setTitle("Lista de Inmuebles");
 				}
 				
 			});
@@ -269,7 +273,6 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 				List<String> idsInmuebles = new ArrayList<String>();
 				for(int i=0; i<table.getRowCount();i++) {
 					idsInmuebles.add(modeloTabla.obtenerIdInmueble(i).toString());
-					System.out.println("id del inmueble seleccionado para catalogo: "+modeloTabla.obtenerIdInmueble(i).toString());
 				}
 				try {
 					gestorCatalogo.generarCatalogo(1, idsInmuebles);
