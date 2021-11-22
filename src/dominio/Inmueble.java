@@ -33,7 +33,16 @@ public class Inmueble
 	Boolean telefono;
 	Boolean lavadero;
 	Boolean pavimento;
+	Boolean Reservado;
 	
+	public Boolean getReservado() {
+		return Reservado;
+	}
+
+	public void setReservado(Boolean reservado) {
+		Reservado = reservado;
+	}
+
 	public enum Tipo_Inmueble
 	{
 		L, C, D, T, Q, G
