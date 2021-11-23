@@ -36,7 +36,7 @@ public class Gestor_Cliente {
 	}
 	
 	
-	public void actualizarCliente(Integer id, String nombre, String localidad, String apellido, long telefono, String barrio, Integer monto)
+	public void actualizarCliente(Integer id, String nombre, String localidad, String apellido, Long telefono, String barrio, Integer monto, String mail, String contraseña, String documento)
 	{	
 		c.setId(id);
 		c.setNombre(nombre);
@@ -45,9 +45,12 @@ public class Gestor_Cliente {
 		c.setTelefono(telefono);
 		c.setBarrio(barrio);
 		c.setMonto(monto);
+		c.setMail(mail);
+		c.setContraseña(contraseña);
+		c.setNroDocumento(documento);
 	}
 	
-	public void actualizarCliente(String nombre, String localidad, String apellido, long telefono, String barrio, Integer monto)
+	public void actualizarCliente(String nombre, String localidad, String apellido, Long telefono, String barrio, Integer monto, String mail, String contraseña, String documento)
 	{	
 		c.setNombre(nombre);
 		c.setLocalidad(localidad);
@@ -55,6 +58,9 @@ public class Gestor_Cliente {
 		c.setTelefono(telefono);
 		c.setBarrio(barrio);
 		c.setMonto(monto);
+		c.setNroDocumento(documento);
+		c.setMail(mail);
+		c.setContraseña(contraseña);
 	}
 	
 	public void actualizarModelo_Datos_Inmueble(
