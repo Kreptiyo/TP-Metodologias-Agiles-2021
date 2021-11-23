@@ -264,6 +264,13 @@ public class Gestor_Inmueble
 		return this.listaDeInmuebles;
 	}
 	
+	public List<Inmueble> buscarTodosConFiltros(String provincia, String localidad, String barrio, String tipoInmueble, Integer dormitorios)
+	{
+		this.listaDeInmuebles.clear();
+		this.listaDeInmuebles.addAll(inmuebleDAO.buscarTodosConFiltros(provincia, localidad, barrio, tipoInmueble, dormitorios));
+		return this.listaDeInmuebles;
+	}
+	
 	public Inmueble buscarPorId(Integer id) {
 		return inmuebleDAO.buscarPorId(id);
 	}

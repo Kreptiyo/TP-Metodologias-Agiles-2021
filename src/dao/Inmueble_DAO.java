@@ -11,6 +11,7 @@ public interface Inmueble_DAO
 {
 	public Inmueble saveOrUpdate(Inmueble i) throws BaseDeDatosException, SQLException;
 	public List<Inmueble> buscarTodos();
+	public List<Inmueble> buscarTodosConFiltros(String provincia, String localidad, String barrio, String tipoInmueble, Integer dormitorios);
 	public void eliminarInmueble(Integer id);
 	public Inmueble buscarPorId(Integer id);
 	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(Integer nroDocumento);

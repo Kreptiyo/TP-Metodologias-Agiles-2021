@@ -107,7 +107,24 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 					txtPropietario.setText(this.propietario.getNombre() + " " + propietario.getApellido());
 					this.listaInmuebles.clear();
 					this.listaInmuebles.addAll(gestorInmueble.buscarTodos(propietario.getNrodocumento()));
-					this.modeloTabla.fireTableDataChanged();
+					if(this.listaInmuebles.size() > 0)
+					{
+						this.modeloTabla.fireTableDataChanged();
+					}
+					else
+					{
+						this.mostrarMensajeAdvertencia(pantallaPrincipal, "Cliente sin inmuebles", "Este cliente no contiene ningun inmueble, agregue alguno porfavor");
+					}
+				}
+				else
+				{
+					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Cliente inexistente", "Este cliente no se encuentra registrado en la base de datos");
+					this.setVisible(false);
+					JPanel refrescar = new Interfaz_Gestionar_Inmueble(pantallaPrincipal);
+					pantallaPrincipal.setContentPane(refrescar);
+					pantallaPrincipal.setTitle("Gestionar Inmuebles");
+					
+					
 				}
 			}
 		});
@@ -151,7 +168,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 		btnEliminar.addActionListener(e ->{
 			if(table.getSelectedRow() != -1) 
 			{
-				int resp = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el inmuueble del sistema?");
+				int resp = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el inmueble del sistema?");
 				if(resp==JOptionPane.YES_OPTION)
 				{
 					Integer id_Inmueble = modeloTabla.obtenerIdInmueble(table.getSelectedRow());
@@ -159,7 +176,18 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 					this.mostrarMensajeExito(pantallaPrincipal, "Eliminar inmueble", "Se elimino el inmueble correctamente");
 					this.listaInmuebles.clear();
 					this.listaInmuebles.addAll(gestorInmueble.buscarTodos(propietario.getNrodocumento()));
-					this.modeloTabla.fireTableDataChanged();
+					if(this.listaInmuebles.size() > 0)
+					{
+						this.modeloTabla.fireTableDataChanged();
+					}
+					else
+					{
+						this.mostrarMensajeAdvertencia(pantallaPrincipal, "Cliente sin inmuebles", "Se ha eliminado todos los inmuebles del cliente");
+						this.setVisible(false);
+						JPanel refrescar = new Interfaz_Gestionar_Inmueble(pantallaPrincipal);
+						pantallaPrincipal.setContentPane(refrescar);
+						pantallaPrincipal.setTitle("Gestionar Inmuebles");
+					}
 				}
 			}
 			else 

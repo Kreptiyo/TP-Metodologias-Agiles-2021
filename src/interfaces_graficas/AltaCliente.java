@@ -722,7 +722,7 @@ public class AltaCliente extends JPanel {
 					this.textFieldNombre.getText(), 
 					this.textFieldLocalidad.getText(),
 					this.textFieldApellido.getText(),
-					Integer.parseInt(this.textFieldTelefono.getText()),
+					Long.parseLong(this.textFieldTelefono.getText()),
 					this.textFieldBarrio.getText(),
 					Integer.parseInt(this.textFieldMonto.getText()),
 					this.textFieldMail.getText(),

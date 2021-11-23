@@ -59,7 +59,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					pstmt = conn.prepareStatement(UPDATE_CLIENTE);
 					pstmt.setString(1, c.getNombre());
 					pstmt.setString(2, c.getApellido());
-					pstmt.setInt(3, c.getTelefono());
+					pstmt.setLong(3, c.getTelefono());
 					pstmt.setString(4, c.getTipoInmueble().toString());
 					pstmt.setString(5, c.getLocalidad());
 					pstmt.setString(6, c.getBarrio());
@@ -97,7 +97,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					pstmt = conn.prepareStatement(INSERT_CLIENTE);
 					pstmt.setString(1, c.getNombre());
 					pstmt.setString(2, c.getApellido());
-					pstmt.setInt(3, c.getTelefono());
+					pstmt.setLong(3, c.getTelefono());
 					pstmt.setString(4, c.getTipoInmueble().toString());
 					pstmt.setString(5, c.getLocalidad());
 					pstmt.setString(6, c.getBarrio());

@@ -297,6 +297,20 @@ public class Modificar_Cliente extends JPanel {
 			}
 		});
 		
+		textFieldTelefono = new JTextField(String.valueOf(cliente.getTelefono()));
+		textFieldTelefono.setColumns(10);
+		textFieldTelefono.setBounds(468, 121, 200, 25);
+		textFieldTelefono.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldTelefono.setEditable(true);
+		         } else {
+		        	 textFieldTelefono.setEditable(false);
+		         }
+		      }
+		   });
+		add(textFieldTelefono);
+
 		JButton btnModificarCliente = new JButton("Modificar");
 		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnModificarCliente.setBounds(298, 669, 140, 30);
@@ -670,7 +684,7 @@ public class Modificar_Cliente extends JPanel {
 		lblnroDocumento.setBounds(551, 126, 130, 25);
 		add(lblnroDocumento);
 		
-		textFieldTelefono = new JTextField(cliente.getTelefono().toString());
+		textFieldTelefono = new JTextField(Long.toString(cliente.getTelefono()));
 		textFieldTelefono.setBounds(274, 128, 200, 25);
 		add(textFieldTelefono);
 		textFieldTelefono.setColumns(10);

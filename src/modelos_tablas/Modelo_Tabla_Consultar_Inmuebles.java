@@ -60,12 +60,13 @@ public class Modelo_Tabla_Consultar_Inmuebles extends AbstractTableModel {
 	    }
 	        
 	    public Integer obtenerIdInmueble(int row){
-	            Inmueble i = data.get(row);
+	    		Inmueble i = data.get(row);
 	            return i.getId();
 	    }
 
 	    public int getRowCount() 
 		{
 			return data.size();
-		}
+		} 
+
 }
