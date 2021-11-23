@@ -29,7 +29,7 @@ public class Gestor_Propietario {
 	}
 	
 	
-	public Propietario crear_Propietario(Integer id_Propietario, String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+	public Propietario crear_Propietario(Integer id_Propietario, String nombre, String apellido, String tipoDocumento, String numDocumento, String numTelefono, String email,
 								  String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception, SQLException, BaseDeDatosException 
 	{
 		/*la excepcion de datos invalidos la vuelvo a relanzar para atraparla en la gui de alta de propietario con el fin de marcar los campos
@@ -43,7 +43,7 @@ public class Gestor_Propietario {
 	
 	/*valida que los campos este completos, caso contrario lanza una excepcion de campos invalidos*/
 	
-	public void validar_Datos(String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+	public void validar_Datos(String nombre, String apellido, String tipoDocumento, String numDocumento, String numTelefono, String email,
 			String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception 
 	{
 		/*si alguno de los campos esta vacio, agrega el campo a la lista de errores y un mensaje a la lista de mensaje a mostrar. */
@@ -120,7 +120,7 @@ public class Gestor_Propietario {
 		
 	}
 	
-	public void actualizarModelo(Propietario p, Integer id_Propietario, String nombre, String apellido, String tipoDocumento, Integer numDocumento, Integer numTelefono, String email,
+	public void actualizarModelo(Propietario p, Integer id_Propietario, String nombre, String apellido, String tipoDocumento, String numDocumento, String numTelefono, String email,
 			String calle, Integer numCalle, String provincia, String localidad)
 	{
 		if(id_Propietario > 0)
@@ -163,7 +163,7 @@ public class Gestor_Propietario {
 		return this.listaDePropietarios;
 	}
 	
-	public Propietario buscarPorNroDocumento(Integer nroDocumento)
+	public Propietario buscarPorNroDocumento(String nroDocumento)
 	{
 		Propietario p = propietarioDAO.buscarPorNroDocumento(nroDocumento);
 		return p;

@@ -15,12 +15,12 @@ public class DB
 			"				 NOMBRE VARCHAR(30), "+
 			"				 APELLIDO VARCHAR(30), "+
 			"				 TIPO_DOCUMENTO VARCHAR(9), "+
-			"				 NRO_DOCUMENTO INTEGER UNIQUE, "+
+			"				 NRO_DOCUMENTO VARCHAR(12) UNIQUE, "+
 			"				 CALLE VARCHAR(100), "+
 			"				 NRO_CALLE INTEGER, "+
 			"				 LOCALIDAD VARCHAR(30), "+
 			"				 PROVINCIA VARCHAR(30), "+
-			"				 TELEFONO INTEGER, "+
+			"				 TELEFONO VARCHAR(15), "+
 			"				 EMAIL VARCHAR(100), "+
 			"				 PRIMARY KEY(ID)) ";
 	
@@ -42,7 +42,7 @@ public class DB
     private static final String TABLE_CREATE_INMUEBLE =
     		"CREATE TABLE IF NOT EXISTS ma.inmueble ( "+
     		"				 ID SERIAL, "+
-    		"				 NRO_DOCUMENTO_PROPIETARIO INTEGER, "+
+    		"				 NRO_DOCUMENTO_PROPIETARIO VARCHAR(12), "+
     		"				 PROVINCIA VARCHAR(30), "+
     		"				 LOCALIDAD VARCHAR(30), "+
     		"				 CALLE VARCHAR(30), "+
@@ -78,7 +78,7 @@ public class DB
     		"CREATE TABLE IF NOT EXISTS ma.cliente ( "+
     		"				 NOMBRE VARCHAR(30),"+
     		"				 APELLIDO VARCHAR(30),"+
-    		"				 TELEFONO INTEGER, "+
+    		"				 TELEFONO VARCHAR(15), "+
     		"				 TIPO_INMUEBLE VARCHAR(1), "+
     		"				 LOCALIDAD VARCHAR(30), "+
     		"				 BARRIO VARCHAR(30), "+
@@ -102,9 +102,9 @@ public class DB
     		"				 PAVIMENTO BOOLEAN, "+
     		"				 ID SERIAL, "+
     		"				 GAS_NATURAL BOOLEAN, "+
-    		"				 NRO_DOCUMENTO VARCHAR(30),"+
+    		"				 NRO_DOCUMENTO VARCHAR(12) UNIQUE,"+
     		"				 MAIL VARCHAR(30),"+
-    		"				 CONTRASENA VARCHAR(30),"+
+    		"				 PASSWORD VARCHAR(30),"+
     		"				 PRIMARY KEY(ID)) ";
 	
 	public static void verificarCrearTablas(Connection conn)

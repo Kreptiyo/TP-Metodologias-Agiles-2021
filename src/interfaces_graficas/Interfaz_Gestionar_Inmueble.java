@@ -102,7 +102,7 @@ public class Interfaz_Gestionar_Inmueble extends JPanel {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(e-> {
 			if(!this.txtNumDocumento.getText().isEmpty()) {
-				propietario = gestorPropietario.buscarPorNroDocumento(Integer.parseInt(txtNumDocumento.getText().toString()));
+				propietario = gestorPropietario.buscarPorNroDocumento(txtNumDocumento.getText().toString());
 				if(propietario.getId()!=null){
 					txtPropietario.setText(this.propietario.getNombre() + " " + propietario.getApellido());
 					this.listaInmuebles.clear();

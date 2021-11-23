@@ -11,7 +11,7 @@ public class Cliente {
 	private String nroDocumento;
 	private String mail;
 	private String contraseña;
-	private long telefono;
+	private String telefono;
 	private String localidad;
 	private String barrio;
 	private Integer monto;
@@ -105,10 +105,10 @@ public class Cliente {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public long getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(long telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public Tipo_Inmueble getTipoInmueble() {

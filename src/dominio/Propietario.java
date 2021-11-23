@@ -6,12 +6,12 @@ public class Propietario
 	private String nombre;
 	private String apellido;
 	private Tipo_Documento tipodocumento;
-	private Integer nrodocumento;
+	private String nrodocumento;
 	private String calle;
 	private Integer nrocalle;
 	private String localidad;
 	private String provincia;
-	private Integer telefono;
+	private String telefono;
 	private String email;
 	
 	public enum Tipo_Documento
@@ -24,8 +24,8 @@ public class Propietario
 		super();
 	}
 	
-	public Propietario(Integer id, String nombre, String apellido, Tipo_Documento tipodocumento, Integer nrodocumento, String calle,
-			Integer nrocalle, String localidad, String provincia, Integer telefono, String email)
+	public Propietario(Integer id, String nombre, String apellido, Tipo_Documento tipodocumento, String nrodocumento, String calle,
+			Integer nrocalle, String localidad, String provincia, String telefono, String email)
 	{
 		super();
 		this.id = id;
@@ -41,8 +41,8 @@ public class Propietario
 		this.email = email;
 	}
 	
-	public Propietario(String nombre, String apellido, Tipo_Documento tipodocumento, Integer nrodocumento, String calle,
-			Integer nrocalle, String localidad, String provincia, Integer telefono, String email)
+	public Propietario(String nombre, String apellido, Tipo_Documento tipodocumento, String nrodocumento, String calle,
+			Integer nrocalle, String localidad, String provincia, String telefono, String email)
 	{
 		super();
 		this.nombre = nombre;
@@ -97,12 +97,12 @@ public class Propietario
 		this.tipodocumento = tipodocumento;
 	}
 
-	public Integer getNrodocumento() 
+	public String getNrodocumento() 
 	{
 		return nrodocumento;
 	}
 
-	public void setNrodocumento(Integer nrodocumento) 
+	public void setNrodocumento(String nrodocumento) 
 	{
 		this.nrodocumento = nrodocumento;
 	}
@@ -147,12 +147,12 @@ public class Propietario
 		this.provincia = provincia;
 	}
 
-	public Integer getTelefono() 
+	public String getTelefono() 
 	{
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) 
+	public void setTelefono(String telefono) 
 	{
 		this.telefono = telefono;
 	}

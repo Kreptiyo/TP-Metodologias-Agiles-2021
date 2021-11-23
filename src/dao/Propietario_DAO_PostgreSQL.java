@@ -49,12 +49,12 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 					pstmt.setString(1, p.getNombre());
 					pstmt.setString(2, p.getApellido());
 					pstmt.setString(3, p.getTipodocumento().toString());
-					pstmt.setInt(4, p.getNrodocumento());
+					pstmt.setString(4, p.getNrodocumento());
 					pstmt.setString(5, p.getCalle());
 					pstmt.setInt(6, p.getNrocalle());
 					pstmt.setString(7, p.getLocalidad());
 					pstmt.setString(8, p.getProvincia());
-					pstmt.setInt(9, p.getTelefono());
+					pstmt.setString(9, p.getTelefono());
 					pstmt.setString(10, p.getEmail());
 					pstmt.setInt(11, p.getId());
 					pstmt.executeUpdate();
@@ -68,12 +68,12 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 					pstmt.setString(1, p.getNombre());
 					pstmt.setString(2, p.getApellido());
 					pstmt.setString(3, p.getTipodocumento().toString());
-					pstmt.setInt(4, p.getNrodocumento());
+					pstmt.setString(4, p.getNrodocumento());
 					pstmt.setString(5, p.getCalle());
 					pstmt.setInt(6, p.getNrocalle());
 					pstmt.setString(7, p.getLocalidad());
 					pstmt.setString(8, p.getProvincia());
-					pstmt.setInt(9, p.getTelefono());
+					pstmt.setString(9, p.getTelefono());
 					pstmt.setString(10, p.getEmail());
 					pstmt.executeUpdate();
 					conn.commit();
@@ -134,12 +134,12 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 					p.setTipodocumento(Tipo_Documento.Pasaporte);
 					break;
 				}
-				p.setNrodocumento(rs.getInt("NRO_DOCUMENTO"));
+				p.setNrodocumento(rs.getString("NRO_DOCUMENTO"));
 				p.setCalle(rs.getString("CALLE"));
 				p.setNrocalle(rs.getInt("NRO_CALLE"));
 				p.setLocalidad(rs.getString("LOCALIDAD"));
 				p.setProvincia(rs.getString("PROVINCIA"));
-				p.setTelefono(rs.getInt("TELEFONO"));
+				p.setTelefono(rs.getString("TELEFONO"));
 				p.setEmail(rs.getString("EMAIL"));
 				lista.add(p);
 			}
@@ -164,11 +164,11 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 	}
 	
 	@Override
-	public Integer obtenerNroDocumentoPropietario(Integer id) 
+	public String obtenerNroDocumentoPropietario(Integer id) 
 	{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Integer resultado = -1;
+		String resultado = null;
 		try 
 		{
 				pstmt = conn.prepareStatement(SELECT_NRO_DOCUMENTO_PROPIETARIO);
@@ -176,7 +176,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 				rs = pstmt.executeQuery();
 				while(rs.next())
 				{
-					resultado = rs.getInt("NRO_DOCUMENTO");
+					resultado = rs.getString("NRO_DOCUMENTO");
 				}
 		} 
 		catch (SQLException e) 
@@ -228,7 +228,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 	}
 
 	@Override
-	public Propietario buscarPorNroDocumento(Integer nroDocumento) {
+	public Propietario buscarPorNroDocumento(String nroDocumento) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Propietario p = new Propietario();
@@ -236,7 +236,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 		try
 		{
 			pstmt = conn.prepareStatement(SELECT_PROPIETARIO);
-			pstmt.setInt(1, nroDocumento);
+			pstmt.setString(1, nroDocumento);
 			rs = pstmt.executeQuery();
 			while(rs.next())
 			{
@@ -261,12 +261,12 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 					p.setTipodocumento(Tipo_Documento.Pasaporte);
 					break;
 				}
-				p.setNrodocumento(rs.getInt("NRO_DOCUMENTO"));
+				p.setNrodocumento(rs.getString("NRO_DOCUMENTO"));
 				p.setCalle(rs.getString("CALLE"));
 				p.setNrocalle(rs.getInt("NRO_CALLE"));
 				p.setLocalidad(rs.getString("LOCALIDAD"));
 				p.setProvincia(rs.getString("PROVINCIA"));
-				p.setTelefono(rs.getInt("TELEFONO"));
+				p.setTelefono(rs.getString("TELEFONO"));
 				p.setEmail(rs.getString("EMAIL"));
 			}
 		}

@@ -60,7 +60,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, Integer nroDocumento, Integer idInmueble) {
+	public Alta_Modificacion_Inmueble_Pagina_1(JFrame pantallaPrincipal, String nroDocumento, Integer idInmueble) {
 		this.gestorInmueble = new Gestor_Inmueble();
 		inmueble = new Inmueble();
 		this.armarPanel(pantallaPrincipal, nroDocumento, idInmueble);
@@ -81,7 +81,7 @@ public class Alta_Modificacion_Inmueble_Pagina_1 extends JPanel {
 	}*/
 	
 
-	public void armarPanel(JFrame pantallaPrincipal, Integer nroDocumento, Integer idInmueble) {
+	public void armarPanel(JFrame pantallaPrincipal, String nroDocumento, Integer idInmueble) {
 		setForeground(Color.GRAY);
 		setLayout(null);
 		

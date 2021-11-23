@@ -71,8 +71,8 @@ public class Alta_Modificacion_Propietario extends JPanel {
 		this.armarPanel(pantallaPrincipal, -1);
 	}
 	
-	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal,Integer id_Propietario, String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
-	String localidad, String provincia, Integer telefono,String email) 
+	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal,Integer id_Propietario, String nombre, String apellido, String tipoDoc, String nrodocumento,String calle, Integer nrocalle,
+	String localidad, String provincia, String telefono,String email) 
 	{
 		this.armarPanel(pantallaPrincipal, id_Propietario);
 		this.setearDatos(nombre, apellido, tipoDoc, nrodocumento,calle, nrocalle,
@@ -285,13 +285,13 @@ public class Alta_Modificacion_Propietario extends JPanel {
 				String nombre = this.txtNombre.getText().toString();
 				String apellido = this.txtApellido.getText().toString();
 				String tipoDocumento = this.cbxTipoDocumento.getSelectedItem().toString();
-				Integer numDocumento = null;
+				String numDocumento = null;
 				if(!txtNumDocumento.getText().isEmpty()) {
-					numDocumento = Integer.parseInt(this.txtNumDocumento.getText().toString());
+					numDocumento = this.txtNumDocumento.getText().toString();
 				}
-				Integer numTelefono = null;
+				String numTelefono = null;
 				if(!txtNumTelefono.getText().isEmpty()) {
-					numTelefono = Integer.parseInt(this.txtNumTelefono.getText().toString());
+					numTelefono = this.txtNumTelefono.getText().toString();
 				}
 				String email = this.txtEmail.getText().toString();
 				String calle = this.txtCalle.getText().toString();
@@ -623,8 +623,8 @@ public class Alta_Modificacion_Propietario extends JPanel {
 		this.cbxLocalidad.setSelectedIndex(0);
 	}
 	
-	private void setearDatos(String nombre, String apellido, String tipoDoc, Integer nrodocumento,String calle, Integer nrocalle,
-			String localidad, String provincia, Integer telefono,String email) 
+	private void setearDatos(String nombre, String apellido, String tipoDoc, String nrodocumento,String calle, Integer nrocalle,
+			String localidad, String provincia, String telefono,String email) 
 	{
 		//Esto es para que setee los datos del prop e inhabilite los campos nombre apellido tipo y num doc
 				this.txtNombre.setText(nombre);

@@ -14,6 +14,6 @@ public interface Inmueble_DAO
 	public List<Inmueble> buscarTodosConFiltros(String provincia, String localidad, String barrio, String tipoInmueble, Integer dormitorios);
 	public void eliminarInmueble(Integer id);
 	public Inmueble buscarPorId(Integer id);
-	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(Integer nroDocumento);
-	void eliminarInmueblePropietario(Integer nroDocumento);
+	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(String nroDocumento);
+	void eliminarInmueblePropietario(String nroDocumento);
 }

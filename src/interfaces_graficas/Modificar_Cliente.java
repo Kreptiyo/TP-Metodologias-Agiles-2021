@@ -684,7 +684,7 @@ public class Modificar_Cliente extends JPanel {
 		lblnroDocumento.setBounds(551, 126, 130, 25);
 		add(lblnroDocumento);
 		
-		textFieldTelefono = new JTextField(Long.toString(cliente.getTelefono()));
+		textFieldTelefono = new JTextField(cliente.getTelefono());
 		textFieldTelefono.setBounds(274, 128, 200, 25);
 		add(textFieldTelefono);
 		textFieldTelefono.setColumns(10);
@@ -743,7 +743,7 @@ public class Modificar_Cliente extends JPanel {
 					this.textFieldNombre.getText(), 
 					this.textFieldLocalidad.getText(),
 					this.textFieldApellido.getText(),
-					Long.parseLong(this.textFieldTelefono.getText()),
+					this.textFieldTelefono.getText(),
 					this.textFieldBarrio.getText(),
 					Integer.parseInt(this.textFieldMonto.getText()),
 					this.textFieldMail.getText(),

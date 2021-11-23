@@ -34,11 +34,11 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 	private static final String INSERT_CLIENTE =
 			"INSERT INTO ma.cliente (NOMBRE, APELLIDO, TELEFONO, TIPO_INMUEBLE, LOCALIDAD, BARRIO, MONTO , ORIENTACION, "
 			+ "FRENTE, FONDO, SUPERFICIE, PROPIEDAD_HORIZONTAL, ANTIGUEDAD, DORMITORIOS, BANOS, GARAJE, PATIO, PISCINA, AGUA_CORRIENTE, CLOACAS,  "
-			+ "AGUA_CALIENTE, HAYTELEFONO, LAVADERO, PAVIMENTO, GAS_NATURAL, NRO_DOCUMENTO, MAIL, CONTRASENA) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ "AGUA_CALIENTE, HAYTELEFONO, LAVADERO, PAVIMENTO, GAS_NATURAL, NRO_DOCUMENTO, MAIL, PASSWORD) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String UPDATE_CLIENTE =
 			"UPDATE ma.cliente SET NOMBRE = ?, APELLIDO = ?, TELEFONO = ?, TIPO_INMUEBLE = ?, LOCALIDAD = ?, BARRIO = ?, MONTO = ?, ORIENTACION = ?,FRENTE = ?, FONDO = ?, SUPERFICIE = ?, PROPIEDAD_HORIZONTAL = ?, ANTIGUEDAD = ?, DORMITORIOS = ?, BANOS = ?, GARAJE = ?, PATIO = ?, PISCINA = ?, AGUA_CORRIENTE = ?, CLOACAS = ?,"
-			+ "AGUA_CALIENTE = ?, HAYTELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?,  GAS_NATURAL = ? , NRO_DOCUMENTO = ?, MAIL = ?,CONTRASENA = ?"+
+			+ "AGUA_CALIENTE = ?, HAYTELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?,  GAS_NATURAL = ? , NRO_DOCUMENTO = ?, MAIL = ?,PASSWORD = ?"+
 		    "WHERE ID = ?";
 	
 	private static final String DELETE_CLIENTE =
@@ -59,7 +59,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					pstmt = conn.prepareStatement(UPDATE_CLIENTE);
 					pstmt.setString(1, c.getNombre());
 					pstmt.setString(2, c.getApellido());
-					pstmt.setLong(3, c.getTelefono());
+					pstmt.setString(3, c.getTelefono());
 					pstmt.setString(4, c.getTipoInmueble().toString());
 					pstmt.setString(5, c.getLocalidad());
 					pstmt.setString(6, c.getBarrio());
@@ -97,7 +97,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					pstmt = conn.prepareStatement(INSERT_CLIENTE);
 					pstmt.setString(1, c.getNombre());
 					pstmt.setString(2, c.getApellido());
-					pstmt.setLong(3, c.getTelefono());
+					pstmt.setString(3, c.getTelefono());
 					pstmt.setString(4, c.getTipoInmueble().toString());
 					pstmt.setString(5, c.getLocalidad());
 					pstmt.setString(6, c.getBarrio());
@@ -164,7 +164,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 				c.setId(rs.getInt("ID"));
 				c.setNombre(rs.getString("NOMBRE"));
 				c.setApellido(rs.getString("APELLIDO"));
-				c.setTelefono(rs.getInt("TELEFONO"));
+				c.setTelefono(rs.getString("TELEFONO"));
 				
 				switch(rs.getString("TIPO_INMUEBLE"))
 				{
@@ -240,7 +240,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 				c.setPavimento(rs.getBoolean("PAVIMENTO"));
 				c.setNroDocumento(rs.getString("NRO_DOCUMENTO"));
 				c.setMail(rs.getString("MAIL"));
-				c.setContraseña(rs.getString("CONTRASENA"));
+				c.setContraseña(rs.getString("PASSWORD"));
 				lista.add(c);
 			}
 		}
@@ -327,7 +327,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					c.setId(rs.getInt("ID"));
 					c.setNombre(rs.getString("NOMBRE"));
 					c.setApellido(rs.getString("APELLIDO"));
-					c.setTelefono(rs.getInt("TELEFONO"));
+					c.setTelefono(rs.getString("TELEFONO"));
 					
 					switch(rs.getString("TIPO_INMUEBLE"))
 					{
@@ -403,7 +403,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 					c.setPavimento(rs.getBoolean("PAVIMENTO"));
 					c.setNroDocumento(rs.getString("NRO_DOCUMENTO"));
 					c.setMail(rs.getString("MAIL"));
-					c.setContraseña(rs.getString("CONTRASENA"));
+					c.setContraseña(rs.getString("PASSWORD"));
 					lista.add(c);
 				}
 			}

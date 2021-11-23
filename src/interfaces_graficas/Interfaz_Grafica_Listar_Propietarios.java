@@ -245,12 +245,12 @@ public class Interfaz_Grafica_Listar_Propietarios extends JPanel {
 				Tipo_Documento tipoDoc =  (Tipo_Documento) modeloTabla.getValueAt(table.getSelectedRow(), 2);
 				/*al ser un enum lo paso a string*/
 				String tipoDocumento = tipoDoc.toString();
-				Integer numDoc = (Integer) modeloTabla.getValueAt(table.getSelectedRow(), 3);
+				String numDoc = (String) modeloTabla.getValueAt(table.getSelectedRow(), 3);
 				String provincia = (String) modeloTabla.getValueAt(table.getSelectedRow(), 4);
 				String localidad = (String) modeloTabla.getValueAt(table.getSelectedRow(), 5);
 				String calle = (String) modeloTabla.getValueAt(table.getSelectedRow(), 6);
 				Integer numCalle = (Integer) modeloTabla.getValueAt(table.getSelectedRow(), 7);
-				Integer telefono = (Integer) modeloTabla.getValueAt(table.getSelectedRow(), 8);
+				String telefono = (String) modeloTabla.getValueAt(table.getSelectedRow(), 8);
 				String email = (String) modeloTabla.getValueAt(table.getSelectedRow(), 9);
 				
 				/*le pasamos todos los datos de arriba, junto con la pantalla principal, para que pueda inicializar la pantalla modificar con esos datos*/

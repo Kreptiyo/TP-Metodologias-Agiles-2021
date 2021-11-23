@@ -245,7 +245,7 @@ public class Gestor_Inmueble
 	}
 	
 	
-	public void actualizarModelo_Propietario(Integer nroDocumento)
+	public void actualizarModelo_Propietario(String nroDocumento)
 	{
 		i.setPropietario(gestorPropietario.buscarPorNroDocumento(nroDocumento));
 	}
@@ -257,7 +257,7 @@ public class Gestor_Inmueble
 		return this.listaDeInmuebles;
 	}
 	
-	public List<Inmueble> buscarTodos(Integer nroDocumento)
+	public List<Inmueble> buscarTodos(String nroDocumento)
 	{
 		this.listaDeInmuebles.clear();
 		this.listaDeInmuebles.addAll(inmuebleDAO.buscarTodosPorNroDocumentoPropietario(nroDocumento));

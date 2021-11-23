@@ -53,7 +53,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			{
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(UPDATE_INMUEBLE);
-				pstmt.setInt(1, i.getPropietario().getNrodocumento());
+				pstmt.setString(1, i.getPropietario().getNrodocumento());
 				pstmt.setString(2, i.getProvincia());
 				pstmt.setString(3, i.getLocalidad());
 				pstmt.setString(4, i.getCalle());
@@ -90,7 +90,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			{
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(INSERT_INMUEBLE);
-				pstmt.setInt(1, i.getPropietario().getNrodocumento());
+				pstmt.setString(1, i.getPropietario().getNrodocumento());
 				pstmt.setString(2, i.getProvincia());
 				pstmt.setString(3, i.getLocalidad());
 				pstmt.setString(4, i.getCalle());
@@ -158,7 +158,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			{
 				Inmueble i = new Inmueble();
 				i.setId(rs.getInt("ID"));
-				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getInt("NRO_DOCUMENTO_PROPIETARIO")));
+				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getString("NRO_DOCUMENTO_PROPIETARIO")));
 				i.setProvincia(rs.getString("PROVINCIA"));
 				i.setLocalidad(rs.getString("LOCALIDAD"));
 				i.setCalle(rs.getString("CALLE"));
@@ -287,14 +287,14 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	}
 	
 	@Override
-	public void eliminarInmueblePropietario(Integer nroDocumento) 
+	public void eliminarInmueblePropietario(String nroDocumento) 
 	{
 		PreparedStatement pstmt = null;
 		try 
 		{
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(DELETE_INMUEBLE_PROPIETARIO);
-				pstmt.setInt(1, nroDocumento);
+				pstmt.setString(1, nroDocumento);
 				pstmt.executeUpdate();
 				conn.commit();
 		} 
@@ -330,7 +330,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			while(rs.next())
 			{
 				i.setId(rs.getInt("ID"));
-				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getInt("NRO_DOCUMENTO_PROPIETARIO")));
+				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getString("NRO_DOCUMENTO_PROPIETARIO")));
 				i.setProvincia(rs.getString("PROVINCIA"));
 				i.setLocalidad(rs.getString("LOCALIDAD"));
 				i.setCalle(rs.getString("CALLE"));
@@ -428,7 +428,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	}
 
 	@Override
-	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(Integer nroDocumento) {
+	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(String nroDocumento) {
 		List <Inmueble> lista = new ArrayList<Inmueble>();
 		Propietario_DAO propietarioDAO = new Propietario_DAO_PostgreSQL();
 		PreparedStatement pstmt = null;
@@ -437,7 +437,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 		try
 		{
 			pstmt = conn.prepareStatement(SELECT_ALL_INMUEBLE_PROPIETARIO);
-			pstmt.setInt(1, nroDocumento);
+			pstmt.setString(1, nroDocumento);
 			rs = pstmt.executeQuery();
 			while(rs.next())
 			{
@@ -583,7 +583,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			{
 				Inmueble i = new Inmueble();
 				i.setId(rs.getInt("ID"));
-				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getInt("NRO_DOCUMENTO_PROPIETARIO")));
+				i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getString("NRO_DOCUMENTO_PROPIETARIO")));
 				i.setProvincia(rs.getString("PROVINCIA"));
 				i.setLocalidad(rs.getString("LOCALIDAD"));
 				i.setCalle(rs.getString("CALLE"));
