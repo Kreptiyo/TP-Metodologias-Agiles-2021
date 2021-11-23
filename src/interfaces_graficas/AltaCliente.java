@@ -69,12 +69,21 @@ public class AltaCliente extends JPanel {
 	private JLabel lblErrorNombre;
 	private JLabel lblErrorApellido;
 	private JLabel lblErrorTelefono;
-	private  JLabel lblErrorCaractersiticas;
+	private JLabel lblErrorCaractersiticas;
+	private JLabel lblMail;
+	private JLabel lblContrasea;
+	private JLabel lblErrorMail;
+	private JLabel lblErrorContraseña;
 	private Gestor_Cliente gestorCliente;
 	
 	private JCheckBox chckbxPiscina;
 	private JLabel lbldormitorios;
 	private JLabel lblPiscina;
+	private JTextField textFieldMail;
+	private JTextField textFieldContraseña;
+	private JLabel lblnroDocumento;
+	private JTextField textFieldNroDocumento;
+	private JLabel lblErrorDocumento;
 	
 	public AltaCliente(JFrame pantallaPrincipal) {
 		armarPanel(pantallaPrincipal);
@@ -89,15 +98,15 @@ public class AltaCliente extends JPanel {
 		
 		
 		JLabel lblNombreCliente = new JLabel("Nombre");
-		lblNombreCliente.setBounds(298, 41, 130, 25);
+		lblNombreCliente.setBounds(127, 46, 130, 25);
 		lblNombreCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblApellidoCliente = new JLabel("Apellido");
-		lblApellidoCliente.setBounds(298, 81, 130, 25);
+		lblApellidoCliente.setBounds(127, 86, 130, 25);
 		lblApellidoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTelefonoCliente = new JLabel("Telefono");
-		lblTelefonoCliente.setBounds(298, 121, 130, 25);
+		lblTelefonoCliente.setBounds(570, 121, 130, 25);
 		lblTelefonoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setLayout(null);
 		add(lblNombreCliente);
@@ -236,7 +245,7 @@ public class AltaCliente extends JPanel {
 		panelDatosInmueble.add(lblErrorMonto);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(468, 43, 200, 25);
+		textFieldNombre.setBounds(234, 46, 200, 25);
 		add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		textFieldNombre.addKeyListener(new KeyAdapter() 
@@ -260,7 +269,7 @@ public class AltaCliente extends JPanel {
 		});
 		textFieldApellido = new JTextField();
 		textFieldApellido.setColumns(10);
-		textFieldApellido.setBounds(468, 81, 200, 25);
+		textFieldApellido.setBounds(234, 84, 200, 25);
 		add(textFieldApellido);
 		textFieldApellido.addKeyListener(new KeyAdapter() 
 		{
@@ -284,7 +293,7 @@ public class AltaCliente extends JPanel {
 		
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
-		textFieldTelefono.setBounds(468, 121, 200, 25);
+		textFieldTelefono.setBounds(677, 123, 200, 25);
 		textFieldTelefono.addKeyListener(new KeyAdapter() {
 		      public void keyPressed(KeyEvent ke) {
 		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
@@ -567,21 +576,21 @@ public class AltaCliente extends JPanel {
 		lblErrorNombre = new JLabel("(!)");
 		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblErrorNombre.setForeground(Color.RED);
-		lblErrorNombre.setBounds(275, 42, 13, 25);
+		lblErrorNombre.setBounds(104, 47, 13, 25);
 		lblErrorNombre.setVisible(false);
 		add(lblErrorNombre);
 
 		lblErrorApellido = new JLabel("(!)");
 		lblErrorApellido.setForeground(Color.RED);
 		lblErrorApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblErrorApellido.setBounds(275, 81, 13, 25);
+		lblErrorApellido.setBounds(104, 86, 13, 25);
 		lblErrorApellido.setVisible(false);
 		add(lblErrorApellido);
 
 		lblErrorTelefono = new JLabel("(!)");
 		lblErrorTelefono.setForeground(Color.RED);
 		lblErrorTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblErrorTelefono.setBounds(275, 121, 13, 25);
+		lblErrorTelefono.setBounds(537, 122, 13, 25);
 		lblErrorTelefono.setVisible(false);
 		add(lblErrorTelefono);
 
@@ -591,6 +600,104 @@ public class AltaCliente extends JPanel {
 		lblErrorCaractersiticas.setBounds(81, 358, 23, 40);
 		lblErrorCaractersiticas.setVisible(false);
 		add(lblErrorCaractersiticas);
+		
+		lblMail = new JLabel("Mail");
+		lblMail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMail.setBounds(570, 46, 130, 25);
+		add(lblMail);
+		
+		lblContrasea = new JLabel("Contrase\u00F1a");
+		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblContrasea.setBounds(570, 86, 130, 25);
+		add(lblContrasea);
+		
+		textFieldMail = new JTextField();
+		textFieldMail.setColumns(10);
+		textFieldMail.setBounds(677, 46, 200, 25);
+		textFieldMail.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldMail.getText().length()>20) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
+		add(textFieldMail);
+		
+		textFieldContraseña = new JTextField();
+		textFieldContraseña.setColumns(10);
+		textFieldContraseña.setBounds(677, 84, 200, 25);
+		textFieldContraseña.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldContraseña.getText().length()>20) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
+		add(textFieldContraseña);
+		
+		lblErrorMail = new JLabel("(!)");
+		lblErrorMail.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorMail.setForeground(Color.RED);
+		lblErrorMail.setBounds(537, 47, 23, 25);
+		lblErrorMail.setVisible(false);
+		add(lblErrorMail);
+		
+		lblErrorContraseña = new JLabel("(!)");
+		lblErrorContraseña.setForeground(Color.RED);
+		lblErrorContraseña.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorContraseña.setBounds(537, 86, 23, 25);
+		lblErrorContraseña.setVisible(false);
+		add(lblErrorContraseña);
+		
+		lblnroDocumento = new JLabel("Nro. Documento");
+		lblnroDocumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblnroDocumento.setBounds(127, 123, 130, 25);
+		add(lblnroDocumento);
+		
+		textFieldNroDocumento = new JTextField();
+		textFieldNroDocumento.setColumns(10);
+		textFieldNroDocumento.setBounds(234, 123, 200, 25);
+		textFieldNroDocumento.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldNroDocumento.setEditable(true);
+		         } else {
+		        	 textFieldNroDocumento.setEditable(false);
+		         }
+		      }
+		   });
+		add(textFieldNroDocumento);
+		
+		lblErrorDocumento = new JLabel("(!)");
+		lblErrorDocumento.setForeground(Color.RED);
+		lblErrorDocumento.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorDocumento.setBounds(104, 126, 23, 17);
+		lblErrorDocumento.setVisible(false);
+		add(lblErrorDocumento);
 		
 		
 		btnAñadirCliente.addActionListener(e-> {
@@ -617,7 +724,11 @@ public class AltaCliente extends JPanel {
 					this.textFieldApellido.getText(),
 					Integer.parseInt(this.textFieldTelefono.getText()),
 					this.textFieldBarrio.getText(),
-					Integer.parseInt(this.textFieldMonto.getText()));
+					Integer.parseInt(this.textFieldMonto.getText()),
+					this.textFieldMail.getText(),
+					this.textFieldContraseña.getText(),
+					this.textFieldNroDocumento.getText()
+					);
 			
 			Integer frente, fondo, superficie, antiguedad, dormitorios, baños;
 			
@@ -726,7 +837,25 @@ public class AltaCliente extends JPanel {
 		}else {
 			this.lblErrorTelefono.setVisible(false);
 		}
+		if(this.textFieldMail.getText().isEmpty()) {
+			this.lblErrorMail.setVisible(true);
+			error = true;
+		}else {
+			this.lblErrorMail.setVisible(false);
+		}
 		
+		if(this.textFieldContraseña.getText().isEmpty()) {
+			this.lblErrorContraseña.setVisible(true);
+			error = true;
+		}else {
+			this.lblErrorContraseña.setVisible(false);
+		}
+		if(this.textFieldNroDocumento.getText().isEmpty()) {
+			this.lblErrorDocumento.setVisible(true);
+			error = true;
+		}else {
+			this.lblErrorDocumento.setVisible(false);
+		}
 		if(this.comboBoxTipoInmueble.getSelectedItem() == "") {
 			this.lblErrorTipoInmueble.setVisible(true);
 			error = true;
@@ -801,6 +930,8 @@ public class AltaCliente extends JPanel {
 		this.lblErrorCaractersiticas.setVisible(false);
 		this.lblErrorTelefono.setVisible(false);
 		this.lblErrorTipoInmueble.setVisible(false);
+		this.lblErrorMail.setVisible(false);
+		this.lblErrorContraseña.setVisible(false);
+		this.lblErrorDocumento.setVisible(false);
 	}		
-		
 	}

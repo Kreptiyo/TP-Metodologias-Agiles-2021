@@ -8,6 +8,9 @@ public class Cliente {
 	private Integer id;
 	private String nombre;
 	private String apellido;
+	private String nroDocumento;
+	private String mail;
+	private String contraseña;
 	private Integer telefono;
 	private String localidad;
 	private String barrio;
@@ -40,7 +43,7 @@ public class Cliente {
 		System.out.println(telefono);
 		System.out.println(barrio);
 		System.out.println(monto);
-		
+		System.out.println("DOCUMENTO" + nroDocumento);
 		System.out.println(tipoInmueble);
 		System.out.println(orientacion);
 		System.out.println(frente);
@@ -59,6 +62,31 @@ public class Cliente {
 		return nombre;
 	}
 
+	public String getNroDocumento() {
+		return nroDocumento;
+	}
+
+	public void setNroDocumento(String nroDocumento) {
+		this.nroDocumento = nroDocumento;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}

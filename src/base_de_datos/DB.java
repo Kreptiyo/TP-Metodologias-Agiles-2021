@@ -102,7 +102,10 @@ public class DB
     		"				 PAVIMENTO BOOLEAN, "+
     		"				 ID SERIAL, "+
     		"				 GAS_NATURAL BOOLEAN, "+
-    		"				 PRIMARY KEY(ID), ";
+    		"				 NRO_DOCUMENTO VARCHAR(30),"+
+    		"				 MAIL VARCHAR(30),"+
+    		"				 CONTRASENA VARCHAR(30),"+
+    		"				 PRIMARY KEY(ID)) ";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{

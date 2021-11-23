@@ -77,6 +77,15 @@ public class Modificar_Cliente extends JPanel {
 	private JCheckBox chckbxPiscina;
 	private JLabel lbldormitorios;
 	private JLabel lblPiscina;
+	private JLabel lblMail;
+	private JTextField textFieldMail;
+	private JTextField textFieldContrasea;
+	private JLabel lblContrasea;
+	private JTextField textFieldNroDocumento;
+	private JLabel lblnroDocumento;
+	private JLabel lblErrorMail;
+	private JLabel lblErrorDocuemtno;
+	private JLabel lblErrorContraseña;
 	
 	public Modificar_Cliente(JFrame pantallaPrincipal, String nombre, String apellido, String id) {
 		armarPanel(pantallaPrincipal, nombre, apellido, id);
@@ -93,15 +102,15 @@ public class Modificar_Cliente extends JPanel {
 		
 		
 		JLabel lblNombreCliente = new JLabel("Nombre");
-		lblNombreCliente.setBounds(298, 41, 130, 25);
+		lblNombreCliente.setBounds(140, 46, 130, 25);
 		lblNombreCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblApellidoCliente = new JLabel("Apellido");
-		lblApellidoCliente.setBounds(298, 81, 130, 25);
+		lblApellidoCliente.setBounds(140, 86, 130, 25);
 		lblApellidoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTelefonoCliente = new JLabel("Telefono");
-		lblTelefonoCliente.setBounds(298, 121, 130, 25);
+		lblTelefonoCliente.setBounds(140, 126, 130, 25);
 		lblTelefonoCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setLayout(null);
 		add(lblNombreCliente);
@@ -241,7 +250,7 @@ public class Modificar_Cliente extends JPanel {
 		
 		textFieldNombre = new JTextField(cliente.getNombre());
 		textFieldNombre.setEditable(false);
-		textFieldNombre.setBounds(468, 43, 200, 25);
+		textFieldNombre.setBounds(274, 46, 200, 25);
 		add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		textFieldNombre.addKeyListener(new KeyAdapter() 
@@ -266,7 +275,7 @@ public class Modificar_Cliente extends JPanel {
 		textFieldApellido = new JTextField(cliente.getApellido());
 		textFieldApellido.setEditable(false);
 		textFieldApellido.setColumns(10);
-		textFieldApellido.setBounds(468, 81, 200, 25);
+		textFieldApellido.setBounds(274, 84, 200, 25);
 		add(textFieldApellido);
 		textFieldApellido.addKeyListener(new KeyAdapter() 
 		{
@@ -287,20 +296,6 @@ public class Modificar_Cliente extends JPanel {
 
 			}
 		});
-		
-		textFieldTelefono = new JTextField(cliente.getTelefono().toString());
-		textFieldTelefono.setColumns(10);
-		textFieldTelefono.setBounds(468, 121, 200, 25);
-		textFieldTelefono.addKeyListener(new KeyAdapter() {
-		      public void keyPressed(KeyEvent ke) {
-		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
-		        	 textFieldTelefono.setEditable(true);
-		         } else {
-		        	 textFieldTelefono.setEditable(false);
-		         }
-		      }
-		   });
-		add(textFieldTelefono);
 		
 		JButton btnModificarCliente = new JButton("Modificar");
 		btnModificarCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -573,21 +568,21 @@ public class Modificar_Cliente extends JPanel {
 		lblErrorNombre = new JLabel("(!)");
 		lblErrorNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblErrorNombre.setForeground(Color.RED);
-		lblErrorNombre.setBounds(275, 42, 13, 25);
+		lblErrorNombre.setBounds(117, 47, 13, 25);
 		lblErrorNombre.setVisible(false);
 		add(lblErrorNombre);
 
 		lblErrorApellido = new JLabel("(!)");
 		lblErrorApellido.setForeground(Color.RED);
 		lblErrorApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblErrorApellido.setBounds(275, 81, 13, 25);
+		lblErrorApellido.setBounds(117, 86, 13, 25);
 		lblErrorApellido.setVisible(false);
 		add(lblErrorApellido);
 
 		lblErrorTelefono = new JLabel("(!)");
 		lblErrorTelefono.setForeground(Color.RED);
 		lblErrorTelefono.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblErrorTelefono.setBounds(275, 121, 13, 25);
+		lblErrorTelefono.setBounds(117, 126, 13, 25);
 		lblErrorTelefono.setVisible(false);
 		add(lblErrorTelefono);
 
@@ -597,6 +592,118 @@ public class Modificar_Cliente extends JPanel {
 		lblErrorCaractersiticas.setBounds(81, 358, 23, 40);
 		lblErrorCaractersiticas.setVisible(false);
 		add(lblErrorCaractersiticas);
+		
+		lblMail = new JLabel("Mail");
+		lblMail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMail.setBounds(551, 46, 130, 25);
+		add(lblMail);
+		
+		textFieldMail = new JTextField(cliente.getMail());
+		textFieldMail.setColumns(10);
+		textFieldMail.setBounds(677, 49, 200, 25);
+		textFieldMail.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldMail.getText().length()>20) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
+		add(textFieldMail);
+		
+		textFieldContrasea = new JTextField(cliente.getContraseña());
+		textFieldContrasea.setColumns(10);
+		textFieldContrasea.setBounds(677, 87, 200, 25);
+		textFieldContrasea.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+				if(textFieldContrasea.getText().length()>20) 
+				{
+					e.consume();
+				}
+				char c= e.getKeyChar();
+				if(Character.isLowerCase(c)) 
+				{
+					String cad = (""+c).toUpperCase();
+					c=cad.charAt(0);
+					e.setKeyChar(c);
+				}
+
+			}
+		});
+		add(textFieldContrasea);
+		
+		lblContrasea = new JLabel("Contrase\u00F1a");
+		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblContrasea.setBounds(551, 86, 130, 25);
+		add(lblContrasea);
+		
+		textFieldNroDocumento = new JTextField(cliente.getNroDocumento());
+		textFieldNroDocumento.setColumns(10);
+		textFieldNroDocumento.setBounds(677, 128, 200, 25);
+		textFieldNroDocumento.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldNroDocumento.setEditable(true);
+		         } else {
+		        	 textFieldNroDocumento.setEditable(false);
+		         }
+		      }
+		   });
+		add(textFieldNroDocumento);
+		
+		lblnroDocumento = new JLabel("Nro. Documento");
+		lblnroDocumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblnroDocumento.setBounds(551, 126, 130, 25);
+		add(lblnroDocumento);
+		
+		textFieldTelefono = new JTextField(cliente.getTelefono().toString());
+		textFieldTelefono.setBounds(274, 128, 200, 25);
+		add(textFieldTelefono);
+		textFieldTelefono.setColumns(10);
+		
+		lblErrorMail = new JLabel("(!)");
+		lblErrorMail.setForeground(Color.RED);
+		lblErrorMail.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorMail.setBounds(518, 51, 23, 17);
+		lblErrorMail.setVisible(false);
+		add(lblErrorMail);
+		
+		lblErrorDocuemtno = new JLabel("(!)");
+		lblErrorDocuemtno.setForeground(Color.RED);
+		lblErrorDocuemtno.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorDocuemtno.setBounds(518, 131, 23, 17);
+		lblErrorDocuemtno.setVisible(false);
+		add(lblErrorDocuemtno);
+		
+		lblErrorContraseña = new JLabel("(!)");
+		lblErrorContraseña.setForeground(Color.RED);
+		lblErrorContraseña.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblErrorContraseña.setBounds(518, 91, 23, 17);
+		lblErrorContraseña.setVisible(false);
+		add(lblErrorContraseña);
+		textFieldTelefono.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldTelefono.setEditable(true);
+		         } else {
+		        	 textFieldTelefono.setEditable(false);
+		         }
+		      }
+		   });
 		
 		
 		btnModificarCliente.addActionListener(e-> {
@@ -624,7 +731,10 @@ public class Modificar_Cliente extends JPanel {
 					this.textFieldApellido.getText(),
 					Integer.parseInt(this.textFieldTelefono.getText()),
 					this.textFieldBarrio.getText(),
-					Integer.parseInt(this.textFieldMonto.getText()));
+					Integer.parseInt(this.textFieldMonto.getText()),
+					this.textFieldMail.getText(),
+					this.textFieldContrasea.getText(),
+					this.textFieldNroDocumento.getText());
 			
 			Integer frente, fondo, superficie, antiguedad, dormitorios, baños;
 			
@@ -736,6 +846,26 @@ public class Modificar_Cliente extends JPanel {
 		}else {
 			this.lblErrorTelefono.setVisible(false);
 		}
+		if(this.textFieldMail.getText().isEmpty()) {
+			this.lblErrorMail.setVisible(true);
+			error = true;
+		}else {
+			this.lblErrorMail.setVisible(false);
+		}
+		
+		if(this.textFieldContrasea.getText().isEmpty()) {
+			this.lblErrorContraseña.setVisible(true);
+			error = true;
+		}else {
+			this.lblErrorContraseña.setVisible(false);
+		}
+		if(this.textFieldNroDocumento.getText().isEmpty()) {
+			this.lblnroDocumento.setVisible(true);
+			error = true;
+		}else {
+			this.lblnroDocumento.setVisible(false);
+		}
+		
 		
 		if(this.comboBoxTipoInmueble.getSelectedItem() == "") {
 			this.lblErrorTipoInmueble.setVisible(true);
@@ -811,6 +941,9 @@ public class Modificar_Cliente extends JPanel {
 		this.lblErrorCaractersiticas.setVisible(false);
 		this.lblErrorTelefono.setVisible(false);
 		this.lblErrorTipoInmueble.setVisible(false);
+		this.lblErrorMail.setVisible(false);
+		this.lblErrorContraseña.setVisible(false);
+		this.lblnroDocumento.setVisible(false);
 	}		
 		
 	}
