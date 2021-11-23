@@ -166,6 +166,11 @@ public class Gestor_Cliente {
 	}
 	
 	
+	public Cliente buscarPorId(Integer id)
+	{
+		 return this.clienteDAO.buscarPorId(id);
+	}
+	
 	public void eliminarCliente(Integer id)
 	{
 		clienteDAO.eliminarCliente(id);
