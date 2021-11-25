@@ -34,6 +34,7 @@ public class Gestor_Reserva {
 		this.validar_Datos(importeReserva, tiempoVigencia, email);
 		Reserva r = new Reserva();
 		this.actualizarModelo(r, idCliente, idInmueble, importeReserva, tiempoVigencia, email);	
+		
 		return reservaDAO.save(r);
 	}
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominio.Inmueble;
+import dominio.Inmueble.Estado_Inmueble;
 import dominio.Inmueble.Orientacion;
 import dominio.Inmueble.Tipo_Inmueble;
 import excepciones.BaseDeDatosException;
@@ -29,12 +30,12 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	private static final String INSERT_INMUEBLE =
 			"INSERT INTO ma.inmueble (NRO_DOCUMENTO_PROPIETARIO, PROVINCIA, LOCALIDAD, CALLE, CALLE_NUMERO, PISO_DEPARTAMENTO, BARRIO, TIPO_INMUEBLE, PRECIO, OBSERVACION, ORIENTACION, "
 			+ "FRENTE, FONDO, SUPERFICIE, PROPIEDAD_HORIZONTAL, SUPERFICIE_EDIFICIO, ANTIGUEDAD, DORMITORIOS, BAÑOS, GARAJE, PATIO, PISCINA, AGUA_CORRIENTE, CLOACAS, GAS_NATURAL, "
-			+ "AGUA_CALIENTE, TELEFONO, LAVADERO, PAVIMENTO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ "AGUA_CALIENTE, TELEFONO, LAVADERO, PAVIMENTO, ESTADO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String UPDATE_INMUEBLE =
 			"UPDATE ma.inmueble SET NRO_DOCUMENTO_PROPIETARIO = ?, PROVINCIA = ?, LOCALIDAD = ?, CALLE = ?, CALLE_NUMERO = ?, PISO_DEPARTAMENTO = ?, BARRIO = ?, TIPO_INMUEBLE = ?, PRECIO = ?, OBSERVACION = ?, ORIENTACION = ?, "
 			+ "FRENTE = ?, FONDO = ?, SUPERFICIE = ?, PROPIEDAD_HORIZONTAL = ?, SUPERFICIE_EDIFICIO = ?, ANTIGUEDAD = ?, DORMITORIOS = ?, BAÑOS = ?, GARAJE = ?, PATIO = ?, PISCINA = ?, AGUA_CORRIENTE = ?, CLOACAS = ?, GAS_NATURAL = ?, "
-			+ "AGUA_CALIENTE = ?, TELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?";
+			+ "AGUA_CALIENTE = ?, TELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?, ESTADO = ?";
 	
 	private static final String DELETE_INMUEBLE =
 			"DELETE FROM ma.inmueble WHERE ID = ?";
@@ -82,6 +83,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setBoolean(27, i.getTelefono());
 				pstmt.setBoolean(28, i.getLavadero());
 				pstmt.setBoolean(29, i.getPavimento());
+				pstmt.setString(30, i.getEstadoInmueble().toString());
 				pstmt.executeUpdate();
 				conn.commit();
 				
@@ -119,6 +121,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setBoolean(27, i.getTelefono());
 				pstmt.setBoolean(28, i.getLavadero());
 				pstmt.setBoolean(29, i.getPavimento());
+				pstmt.setString(30, Estado_Inmueble.DISPONIBLE.name());
 				pstmt.executeUpdate();
 				conn.commit();
 			}
@@ -233,6 +236,18 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setTelefono(rs.getBoolean("TELEFONO"));
 				i.setLavadero(rs.getBoolean("LAVADERO"));
 				i.setPavimento(rs.getBoolean("PAVIMENTO"));
+				
+				switch (rs.getString("ESTADO")) {
+				case "DISPONIBLE": 
+					i.setEstadoInmueble(Estado_Inmueble.DISPONIBLE);
+					break;
+				case "RESERVADO": 
+					i.setEstadoInmueble(Estado_Inmueble.RESERVADO);
+					break;
+				case "VENDIDO": 
+					i.setEstadoInmueble(Estado_Inmueble.VENDIDO);
+					break;
+				}
 				lista.add(i);
 			}
 		}
@@ -406,6 +421,18 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setTelefono(rs.getBoolean("TELEFONO"));
 				i.setLavadero(rs.getBoolean("LAVADERO"));
 				i.setPavimento(rs.getBoolean("PAVIMENTO"));
+				
+				switch (rs.getString("ESTADO")) {
+				case "DISPONIBLE": 
+					i.setEstadoInmueble(Estado_Inmueble.DISPONIBLE);
+					break;
+				case "RESERVADO": 
+					i.setEstadoInmueble(Estado_Inmueble.RESERVADO);
+					break;
+				case "VENDIDO": 
+					i.setEstadoInmueble(Estado_Inmueble.VENDIDO);
+					break;
+				}
 			}
 		}
 		catch (SQLException e)
@@ -518,6 +545,19 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setTelefono(rs.getBoolean("TELEFONO"));
 				i.setLavadero(rs.getBoolean("LAVADERO"));
 				i.setPavimento(rs.getBoolean("PAVIMENTO"));
+				
+				switch (rs.getString("ESTADO")) {
+				case "DISPONIBLE": 
+					i.setEstadoInmueble(Estado_Inmueble.DISPONIBLE);
+					break;
+				case "RESERVADO": 
+					i.setEstadoInmueble(Estado_Inmueble.RESERVADO);
+					break;
+				case "VENDIDO": 
+					i.setEstadoInmueble(Estado_Inmueble.VENDIDO);
+					break;
+				}
+				
 				lista.add(i);
 			}
 		}
@@ -658,6 +698,19 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setTelefono(rs.getBoolean("TELEFONO"));
 				i.setLavadero(rs.getBoolean("LAVADERO"));
 				i.setPavimento(rs.getBoolean("PAVIMENTO"));
+				
+				switch (rs.getString("ESTADO")) {
+				case "DISPONIBLE": 
+					i.setEstadoInmueble(Estado_Inmueble.DISPONIBLE);
+					break;
+				case "RESERVADO": 
+					i.setEstadoInmueble(Estado_Inmueble.RESERVADO);
+					break;
+				case "VENDIDO": 
+					i.setEstadoInmueble(Estado_Inmueble.VENDIDO);
+					break;
+				}
+				
 				lista.add(i);
 			}
 		}

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import interfaces_graficas.Interfaz_Generar_Reserva;
+import interfaces_graficas.Interfaz_Grafica_Ver_Reservas;
 import interfaces_graficas.Menu_Principal;
 
 public class App extends JFrame 
@@ -41,9 +42,10 @@ public class App extends JFrame
 		app.setTitle("MENU PRINCIPAL");
 		
 		JPanel panel = new Menu_Principal(app);
-		JPanel panel2 = new Interfaz_Generar_Reserva(app, 1, 1);
+		//JPanel panel2 = new Interfaz_Generar_Reserva(app, 1, 1);
+		//JPanel panel3 = new Interfaz_Grafica_Ver_Reservas(app);
 		
-		app.setContentPane(panel2);
+		app.setContentPane(panel);
 		app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		app.setSize(1040, 825);
 		app.setResizable(false);

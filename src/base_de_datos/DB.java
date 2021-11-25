@@ -71,6 +71,7 @@ public class DB
     		"				 TELEFONO BOOLEAN, "+
     		"				 LAVADERO BOOLEAN, "+
     		"				 PAVIMENTO BOOLEAN, "+
+    		"				 ESTADO VARCHAR(30), "+
     		"				 PRIMARY KEY(ID), "+
     		"				 FOREIGN KEY (NRO_DOCUMENTO_PROPIETARIO) REFERENCES ma.propietario(NRO_DOCUMENTO))";
     

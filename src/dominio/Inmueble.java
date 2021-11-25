@@ -33,16 +33,21 @@ public class Inmueble
 	Boolean telefono;
 	Boolean lavadero;
 	Boolean pavimento;
-	Boolean Reservado;
+	Estado_Inmueble estadoInmueble;
 	
-	public Boolean getReservado() {
-		return Reservado;
+	public Estado_Inmueble getEstadoInmueble() {
+		return estadoInmueble;
 	}
 
-	public void setReservado(Boolean reservado) {
-		Reservado = reservado;
+	public void setEstadoInmueble(Estado_Inmueble estadoInmueble) {
+		this.estadoInmueble = estadoInmueble;
 	}
 
+	public enum Estado_Inmueble
+	{
+		DISPONIBLE, RESERVADO, VENDIDO
+	}
+	
 	public enum Tipo_Inmueble
 	{
 		L, C, D, T, Q, G

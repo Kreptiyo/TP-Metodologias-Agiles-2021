@@ -8,6 +8,7 @@ import java.util.List;
 import dao.Inmueble_DAO;
 import dao.Inmueble_DAO_PostgreSQL;
 import dominio.Inmueble;
+import dominio.Inmueble.Estado_Inmueble;
 import dominio.Inmueble.Orientacion;
 import dominio.Inmueble.Tipo_Inmueble;
 import excepciones.BaseDeDatosException;
