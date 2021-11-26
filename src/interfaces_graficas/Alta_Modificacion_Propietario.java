@@ -67,6 +67,9 @@ public class Alta_Modificacion_Propietario extends JPanel {
 	private JLabel lblErrorLocalidad;
 
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public Alta_Modificacion_Propietario(JFrame pantallaPrincipal) {
 		this.armarPanel(pantallaPrincipal, -1);
 	}

@@ -22,6 +22,9 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 	private static final String SELECT_ALL_CLIENTE =
 			"SELECT * FROM ma.cliente";
 	
+	private static final String SELECT_CLIENTE_POR_ID =
+			"SELECT * FROM ma.cliente WHERE ID = ? ";
+	
 	private static final String SELECT_CLIENTE_NOMBRE_APELLIDO =
 			"SELECT * FROM ma.cliente WHERE NOMBRE = ? AND APELLIDO =? ";
 	
@@ -425,6 +428,120 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 			}
 			return lista;
 		}
+
+	@Override
+	public Cliente buscarPorId(Integer id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Cliente c = new Cliente();
+		
+		try
+		{
+			
+				pstmt = conn.prepareStatement(SELECT_CLIENTE_POR_ID);
+				pstmt.setInt(1, id);
+				rs = pstmt.executeQuery();
+				
+			while(rs.next()) {
+				
+				c.setId(rs.getInt("ID"));
+				c.setNombre(rs.getString("NOMBRE"));
+				c.setApellido(rs.getString("APELLIDO"));
+				c.setTelefono(rs.getInt("TELEFONO"));
+				
+				switch(rs.getString("TIPO_INMUEBLE"))
+				{
+				case "L":
+					c.setTipoInmueble(Tipo_Inmueble.L);
+					break;
+				case "C":
+					c.setTipoInmueble(Tipo_Inmueble.C);
+					break;
+				case "D":
+					c.setTipoInmueble(Tipo_Inmueble.C);
+					break;
+				case "T":
+					c.setTipoInmueble(Tipo_Inmueble.T);
+					break;
+				case "Q":
+					c.setTipoInmueble(Tipo_Inmueble.Q);
+					break;
+				case "G":
+					c.setTipoInmueble(Tipo_Inmueble.G);
+					break;
+				}
+				
+				switch(rs.getString("ORIENTACION"))
+				{
+				case "NORTE":
+					c.setOrientacion(Orientacion.NORTE);
+					break;
+				case "SUR":
+					c.setOrientacion(Orientacion.SUR);
+					break;
+				case "ESTE":
+					c.setOrientacion(Orientacion.ESTE);
+					break;
+				case "OESTE":
+					c.setOrientacion(Orientacion.OESTE);
+					break;
+				case "NORESTE":
+					c.setOrientacion(Orientacion.NORESTE);
+					break;
+				case "NOROESTE":
+					c.setOrientacion(Orientacion.NOROESTE);
+					break;
+				case "SURESTE":
+					c.setOrientacion(Orientacion.SURESTE);
+					break;
+				case "SUROESTE":
+					c.setOrientacion(Orientacion.SUROESTE);
+					break;
+				}
+				
+				
+				c.setLocalidad(rs.getString("LOCALIDAD"));
+				c.setBarrio(rs.getString("BARRIO"));
+				c.setMonto(rs.getInt("MONTO"));
+				
+				c.setFrente(rs.getInt("FRENTE"));
+				c.setFondo(rs.getInt("FONDO"));
+				c.setSuperficie(rs.getInt("SUPERFICIE"));
+				c.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+				c.setAntiguedad(rs.getInt("ANTIGUEDAD"));
+				c.setDormitorios(rs.getInt("DORMITORIOS"));
+				c.setBaños(rs.getInt("BANOS"));
+				c.setGaraje(rs.getBoolean("GARAJE"));
+				c.setPatio(rs.getBoolean("PATIO"));
+				c.setPiscina(rs.getBoolean("PISCINA"));
+				c.setAguaCorriente(rs.getBoolean("AGUA_CORRIENTE"));
+				c.setCloacas(rs.getBoolean("CLOACAS"));
+				c.setGasNatural(rs.getBoolean("GAS_NATURAL"));
+				c.setAguaCaliente(rs.getBoolean("AGUA_CALIENTE"));
+				c.setHaytelefono(rs.getBoolean("HAYTELEFONO"));
+				c.setLavadero(rs.getBoolean("LAVADERO"));
+				c.setPavimento(rs.getBoolean("PAVIMENTO"));
+				
+		}
+			}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return c;
+	}
 	
 	
 	

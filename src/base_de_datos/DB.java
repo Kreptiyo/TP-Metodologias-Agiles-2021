@@ -29,8 +29,8 @@ public class DB
 			"				 ID_CATALOGO INTEGER, "+
 			"				 ID_CLIENTE INTEGER, "+
 			"				 FECHA_EMISION VARCHAR(30), "+
-			"				 PRIMARY KEY(ID_CATALOGO))";
-			//"				 FOREIGN KEY (ID_CLIENTE) REFERENCES ma.cliente(ID_CLIENTE))";
+			"				 PRIMARY KEY(ID_CATALOGO), " +
+			"				 FOREIGN KEY (ID_CLIENTE) REFERENCES ma.cliente(ID))";
 	
 	private static final String TABLE_CREATE_RENGLON_CATALOGO =
 			"CREATE TABLE IF NOT EXISTS ma.renglon_catalogo ( "+
@@ -71,6 +71,7 @@ public class DB
     		"				 TELEFONO BOOLEAN, "+
     		"				 LAVADERO BOOLEAN, "+
     		"				 PAVIMENTO BOOLEAN, "+
+    		"				 ESTADO VARCHAR(30), "+
     		"				 PRIMARY KEY(ID), "+
     		"				 FOREIGN KEY (NRO_DOCUMENTO_PROPIETARIO) REFERENCES ma.propietario(NRO_DOCUMENTO))";
     
@@ -106,6 +107,19 @@ public class DB
     		"				 MAIL VARCHAR(30),"+
     		"				 PASSWORD VARCHAR(30),"+
     		"				 PRIMARY KEY(ID)) ";
+    
+	private static final String TABLE_CREATE_RESERVA =
+			"CREATE TABLE IF NOT EXISTS ma.reserva ( "+
+			"				 ID_RESERVA SERIAL, "+
+			"				 ID_CLIENTE INTEGER, "+
+			"				 ID_INMUEBLE INTEGER, "+
+			"				 IMPORTE_RESERVA INTEGER, "+
+			"				 TIEMPO_VIGENCIA INTEGER, "+
+			"				 EMAIL VARCHAR(30), "+
+			"				 FECHA_EMISION VARCHAR(30), "+
+			"				 PRIMARY KEY(ID_RESERVA), " +
+			"				 FOREIGN KEY (ID_CLIENTE) REFERENCES ma.cliente(ID), "+
+			"				 FOREIGN KEY (ID_INMUEBLE) REFERENCES ma.inmueble(ID))";
 	
 	public static void verificarCrearTablas(Connection conn)
 	{
@@ -117,9 +131,11 @@ public class DB
 				stmt = conn.createStatement();
 				stmt.execute(TABLE_CREATE_PROPIETARIO);
 				stmt.execute(TABLE_CREATE_INMUEBLE);
+				stmt.execute(TABLE_CREATE_CLIENTE);
 				stmt.execute(TABLE_CREATE_CATALOGO);
 				stmt.execute(TABLE_CREATE_RENGLON_CATALOGO);
-				stmt.execute(TABLE_CREATE_CLIENTE);
+				stmt.execute(TABLE_CREATE_RESERVA);
+				
 			}
 			catch(SQLException e)
 			{

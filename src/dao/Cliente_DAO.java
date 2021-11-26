@@ -13,6 +13,7 @@ public interface Cliente_DAO {
 	public Cliente saveOrUpdate(Cliente c) throws BaseDeDatosException, SQLException;
 	public List<Cliente> buscarTodos();
 	public void eliminarCliente(Integer id);
+	public Cliente buscarPorId(Integer id);
 	public List<Cliente> buscarTodos(String nom, String ape);
 	
 	
