@@ -18,6 +18,7 @@ public class Menu_Principal extends JPanel
 	private JButton btnListaDeInmuebles;
 	private JButton btnABMCliente;
 	private JLabel lblMenuPrincipal;
+	private JButton btnVerReservas;
 
 	public Menu_Principal(JFrame pantallaPrincipal) 
 	{
@@ -33,7 +34,7 @@ public class Menu_Principal extends JPanel
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelMenu.setBackground(SystemColor.scrollbar);
-		panelMenu.setBounds(305, 200, 450, 360);
+		panelMenu.setBounds(305, 200, 450, 382);
 		add(panelMenu);
 		panelMenu.setLayout(null);
 		
@@ -91,12 +92,42 @@ public class Menu_Principal extends JPanel
 		});
 		panelMenu.add(btnABMCliente);
 		
+		JButton btnVerCatalogo = new JButton("Ver Catalogo");
+		btnVerCatalogo.addActionListener(e->
+		{
+			
+			this.setVisible(false);
+			JPanel panelVerCatalogo = new Interfaz_Grafica_Ver_Catalogo(pantallaPrincipal);
+			panelVerCatalogo.setVisible(true);
+			pantallaPrincipal.setContentPane(panelVerCatalogo);
+			pantallaPrincipal.setTitle("Catalogo");
+			
+		});
+		btnVerCatalogo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerCatalogo.setBounds(85, 278, 280, 40);
+		panelMenu.add(btnVerCatalogo);
+		
+		btnVerReservas = new JButton("Ver Reservas");
+		btnVerReservas.addActionListener(e->
+		{
+			
+			this.setVisible(false);
+			JPanel panelVerReservas = new Interfaz_Grafica_Ver_Reservas(pantallaPrincipal);
+			panelVerReservas.setVisible(true);
+			pantallaPrincipal.setContentPane(panelVerReservas);
+			pantallaPrincipal.setTitle("Catalogo");
+			
+		});
+		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerReservas.setBounds(85, 329, 280, 40);
+		panelMenu.add(btnVerReservas);
+		
 		lblMenuPrincipal = new JLabel("Men\u00FA Principal");
 		lblMenuPrincipal.setForeground(new Color(0, 0, 255));
 		lblMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblMenuPrincipal.setBounds(155, 11, 140, 35);
 		panelMenu.add(lblMenuPrincipal);
-		
+	
 		this.setVisible(true);
 
 	}

@@ -8,12 +8,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 import dominio.Catalogo;
 import dominio.Inmueble;
+import dominio.Inmueble.Estado_Inmueble;
+import dominio.Inmueble.Orientacion;
+import dominio.Inmueble.Tipo_Inmueble;
 import excepciones.BaseDeDatosException;
 import gestores.Gestor_Conexion;
 
@@ -35,6 +39,15 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 	
 	private static final String ELIMINAR_RENGLON_CATALOGO_POR_INMUEBLE =
 			"DELETE FROM ma.renglon_catalogo where ID_INMUEBLE = ?";
+	
+	private static final String FECHA_EMISION = 
+			"SELECT fecha_emision FROM ma.catalogo WHERE id_cliente = ?";
+	
+	private static final String OBTENER_ID_CATALOGO =
+			"SELECT id_catalogo FROM ma.catalogo WHERE id_cliente = ?";
+	
+	private static final String OBTENER_IDS_INMUEBLES =
+			"SELECT id_inmueble FROM ma.renglon_catalogo WHERE id_catalogo = ?";
 
 	@Override
 	public Catalogo saveOrUpdate(Catalogo c) throws BaseDeDatosException, SQLException {
@@ -167,6 +180,118 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 	public Catalogo buscarCatalogo() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String obtenerFechaEmision(Integer idCliente) {
+		String resultado = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(FECHA_EMISION);
+			pstmt.setInt(1, idCliente);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				resultado = rs.getString("FECHA_EMISION");
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return resultado;
+	}
+	
+	@Override
+	public List<Inmueble> obtenerInmueblesCatalogo(Integer idCliente) {
+		Inmueble_DAO inmuebleDAO = new Inmueble_DAO_PostgreSQL();
+		return inmuebleDAO.buscarPorCatalogo(this.obtenerListaIdsInmuebles(idCliente));
+	}
+	
+	@Override
+	public List<Integer> obtenerListaIdsInmuebles(Integer idCliente) {
+		List<Integer> resultado = new ArrayList<Integer>();
+		Integer idCatalogo = this.obtenerIdCatalogoPorIdCliente(idCliente);
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(OBTENER_IDS_INMUEBLES);
+			pstmt.setInt(1, idCatalogo);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				resultado.add(rs.getInt("ID_INMUEBLE"));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return resultado;
+	}
+	
+	@Override
+	public Integer obtenerIdCatalogoPorIdCliente(Integer idCliente) {
+		Integer resultado = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(OBTENER_ID_CATALOGO);
+			pstmt.setInt(1, idCliente);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				resultado = rs.getInt("ID_CATALOGO");
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return resultado;
 	}
 
 }

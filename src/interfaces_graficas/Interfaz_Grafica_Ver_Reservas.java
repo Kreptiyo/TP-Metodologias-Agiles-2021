@@ -55,6 +55,13 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		add(txtCodigoReserva);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(e->
+		{
+			this.setVisible(false);
+			JPanel panelMenuPrincipal = new Menu_Principal(pantallaPrincipal);
+			pantallaPrincipal.setContentPane(panelMenuPrincipal);
+			pantallaPrincipal.setTitle("MENU PRINCIPAL");
+		});
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVolver.setBounds(914, 717, 100, 40);
 		add(btnVolver);

@@ -11,5 +11,6 @@ public interface Reserva_DAO {
 	public List<Reserva> buscarTodas();
 	public void eliminarReserva(Integer id);
 	public Reserva buscarPorId(Integer id);
+	public Integer obtenerIdReservaConIdInmueble(Integer idInmueble);
 
 }
