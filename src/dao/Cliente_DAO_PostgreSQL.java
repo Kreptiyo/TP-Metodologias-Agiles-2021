@@ -447,7 +447,7 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 				c.setId(rs.getInt("ID"));
 				c.setNombre(rs.getString("NOMBRE"));
 				c.setApellido(rs.getString("APELLIDO"));
-				c.setTelefono(rs.getInt("TELEFONO"));
+				c.setTelefono(rs.getString("TELEFONO"));
 				
 				switch(rs.getString("TIPO_INMUEBLE"))
 				{
