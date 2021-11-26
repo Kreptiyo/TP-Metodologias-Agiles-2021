@@ -50,14 +50,14 @@ public class Gestor_Catalogo {
 		catalogoDao.saveOrUpdate(c);
 	}
 	
-	public String obtenerFechaEmision(Integer idCliente)
-	{
-		return catalogoDao.obtenerFechaEmision(idCliente);
-	}
-	
 	public List<Inmueble> inmueblesCatalogo(Integer idCliente)
 	{
 		return catalogoDao.obtenerInmueblesCatalogo(idCliente);
+	}
+	
+	public Catalogo buscarCatalogo(Integer idCliente)
+	{
+		return catalogoDao.buscarCatalogo(idCliente);
 	}
 
 }

@@ -48,6 +48,9 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 	
 	private static final String OBTENER_IDS_INMUEBLES =
 			"SELECT id_inmueble FROM ma.renglon_catalogo WHERE id_catalogo = ?";
+	
+	private static final String SELECT_CATALOGO =
+			"SELECT * from ma.catalogo WHERE id_cliente = ?";
 
 	@Override
 	public Catalogo saveOrUpdate(Catalogo c) throws BaseDeDatosException, SQLException {
@@ -177,25 +180,22 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 	}
 
 	@Override
-	public Catalogo buscarCatalogo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String obtenerFechaEmision(Integer idCliente) {
-		String resultado = null;
+	public Catalogo buscarCatalogo(Integer idCliente) 
+	{
+		Catalogo c = new Catalogo();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try
 		{
-			pstmt = conn.prepareStatement(FECHA_EMISION);
+			pstmt = conn.prepareStatement(SELECT_CATALOGO);
 			pstmt.setInt(1, idCliente);
 			rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				resultado = rs.getString("FECHA_EMISION");
+				c.setIdCatalogo(rs.getInt("ID_CATALOGO"));
+				c.setFechaEmision(rs.getString("FECHA_EMISION"));
+				c.setInmuebles(this.obtenerInmueblesCatalogo(idCliente));
 			}
 		}
 		catch (SQLException e)
@@ -214,7 +214,7 @@ public class Catalogo_DAO_PostgreSQL implements CatalogoDAO{
 				e.printStackTrace();
 			}
 		}
-		return resultado;
+		return c;
 	}
 	
 	@Override
