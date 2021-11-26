@@ -32,6 +32,8 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 	private static final String INSERT_RESERVA =
 			"INSERT INTO ma.reserva (ID_CLIENTE, ID_INMUEBLE, IMPORTE_RESERVA, TIEMPO_VIGENCIA, EMAIL, FECHA_EMISION) VALUES (?,?,?,?,?,?)";
 	
+	private static final String INMUEBLE_YA_RESERVADO =
+			"SELECT id_reserva FROM ma.reserva WHERE id_inmueble = ? ";
 
 	@Override
 	public Reserva save(Reserva r) throws BaseDeDatosException, SQLException {
@@ -191,6 +193,41 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 			}
 		}
 		return r;
+	}
+
+	@Override
+	public Integer obtenerIdReservaConIdInmueble(Integer idInmueble) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Integer resultado = -1;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(INMUEBLE_YA_RESERVADO);
+			pstmt.setInt(1, idInmueble);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				resultado = rs.getInt("ID_RESERVA");
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return resultado;
 	}
 
 }

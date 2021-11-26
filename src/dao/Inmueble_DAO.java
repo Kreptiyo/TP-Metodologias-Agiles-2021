@@ -16,4 +16,5 @@ public interface Inmueble_DAO
 	public Inmueble buscarPorId(Integer id);
 	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(String nroDocumento);
 	void eliminarInmueblePropietario(String nroDocumento);
+	List<Inmueble> buscarPorCatalogo(List<Integer> id);
 }

@@ -50,9 +50,23 @@ public class Modelo_Tabla_Ver_Catalogo extends AbstractTableModel
 	    	        case 7:
 	    	        	return i.getBaños(); 
 	    	        case 8:
-	    	        	return "Si"; 
+	    	        	if(i.getGaraje())
+	    	        		{
+	    	        		return "Si";
+	    	        		}
+	    	        		else
+	    	        		{
+	    	        			return "No";
+	    	        		}
 	    	        case 9:
-	    	        	return "Si";
+	    	        	if(i.getPatio())
+    	        		{
+    	        		return "Si";
+    	        		}
+    	        		else
+    	        		{
+    	        			return "No";
+    	        		}
 	    	        case 10:
 	    	        	return i.getSuperficie();
 	    	        case 11:

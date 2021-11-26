@@ -184,6 +184,14 @@ public class Interfaz_Generar_Reserva extends JPanel {
 		add(separator_1_1);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(e->
+		{
+				this.setVisible(false);
+				JPanel volver = new Interfaz_Grafica_Ver_Catalogo(pantallaPrincipal);
+				pantallaPrincipal.setContentPane(volver);
+				pantallaPrincipal.setTitle("Catalogo");
+				
+			});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCancelar.setBounds(914, 717, 100, 40);
 		add(btnCancelar);
@@ -214,7 +222,13 @@ public class Interfaz_Generar_Reserva extends JPanel {
 				Gestor_Reserva gestorReserva = new Gestor_Reserva();
 				gestorReserva.crear_Reserva(idCliente, idInmueble, importeReserva, tiempoVigencia, this.txtEmail.getText().toString());
 				
+				
 				this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "Se ha reservado el inmueble exitosamente!");
+				
+				this.setVisible(false);
+				JPanel volver = new Interfaz_Grafica_Ver_Catalogo(pantallaPrincipal);
+				pantallaPrincipal.setContentPane(volver);
+				pantallaPrincipal.setTitle("Catalogo");
 				
 			} catch (Datos_Invalidos_Exception e2) {
 				e2.printStackTrace();

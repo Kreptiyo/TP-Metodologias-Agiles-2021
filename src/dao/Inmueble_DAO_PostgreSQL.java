@@ -223,6 +223,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setFondo(rs.getInt("FONDO"));
 				i.setSuperficie(rs.getInt("SUPERFICIE"));
 				i.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+				i.setSuperficieEdificio(rs.getInt("SUPERFICIE_EDIFICIO"));
 				i.setAntiguedad(rs.getInt("ANTIGUEDAD"));
 				i.setDormitorios(rs.getInt("DORMITORIOS"));
 				i.setBaños(rs.getInt("BAÑOS"));
@@ -532,6 +533,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setFondo(rs.getInt("FONDO"));
 				i.setSuperficie(rs.getInt("SUPERFICIE"));
 				i.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+				i.setSuperficieEdificio(rs.getInt("SUPERFICIE_EDIFICIO"));
 				i.setAntiguedad(rs.getInt("ANTIGUEDAD"));
 				i.setDormitorios(rs.getInt("DORMITORIOS"));
 				i.setBaños(rs.getInt("BAÑOS"));
@@ -685,6 +687,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				i.setFondo(rs.getInt("FONDO"));
 				i.setSuperficie(rs.getInt("SUPERFICIE"));
 				i.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+				i.setSuperficieEdificio(rs.getInt("SUPERFICIE_EDIFICIO"));
 				i.setAntiguedad(rs.getInt("ANTIGUEDAD"));
 				i.setDormitorios(rs.getInt("DORMITORIOS"));
 				i.setBaños(rs.getInt("BAÑOS"));
@@ -734,5 +737,133 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 		
 	}
 	
+	@Override
+	public List<Inmueble> buscarPorCatalogo(List<Integer> ids) {
+		List <Inmueble> lista = new ArrayList<Inmueble>();
+		Propietario_DAO propietarioDAO = new Propietario_DAO_PostgreSQL();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(SELECT_INMUEBLE);
+			for(Integer unId: ids)
+			{
+				pstmt.setInt(1, unId);
+				rs = pstmt.executeQuery();
+				while(rs.next())
+				{
+					Inmueble i = new Inmueble();
+					i.setId(rs.getInt("ID"));
+					i.setPropietario(propietarioDAO.buscarPorNroDocumento(rs.getString("NRO_DOCUMENTO_PROPIETARIO")));
+					i.setProvincia(rs.getString("PROVINCIA"));
+					i.setLocalidad(rs.getString("LOCALIDAD"));
+					i.setCalle(rs.getString("CALLE"));
+					i.setCalleNumero(rs.getInt("CALLE_NUMERO"));
+					i.setPisoDepartamento(rs.getInt("PISO_DEPARTAMENTO"));
+					i.setBarrio(rs.getString("BARRIO"));
+					switch(rs.getString("TIPO_INMUEBLE"))
+					{
+					case "L":
+						i.setTipoDeInmueble(Tipo_Inmueble.L);
+						break;
+					case "C":
+						i.setTipoDeInmueble(Tipo_Inmueble.C);
+						break;
+					case "D":
+						i.setTipoDeInmueble(Tipo_Inmueble.D);
+						break;
+					case "T":
+						i.setTipoDeInmueble(Tipo_Inmueble.T);
+						break;
+					case "Q":
+						i.setTipoDeInmueble(Tipo_Inmueble.Q);
+						break;
+					case "G":
+						i.setTipoDeInmueble(Tipo_Inmueble.G);
+						break;
+					}
+					i.setPrecioDeVenta(rs.getInt("PRECIO"));
+					i.setObservacion(rs.getString("OBSERVACION"));
+					//FALTA VER COMO HACER EL TEMA DE LAS FOTOS
+					switch(rs.getString("ORIENTACION"))
+					{
+					case "NORTE":
+						i.setOrientacion(Orientacion.NORTE);
+						break;
+					case "SUR":
+						i.setOrientacion(Orientacion.SUR);
+						break;
+					case "ESTE":
+						i.setOrientacion(Orientacion.ESTE);
+						break;
+					case "OESTE":
+						i.setOrientacion(Orientacion.OESTE);
+						break;
+					case "NORESTE":
+						i.setOrientacion(Orientacion.NORESTE);
+						break;
+					case "NOROESTE":
+						i.setOrientacion(Orientacion.NOROESTE);
+						break;
+					case "SURESTE":
+						i.setOrientacion(Orientacion.SURESTE);
+						break;
+					case "SUROESTE":
+						i.setOrientacion(Orientacion.SUROESTE);
+						break;
+					}
+					i.setFrente(rs.getInt("FRENTE"));
+					i.setFondo(rs.getInt("FONDO"));
+					i.setSuperficie(rs.getInt("SUPERFICIE"));
+					i.setPropiedadHorizontal(rs.getBoolean("PROPIEDAD_HORIZONTAL"));
+					i.setSuperficieEdificio(rs.getInt("SUPERFICIE_EDIFICIO"));
+					i.setAntiguedad(rs.getInt("ANTIGUEDAD"));
+					i.setDormitorios(rs.getInt("DORMITORIOS"));
+					i.setBaños(rs.getInt("BAÑOS"));
+					i.setGaraje(rs.getBoolean("GARAJE"));
+					i.setPatio(rs.getBoolean("PATIO"));
+					i.setPiscina(rs.getBoolean("PISCINA"));
+					i.setAguaCorriente(rs.getBoolean("AGUA_CORRIENTE"));
+					i.setCloacas(rs.getBoolean("CLOACAS"));
+					i.setGasNatural(rs.getBoolean("GAS_NATURAL"));
+					i.setAguaCaliente(rs.getBoolean("AGUA_CALIENTE"));
+					i.setTelefono(rs.getBoolean("TELEFONO"));
+					i.setLavadero(rs.getBoolean("LAVADERO"));
+					i.setPavimento(rs.getBoolean("PAVIMENTO"));
+					
+					switch (rs.getString("ESTADO")) {
+					case "DISPONIBLE": 
+						i.setEstadoInmueble(Estado_Inmueble.DISPONIBLE);
+						break;
+					case "RESERVADO": 
+						i.setEstadoInmueble(Estado_Inmueble.RESERVADO);
+						break;
+					case "VENDIDO": 
+						i.setEstadoInmueble(Estado_Inmueble.VENDIDO);
+						break;
+					}
+					lista.add(i);
+				}
+			}
+			}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return lista;
+	}
 	
 }

@@ -118,5 +118,10 @@ public class Gestor_Reserva {
 	{
 		reservaDAO.eliminarReserva(id);
 	}
+	
+	public Integer obtenerIdReservaConIdInmueble(Integer idInmueble)
+	{
+		return reservaDAO.obtenerIdReservaConIdInmueble(idInmueble);
+	}
 
 }

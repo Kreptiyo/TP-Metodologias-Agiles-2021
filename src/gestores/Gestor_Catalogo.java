@@ -49,5 +49,15 @@ public class Gestor_Catalogo {
 		/*metodo de persistencia de datos*/
 		catalogoDao.saveOrUpdate(c);
 	}
+	
+	public String obtenerFechaEmision(Integer idCliente)
+	{
+		return catalogoDao.obtenerFechaEmision(idCliente);
+	}
+	
+	public List<Inmueble> inmueblesCatalogo(Integer idCliente)
+	{
+		return catalogoDao.obtenerInmueblesCatalogo(idCliente);
+	}
 
 }
