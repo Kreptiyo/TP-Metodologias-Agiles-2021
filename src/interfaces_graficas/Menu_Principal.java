@@ -91,11 +91,27 @@ public class Menu_Principal extends JPanel
 		});
 		panelMenu.add(btnABMCliente);
 		
+		JButton btnVerCatalogo = new JButton("Ver Catalogo");
+		btnVerCatalogo.addActionListener(e->
+		{
+			
+			this.setVisible(false);
+			JPanel panelVerCatalogo = new Interfaz_Grafica_Ver_Catalogo(pantallaPrincipal);
+			panelVerCatalogo.setVisible(true);
+			pantallaPrincipal.setContentPane(panelVerCatalogo);
+			pantallaPrincipal.setTitle("Catalogo");
+			
+		});
+		btnVerCatalogo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerCatalogo.setBounds(85, 278, 280, 40);
+		panelMenu.add(btnVerCatalogo);
+		
 		lblMenuPrincipal = new JLabel("Men\u00FA Principal");
 		lblMenuPrincipal.setForeground(new Color(0, 0, 255));
 		lblMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblMenuPrincipal.setBounds(155, 11, 140, 35);
 		panelMenu.add(lblMenuPrincipal);
+		
 		
 		this.setVisible(true);
 
