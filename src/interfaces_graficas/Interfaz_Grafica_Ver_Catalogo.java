@@ -3,15 +3,12 @@ package interfaces_graficas;
 import javax.swing.JPanel;
 
 import java.awt.Font;
-import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import dominio.Inmueble;
 import gestores.Gestor_Catalogo;
-import gestores.Gestor_Inmueble;
 import gestores.Gestor_Reserva;
 import modelos_tablas.Modelo_Tabla_Ver_Catalogo;
 
@@ -19,9 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 	private JTextField textFieldFechaEmision;
@@ -47,7 +41,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 		
 		
 		//ADAPTAR CON LOGIN
-		textFieldFechaEmision = new JTextField(gestorCatalogo.obtenerFechaEmision(1));
+		textFieldFechaEmision = new JTextField(gestorCatalogo.buscarCatalogo(1).getFechaEmision());
 		textFieldFechaEmision.setEditable(false);
 		textFieldFechaEmision.setBounds(153, 39, 86, 20);
 		add(textFieldFechaEmision);
@@ -56,7 +50,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 		
 		
 		//ADAPTAR CON LOGIN
-		modeloTabla = new Modelo_Tabla_Ver_Catalogo(gestorCatalogo.inmueblesCatalogo(1));
+		modeloTabla = new Modelo_Tabla_Ver_Catalogo(gestorCatalogo.buscarCatalogo(1).getInmuebles());
 		table = new JTable();
 		table.setBounds(10, 245, 899, 445);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));

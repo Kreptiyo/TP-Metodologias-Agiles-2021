@@ -12,9 +12,8 @@ public interface CatalogoDAO
 {
 	
 	public Catalogo saveOrUpdate(Catalogo c) throws BaseDeDatosException, SQLException;
-	public Catalogo buscarCatalogo();
+	public Catalogo buscarCatalogo(Integer idCliente);
 	void eliminarCatalogoPorInmueble(Integer idInmueble, Connection conn);
-	public String obtenerFechaEmision(Integer idCatalogo);
 	public List<Inmueble> obtenerInmueblesCatalogo(Integer idCliente);
 	public List<Integer> obtenerListaIdsInmuebles(Integer idCliente);
 	Integer obtenerIdCatalogoPorIdCliente(Integer idCliente);
