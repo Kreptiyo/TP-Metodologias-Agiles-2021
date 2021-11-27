@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import dominio.Login;
 import gestores.Gestor_Catalogo;
 import gestores.Gestor_Reserva;
 import modelos_tablas.Modelo_Tabla_Ver_Catalogo;
@@ -40,8 +41,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 		add(lblFechaEmision);
 		
 		
-		//ADAPTAR CON LOGIN
-		textFieldFechaEmision = new JTextField(gestorCatalogo.buscarCatalogo(1).getFechaEmision());
+		textFieldFechaEmision = new JTextField(gestorCatalogo.buscarCatalogo(Login.id).getFechaEmision());
 		textFieldFechaEmision.setEditable(false);
 		textFieldFechaEmision.setBounds(153, 39, 86, 20);
 		add(textFieldFechaEmision);
@@ -49,8 +49,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 		
 		
 		
-		//ADAPTAR CON LOGIN
-		modeloTabla = new Modelo_Tabla_Ver_Catalogo(gestorCatalogo.buscarCatalogo(1).getInmuebles());
+		modeloTabla = new Modelo_Tabla_Ver_Catalogo(gestorCatalogo.buscarCatalogo(Login.id).getInmuebles());
 		table = new JTable();
 		table.setBounds(10, 245, 899, 445);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -69,7 +68,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 				if(gestorReserva.obtenerIdReservaConIdInmueble(idInmueble) < 0)
 				{
 					this.setVisible(false);
-					JPanel panelGenerarReserva = new Interfaz_Generar_Reserva(pantallaPrincipal, 1, idInmueble);
+					JPanel panelGenerarReserva = new Interfaz_Generar_Reserva(pantallaPrincipal, Login.id, idInmueble);
 					pantallaPrincipal.setContentPane(panelGenerarReserva);
 				}
 				else
