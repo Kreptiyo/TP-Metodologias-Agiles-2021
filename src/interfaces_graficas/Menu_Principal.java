@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
 
+import dominio.Login;
+
 public class Menu_Principal extends JPanel 
 {
 	private JPanel panelMenu;
@@ -30,13 +32,17 @@ public class Menu_Principal extends JPanel
 	public void armarPanel(JFrame pantallaPrincipal) 
 	{
 		setLayout(null);
-		
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelMenu.setBackground(SystemColor.scrollbar);
 		panelMenu.setBounds(305, 200, 450, 382);
 		add(panelMenu);
 		panelMenu.setLayout(null);
+		
+		//PARA VER SI SE GUARDO CORRECTAMENTE EL ID Y EL TIPO DE USUARIO
+		System.out.println("Remover esto de Interfaz Menu Principal");
+		System.out.println("ID usuario: " + Login.id);
+		System.out.println("Tipo de usuario: " + Login.tipoUsuario + " \n");
 		
 		btnGestionarPropietarios = new JButton("Gestionar Propietarios");
 		btnGestionarPropietarios.addActionListener(e->

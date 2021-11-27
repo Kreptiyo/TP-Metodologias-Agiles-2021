@@ -23,6 +23,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import dominio.Inmueble;
+import dominio.Login;
 import excepciones.BaseDeDatosException;
 import gestores.Gestor_Catalogo;
 import gestores.Gestor_Inmueble;
@@ -275,7 +276,7 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 					idsInmuebles.add(modeloTabla.obtenerIdInmueble(i).toString());
 				}
 				try {
-					gestorCatalogo.generarCatalogo(1, idsInmuebles);
+					gestorCatalogo.generarCatalogo(Login.id, idsInmuebles);
 					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Generar catalogo", "Se ha creado el catalogo con exito!");
 				} catch (BaseDeDatosException | SQLException e1) {
 					// TODO Auto-generated catch block
