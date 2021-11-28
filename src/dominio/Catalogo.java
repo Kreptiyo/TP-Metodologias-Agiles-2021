@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Catalogo {
@@ -18,6 +19,7 @@ public class Catalogo {
 	
 	public Catalogo() {
 		super();
+		this.inmuebles = new ArrayList<Inmueble>();
 	}
 
 	public String getFechaEmision() {

@@ -49,5 +49,15 @@ public class Gestor_Catalogo {
 		/*metodo de persistencia de datos*/
 		catalogoDao.saveOrUpdate(c);
 	}
+	
+	public List<Inmueble> inmueblesCatalogo(Integer idCliente)
+	{
+		return catalogoDao.obtenerInmueblesCatalogo(idCliente);
+	}
+	
+	public Catalogo buscarCatalogo(Integer idCliente)
+	{
+		return catalogoDao.buscarCatalogo(idCliente);
+	}
 
 }
