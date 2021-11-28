@@ -94,6 +94,11 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 		});
 		btnVolver.setBounds(863, 694, 149, 51);
 		add(btnVolver);
+		
+		if(!Login.tipoUsuario.equals("CLIENTE"))
+		{
+			btnReservar.setEnabled(false);
+		}
 
 	}
 	

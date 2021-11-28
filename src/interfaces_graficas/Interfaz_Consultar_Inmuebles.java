@@ -287,6 +287,11 @@ public class Interfaz_Consultar_Inmuebles extends JPanel {
 		btnGenerarCatalogo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnGenerarCatalogo.setBounds(161, 675, 185, 40);
 		add(btnGenerarCatalogo);
+		
+		if(!Login.tipoUsuario.equals("CLIENTE"))
+		{
+			btnGenerarCatalogo.setEnabled(false);
+		}
 
 	}
 	

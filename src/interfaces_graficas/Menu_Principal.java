@@ -161,6 +161,11 @@ public class Menu_Principal extends JPanel
 		else if(Login.tipoUsuario.equals("VENDEDOR"))
 		{
 			btnAbmVendedor.setEnabled(false);
+			btnVerCatalogo.setEnabled(false);
+		}
+		else if(Login.tipoUsuario.equals("ADMINISTRADOR"))
+		{
+			btnVerCatalogo.setEnabled(false);
 		}
 		
 		this.setVisible(true);

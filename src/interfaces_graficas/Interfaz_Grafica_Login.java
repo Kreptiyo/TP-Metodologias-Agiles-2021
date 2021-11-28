@@ -137,7 +137,7 @@ public class Interfaz_Grafica_Login extends JPanel
 						JPanel panelCliente = new Menu_Principal(pantallaPrincipal);
 						panelCliente.setVisible(true);
 						pantallaPrincipal.setContentPane(panelCliente);
-						pantallaPrincipal.setTitle("Menu de Cliente");
+						pantallaPrincipal.setTitle("MENU PRINCIPAL");
 					}
 					else
 					{
@@ -159,7 +159,7 @@ public class Interfaz_Grafica_Login extends JPanel
 						JPanel panelVendedor = new Menu_Principal(pantallaPrincipal);
 						panelVendedor.setVisible(true);
 						pantallaPrincipal.setContentPane(panelVendedor);
-						pantallaPrincipal.setTitle("Menu de Vendedor");
+						pantallaPrincipal.setTitle("MENU PRINCIPAL");
 					}
 					else
 					{
@@ -181,7 +181,7 @@ public class Interfaz_Grafica_Login extends JPanel
 						JPanel panelAdministrador = new Menu_Principal(pantallaPrincipal);
 						panelAdministrador.setVisible(true);
 						pantallaPrincipal.setContentPane(panelAdministrador);
-						pantallaPrincipal.setTitle("Menu de Administrador");
+						pantallaPrincipal.setTitle("MENU PRINCIPAL");
 					}
 					else
 					{
