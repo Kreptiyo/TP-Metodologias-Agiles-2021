@@ -35,7 +35,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	private static final String UPDATE_INMUEBLE =
 			"UPDATE ma.inmueble SET NRO_DOCUMENTO_PROPIETARIO = ?, PROVINCIA = ?, LOCALIDAD = ?, CALLE = ?, CALLE_NUMERO = ?, PISO_DEPARTAMENTO = ?, BARRIO = ?, TIPO_INMUEBLE = ?, PRECIO = ?, OBSERVACION = ?, ORIENTACION = ?, "
 			+ "FRENTE = ?, FONDO = ?, SUPERFICIE = ?, PROPIEDAD_HORIZONTAL = ?, SUPERFICIE_EDIFICIO = ?, ANTIGUEDAD = ?, DORMITORIOS = ?, BAÑOS = ?, GARAJE = ?, PATIO = ?, PISCINA = ?, AGUA_CORRIENTE = ?, CLOACAS = ?, GAS_NATURAL = ?, "
-			+ "AGUA_CALIENTE = ?, TELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?, ESTADO = ?";
+			+ "AGUA_CALIENTE = ?, TELEFONO = ?, LAVADERO = ?, PAVIMENTO = ?, ESTADO = ? WHERE ID = ?";
 	
 	private static final String DELETE_INMUEBLE =
 			"DELETE FROM ma.inmueble WHERE ID = ?";
@@ -84,6 +84,7 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 				pstmt.setBoolean(28, i.getLavadero());
 				pstmt.setBoolean(29, i.getPavimento());
 				pstmt.setString(30, i.getEstadoInmueble().toString());
+				pstmt.setInt(31, i.getId());
 				pstmt.executeUpdate();
 				conn.commit();
 				
