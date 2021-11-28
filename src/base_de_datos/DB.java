@@ -125,7 +125,6 @@ public class DB
     		"CREATE TABLE IF NOT EXISTS ma.vendedor ( "+
     		"				 NOMBRE VARCHAR(30),"+
     		"				 APELLIDO VARCHAR(30),"+
-    		"				 TELEFONO VARCHAR(15), "+
     		"				 TIPO_DOCUMENTO VARCHAR(10), "+
     		"				 NRO_DOCUMENTO VARCHAR(30), "+
     		"				 LOCALIDAD VARCHAR(30), "+

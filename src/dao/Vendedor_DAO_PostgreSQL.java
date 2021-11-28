@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dominio.Cliente;
 import dominio.Propietario;
 import dominio.Propietario.Tipo_Documento;
 import dominio.Vendedor;
@@ -32,10 +33,28 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 		    "WHERE ID = ?";
 	
 	private static final String DELETE_VENDEDOR =
-			"DELETE FROM ma.vendedor WHERE ID = ?";
+			"DELETE FROM ma.vendedor WHERE NRO_DOCUMENTO = ?";
 	
 	private static final String SELECT_NRO_DOCUMENTO_VENDEDOR =
 			"SELECT NRO_DOCUMENTO FROM ma.vendedor WHERE ID = ?";
+	
+	private static final String SELECT_VENDEDOR_NOMBRE_APELLIDO_DNI =
+			"SELECT * FROM ma.vendedor WHERE NOMBRE = ? AND APELLIDO =? AND NRO_DOCUMENTO = ?";
+	
+	private static final String SELECT_VENDEDOR_NOMBRE_APELLIDO =
+			"SELECT * FROM ma.vendedor WHERE NOMBRE = ? AND APELLIDO =?";
+	
+	private static final String SELECT_VENDEDOR_NOMBRE =
+			"SELECT * FROM ma.vendedor WHERE NOMBRE = ? ";
+	
+	private static final String SELECT_VENDEDOR_APELLIDO =
+			"SELECT * FROM ma.vendedor WHERE  APELLIDO =? ";
+	
+	private static final String SELECT_VENDEDOR_NOMBRE_DNI =
+			"SELECT * FROM ma.vendedor WHERE NOMBRE = ? AND NRO_DOCUMENTO = ?";
+	
+	private static final String SELECT_VENDEDOR_APELLIDO_DNI =
+			"SELECT * FROM ma.vendedor WHERE  APELLIDO =? AND NRO_DOCUMENTO = ?";
 	
 	@Override
 	public Vendedor saveOrUpdate(Vendedor v) throws BaseDeDatosException, SQLException
@@ -54,7 +73,7 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 					pstmt.setString(4, v.getNrodocumento());
 					pstmt.setString(5, v.getLocalidad());
 					pstmt.setString(6, v.getProvincia());
-					pstmt.setDate(7, (Date) v.getFechaNacimiento());				
+					pstmt.setString(7, v.getFechaNacimiento());				
 					pstmt.setString(8, v.getUsuario());
 					pstmt.setString(9, v.getContraseña());
 					pstmt.setInt(10, v.getId());
@@ -72,7 +91,7 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 					pstmt.setString(4, v.getNrodocumento());
 					pstmt.setString(5, v.getLocalidad());
 					pstmt.setString(6, v.getProvincia());
-					pstmt.setString(7, v.getFechaNacimiento().getDay() + "/" + v.getFechaNacimiento().getMonth() + "/" + v.getFechaNacimiento().getYear());				
+					pstmt.setString(7, v.getFechaNacimiento());				
 					pstmt.setString(8, v.getUsuario());
 					pstmt.setString(9, v.getContraseña());
 					pstmt.executeUpdate();
@@ -137,7 +156,7 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 				v.setNrodocumento(rs.getString("NRO_DOCUMENTO"));
 				v.setLocalidad(rs.getString("LOCALIDAD"));
 				v.setProvincia(rs.getString("PROVINCIA"));
-				v.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO"));
+				v.setFechaNacimiento(rs.getString("FECHA_NACIMIENTO"));			
 				v.setUsuario(rs.getString("USUARIO"));
 				v.setContraseña(rs.getString("CONTRASENA"));
 
@@ -198,14 +217,14 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 	}
 	
 	@Override
-	public void eliminarVendedor(Integer id) 
+	public void eliminarVendedor(String dni) 
 	{
 		PreparedStatement pstmt = null;
 		try 
 		{
 				conn.setAutoCommit(false);
 				pstmt = conn.prepareStatement(DELETE_VENDEDOR);
-				pstmt.setInt(1, id);
+				pstmt.setString(1, dni);
 				pstmt.executeUpdate();
 				conn.commit();
 		} 
@@ -263,7 +282,7 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 				v.setNrodocumento(rs.getString("NRO_DOCUMENTO"));
 				v.setLocalidad(rs.getString("LOCALIDAD"));
 				v.setProvincia(rs.getString("PROVINCIA"));
-				v.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO"));
+				v.setFechaNacimiento(rs.getString("FECHA_NACIMIENTO"));
 				v.setUsuario(rs.getString("USUARIO"));
 				v.setContraseña(rs.getString("CONTRASENA"));
 			}
@@ -285,6 +304,117 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 			}
 		}
 		return v;
+		
+	}
+
+	@Override
+	public List<Vendedor> buscarTodos(String nom, String ape, String dni) {
+	
+		List<Vendedor> lista = new ArrayList<Vendedor>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		System.out.println(nom);
+		System.out.println(ape);
+		System.out.println(dni);
+		
+		try
+		{
+			if(nom.length()==0 && ape.length()==0) {
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR);
+				pstmt.setString(1, dni);
+				rs = pstmt.executeQuery();
+				System.out.println("DNI");
+			}
+			else if(ape.length()==0 && dni.length()==0) {
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR_NOMBRE);
+				pstmt.setString(1, nom);
+				rs = pstmt.executeQuery();
+				System.out.println("NOM");
+			}else if (nom.length()==0 && dni.length()==0){
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR_APELLIDO);
+				pstmt.setString(1, ape);
+				rs = pstmt.executeQuery();
+				System.out.println("APE");
+			}else if (!(nom.length()==0) && !(ape.length()==0) && !(dni.length()==0)){
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR_NOMBRE_APELLIDO_DNI);
+				pstmt.setString(1, nom);
+				pstmt.setString(2, ape);
+				pstmt.setString(3, dni);
+				rs = pstmt.executeQuery();
+				System.out.println("TODO");
+			}else if (dni.length()==0){
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR_NOMBRE_APELLIDO);
+				pstmt.setString(1, nom);
+				pstmt.setString(2, ape);
+				rs = pstmt.executeQuery();
+				System.out.println("NOM APE");
+			}else if (nom.length()==0){
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR_APELLIDO_DNI);
+				pstmt.setString(1, ape);
+				pstmt.setString(2, dni);
+				rs = pstmt.executeQuery();
+				System.out.println("APE DNI");
+			}else if (ape.length()==0){
+				pstmt = conn.prepareStatement(SELECT_VENDEDOR_NOMBRE_DNI);
+				pstmt.setString(1, nom);
+				pstmt.setString(2, dni);
+				rs = pstmt.executeQuery();
+				System.out.println("NOM DNI");
+			}
+			
+			while(rs.next())
+			{
+				Vendedor v = new Vendedor();
+				v.setId(rs.getInt("ID"));
+				v.setNombre(rs.getString("NOMBRE"));
+				v.setApellido(rs.getString("APELLIDO"));
+				switch(rs.getString("TIPO_DOCUMENTO"))
+				{
+				case "DNI":
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.DNI);
+					break;
+				case "CI":
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.CI);
+					break;
+				case "LC":
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.LC);
+					break;
+				case "LE":
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.LE);
+					break;
+				case "Pasaporte":
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.Pasaporte);
+					break;
+				}
+				v.setNrodocumento(rs.getString("NRO_DOCUMENTO"));
+				v.setLocalidad(rs.getString("LOCALIDAD"));
+				v.setProvincia(rs.getString("PROVINCIA"));
+				v.setFechaNacimiento(rs.getString("FECHA_NACIMIENTO"));			
+				v.setUsuario(rs.getString("USUARIO"));
+				v.setContraseña(rs.getString("CONTRASENA"));
+
+				lista.add(v);
+			}
+		
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		System.out.println(lista);
+		return lista;
 		
 	}
 	

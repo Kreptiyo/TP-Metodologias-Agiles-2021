@@ -573,12 +573,8 @@ public class Alta_Vendedor extends JPanel {
 				
 				int tipoDoc = this.comboBoxTipoDocumento.getSelectedIndex();
 				
-				Date fecha = new Date();
-				fecha.setDate(Integer.parseInt(this.textFieldFechaNacimientoDia.getText()));
-				fecha.setMonth(Integer.parseInt(this.textFieldMes.getText()));
-				fecha.setYear(Integer.parseInt(this.textFieldAño.getText()));
-				
-				
+				String fecha;
+				fecha = this.textFieldFechaNacimientoDia.getText() + "/" + this.textFieldMes.getText() + "/" + this.textFieldAño.getText();
 				
 				this.gestVendedor.actualizarVendedor(
 						this.textFieldNombre.getText(), 

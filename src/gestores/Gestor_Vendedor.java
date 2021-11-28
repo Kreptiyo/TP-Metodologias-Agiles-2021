@@ -34,7 +34,7 @@ public class Gestor_Vendedor {
 		return vendedorDAO.saveOrUpdate(v);
 	}
 	
-	public void actualizarVendedor(Integer id, String nombre, String apellido, String localidad, String provincia, Integer tipodocumento, String nrodocumento, Date fechaNacimiento, String contraseña, String usuario)
+	public void actualizarVendedor(Integer id, String nombre, String apellido, String localidad, String provincia, Integer tipodocumento, String nrodocumento, String fechaNacimiento, String contraseña, String usuario)
 	{
 		v.setId(id);
 		v.setNombre(nombre);
@@ -78,7 +78,7 @@ public class Gestor_Vendedor {
 		}
 	}
 	
-	public void actualizarVendedor(String nombre, String apellido, String localidad, String provincia, Integer tipodocumento, String nrodocumento, Date fechaNacimiento, String contraseña, String usuario)
+	public void actualizarVendedor(String nombre, String apellido, String localidad, String provincia, Integer tipodocumento, String nrodocumento, String fechaNacimiento, String contraseña, String usuario)
 	{
 
 		v.setNombre(nombre);
@@ -130,16 +130,14 @@ public class Gestor_Vendedor {
 		return this.listaDeVendedores;
 	}
 	
-//	public List<Vendedor> buscarPorNombreApellido(String nom, String ape)
-//	{
-//		this.listaDeVendedores.clear();
-//		this.listaDeVendedores.addAll(vendedorDAO.buscarTodos(nom,ape));
-//		return this.listaDeVendedores;
-//	}
-	
-	
-	public void eliminarCliente(Integer id)
+	public void eliminarCliente(String dni)
 	{
-		vendedorDAO.eliminarVendedor(id);
+		vendedorDAO.eliminarVendedor(dni);
+	}
+
+	public List<Vendedor> buscarPorNombreApellidoDNI(String nom, String ape, String dni) {
+		this.listaDeVendedores.clear();
+		this.listaDeVendedores.addAll(vendedorDAO.buscarTodos(nom,ape,dni));
+		return this.listaDeVendedores;
 	}
 }
