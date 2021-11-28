@@ -95,15 +95,15 @@ public class Lista_Vendedor extends JPanel {
 		btnModificarVendedor.addActionListener(e->{	
 				
 			
-//			String nombre = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 1);
-//			String apellido = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 2);
-//			String id = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 0);
-//			
-//			  		this.setVisible(false);
-//					JPanel panelModificarvendedores = new Modificar_Cliente(pantallaPrincipal, nombre, apellido, id);
-//					panelModificarvendedores.setVisible(true);
-//					pantallaPrincipal.setContentPane(panelModificarvendedores);
-//					pantallaPrincipal.setTitle("Modificar vendedores");
+			String nombre = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 0);
+			String apellido = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 1);
+			String dni = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 3);
+			
+			  		this.setVisible(false);
+					JPanel panelModificarvendedores = new Modificar_Vendedor(pantallaPrincipal, nombre, apellido, dni);
+					panelModificarvendedores.setVisible(true);
+					pantallaPrincipal.setContentPane(panelModificarvendedores);
+					pantallaPrincipal.setTitle("Modificar vendedores");
 			  		
 		});
 		add(btnModificarVendedor);
@@ -257,8 +257,6 @@ public class Lista_Vendedor extends JPanel {
 	}
 	
 	private void mostrarResultados(List<Vendedor> vendedores){
-		
-		System.out.println(vendedores);
 		
 		while (modelo.getRowCount() > 0) {
 			 modelo.removeRow(0);
