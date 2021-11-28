@@ -15,7 +15,7 @@ public class Login_DAO_PostgreSQL implements Login_DAO
 			"SELECT ID FROM ma.cliente WHERE NRO_DOCUMENTO = ? AND PASSWORD = ?";
 	
 	private static final String SELECT_ID_USUARIO_VENDEDOR =
-			"SELECT ID FROM ma.vendedor WHERE NRO_DOCUMENTO = ? AND PASSWORD = ?";
+			"SELECT ID FROM ma.vendedor WHERE NRO_DOCUMENTO = ? AND CONTRASENA = ?";
 	
 	private static final String SELECT_ID_USUARIO_ADMINISTRADOR =
 			"SELECT ID FROM ma.administrador WHERE NRO_DOCUMENTO = ? AND PASSWORD = ?";

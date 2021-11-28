@@ -136,6 +136,18 @@ public class DB
     		"				 ID SERIAL, "+
     		"				 PRIMARY KEY(ID)) ";
 	
+	private static final String TABLE_CREATE_ADMINISTRADOR =
+			"CREATE TABLE IF NOT EXISTS ma.administrador ( "+
+			"				 ID SERIAL, "+
+			"				 NOMBRE VARCHAR(30), "+
+			"				 APELLIDO VARCHAR(30), "+
+			" 				 NRO_DOCUMENTO VARCHAR(30), "+
+			"				 PASSWORD VARCHAR(30), "+
+			"				 PRIMARY KEY(ID))";
+	
+	private static final String CREAR_ADMINISTRADOR_DEFAULT =
+			"INSERT INTO ma.administrador (NOMBRE, APELLIDO, NRO_DOCUMENTO, PASSWORD) VALUES ('Admin', 'Admin', '1234', 'ADMIN')";
+	
 	public static void verificarCrearTablas(Connection conn)
 	{
 		if(!_TABLAS_CREADAS)
@@ -151,6 +163,8 @@ public class DB
 				stmt.execute(TABLE_CREATE_RENGLON_CATALOGO);
 				stmt.execute(TABLE_CREATE_RESERVA);
 				stmt.execute(TABLE_CREATE_VENDEDOR);
+				stmt.execute(TABLE_CREATE_ADMINISTRADOR);
+				stmt.execute(CREAR_ADMINISTRADOR_DEFAULT);
 				
 			}
 			catch(SQLException e)

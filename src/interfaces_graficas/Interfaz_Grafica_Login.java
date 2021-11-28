@@ -51,16 +51,31 @@ public class Interfaz_Grafica_Login extends JPanel
 		panelMenu.add(lblTitulo);
 		
 		JRadioButton rdbtnCliente = new JRadioButton("Cliente");
+		rdbtnCliente.addActionListener(e->
+		{
+			textFieldNumDocumento.setEnabled(true);
+			passwordField.setEnabled(true);
+		});
 		rdbtnCliente.setBackground(SystemColor.scrollbar);
 		rdbtnCliente.setBounds(107, 143, 64, 23);
 		panelMenu.add(rdbtnCliente);
 		
 		JRadioButton rdbtnVendedor = new JRadioButton("Vendedor");
+		rdbtnVendedor.addActionListener(e->
+		{
+			textFieldNumDocumento.setEnabled(true);
+			passwordField.setEnabled(true);
+		});
 		rdbtnVendedor.setBackground(SystemColor.scrollbar);
 		rdbtnVendedor.setBounds(190, 143, 85, 23);
 		panelMenu.add(rdbtnVendedor);
 		
 		JRadioButton rdbtnAdmin = new JRadioButton("Admin");
+		rdbtnAdmin.addActionListener(e->
+		{
+			textFieldNumDocumento.setEnabled(true);
+			passwordField.setEnabled(true);
+		});
 		rdbtnAdmin.setBackground(SystemColor.scrollbar);
 		rdbtnAdmin.setBounds(291, 143, 64, 23);
 		panelMenu.add(rdbtnAdmin);
@@ -79,6 +94,7 @@ public class Interfaz_Grafica_Login extends JPanel
 		 panelMenu. add(lblContraseña);
 		 
 		 textFieldNumDocumento = new JTextField();
+		 textFieldNumDocumento.setEnabled(false);
 		 textFieldNumDocumento.addKeyListener(new KeyAdapter() 
 			{
 				@Override
@@ -101,6 +117,7 @@ public class Interfaz_Grafica_Login extends JPanel
 		 textFieldNumDocumento.setColumns(10);
 		 
 		 passwordField = new JPasswordField();
+		 passwordField.setEnabled(false);
 		 passwordField.setBounds(213, 201, 86, 20);
 		 panelMenu.add(passwordField);
 		 passwordField.setColumns(10);
@@ -132,15 +149,14 @@ public class Interfaz_Grafica_Login extends JPanel
 				}
 				else if(rdbtnVendedor.isSelected())
 				{
-					System.out.println("IMPLEMENTAR MENU VENDEDOR");
-					/*
-					Integer idUsuario = null;
 					String tipoUsuario = "VENDEDOR";
-					idUsuario = gestorLogin.verificarUsuario(numDocumento, password, tipoUsuario);
+					Integer idUsuario = gestorLogin.verificarUsuario(textFieldNumDocumento.getText(), String.valueOf(passwordField.getPassword()), tipoUsuario);
 					if(idUsuario != null && idUsuario > 0)
 					{
+						Login.id = idUsuario;
+						Login.tipoUsuario = tipoUsuario;
 						this.setVisible(false);
-						JPanel panelVendedor = new Menu_Vendedor(pantallaPrincipal, idUsuario);
+						JPanel panelVendedor = new Menu_Principal(pantallaPrincipal);
 						panelVendedor.setVisible(true);
 						pantallaPrincipal.setContentPane(panelVendedor);
 						pantallaPrincipal.setTitle("Menu de Vendedor");
@@ -151,16 +167,16 @@ public class Interfaz_Grafica_Login extends JPanel
 							    "El usuario o contraseña son incorrectos","Datos invalidos",
 							    JOptionPane.ERROR_MESSAGE);
 					}
-					*/
+					
 				}
 				else if(rdbtnAdmin.isSelected())
 				{
-					/*
-					Integer idUsuario = null;
 					String tipoUsuario = "ADMINISTRADOR";
-					idUsuario = gestorLogin.verificarUsuario(numDocumento, password, tipoUsuario);
+					Integer idUsuario = gestorLogin.verificarUsuario(textFieldNumDocumento.getText(), String.valueOf(passwordField.getPassword()), tipoUsuario);
 					if(idUsuario != null && idUsuario > 0)
 					{
+						Login.id = idUsuario;
+						Login.tipoUsuario = tipoUsuario;
 						this.setVisible(false);
 						JPanel panelAdministrador = new Menu_Principal(pantallaPrincipal);
 						panelAdministrador.setVisible(true);
@@ -173,12 +189,6 @@ public class Interfaz_Grafica_Login extends JPanel
 							    "El usuario o contraseña son incorrectos","Datos invalidos",
 							    JOptionPane.ERROR_MESSAGE);
 					}
-					*/
-					this.setVisible(false);
-					JPanel panelAdministrador = new Menu_Principal(pantallaPrincipal);
-					panelAdministrador.setVisible(true);
-					pantallaPrincipal.setContentPane(panelAdministrador);
-					pantallaPrincipal.setTitle("Menu de Administrador");
 				}
 				else
 				{
