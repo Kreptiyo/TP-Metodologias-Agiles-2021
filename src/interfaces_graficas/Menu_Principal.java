@@ -150,6 +150,19 @@ public class Menu_Principal extends JPanel
 		});
 		panelMenu.add(btnAbmVendedor);
 	
+		if(Login.tipoUsuario.equals("CLIENTE"))
+		{
+			btnGestionarPropietarios.setEnabled(false);
+			btnGestionarInmuebles.setEnabled(false);
+			btnABMCliente.setEnabled(false);
+			btnAbmVendedor.setEnabled(false);
+			
+		}
+		else if(Login.tipoUsuario.equals("VENDEDOR"))
+		{
+			btnAbmVendedor.setEnabled(false);
+		}
+		
 		this.setVisible(true);
 
 	}
