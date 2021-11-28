@@ -791,9 +791,6 @@ public class Modificar_Cliente extends JPanel {
 			int orietacion = this.comboBoxOrientacion.getSelectedIndex();
 			int tipoInmueble =  this.comboBoxTipoInmueble.getSelectedIndex();
 			
-			System.out.println(orietacion);
-			System.out.println(tipoInmueble);
-			
 			this.gestorCliente.actualizarModelo_Datos_Inmueble(
 					orietacion,
 					tipoInmueble,

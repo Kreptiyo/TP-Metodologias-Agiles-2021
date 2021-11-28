@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import dominio.Vendedor;
+import gestores.Gestor_Vendedor;
 
 
 public class Lista_Vendedor extends JPanel {
@@ -32,8 +33,8 @@ public class Lista_Vendedor extends JPanel {
 	private DefaultTableModel modelo;
 	private JTextField textFieldFiltrarNombre;
 	private JTextField textFieldFiltrarApellido;
-	private List<Vendedor> clientes;
-	//private Gestor_Cliente gestorvendedores;
+	private List<Vendedor> vendedores;
+	private Gestor_Vendedor gestorVendedores;
 	private JTextField textFieldFiltrarDocumento;
 	
 	public Lista_Vendedor(JFrame pantallaPrincipal) {
@@ -43,9 +44,8 @@ public class Lista_Vendedor extends JPanel {
 	
 	public void armarPanel(JFrame pantallaPrincipal) {
 		
-		//gestorvendedores = new Gestor_Cliente();
-		// vendedores = gestorvendedores.listarTodos();
-		
+		gestorVendedores = new Gestor_Vendedor();
+		vendedores = gestorVendedores.listarTodos();
 		
 		setLayout(null);
 		JPanel paneltablaVendedor = new JPanel();
@@ -95,15 +95,15 @@ public class Lista_Vendedor extends JPanel {
 		btnModificarVendedor.addActionListener(e->{	
 				
 			
-//			String nombre = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 1);
-//			String apellido = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 2);
-//			String id = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 0);
-//			
-//			  		this.setVisible(false);
-//					JPanel panelModificarvendedores = new Modificar_Cliente(pantallaPrincipal, nombre, apellido, id);
-//					panelModificarvendedores.setVisible(true);
-//					pantallaPrincipal.setContentPane(panelModificarvendedores);
-//					pantallaPrincipal.setTitle("Modificar vendedores");
+			String nombre = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 0);
+			String apellido = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 1);
+			String dni = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 3);
+			
+			  		this.setVisible(false);
+					JPanel panelModificarvendedores = new Modificar_Vendedor(pantallaPrincipal, nombre, apellido, dni);
+					panelModificarvendedores.setVisible(true);
+					pantallaPrincipal.setContentPane(panelModificarvendedores);
+					pantallaPrincipal.setTitle("Modificar vendedores");
 			  		
 		});
 		add(btnModificarVendedor);
@@ -129,10 +129,10 @@ public class Lista_Vendedor extends JPanel {
 		btnEliminarVendedor.setEnabled(false);
 		btnEliminarVendedor.addActionListener(e-> {
 			
-			//String id = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 0);			
-			//this.gestorvendedores.eliminarCliente(Integer.parseInt(id));
-			// vendedores = gestorvendedores.listarTodos();
-			// this.mostrarResultados(vendedores);
+			String dni = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 3);			
+			this.gestorVendedores.eliminarCliente(dni);
+			 vendedores = gestorVendedores.listarTodos();
+			 this.mostrarResultados(vendedores);
 		});
 		add(btnEliminarVendedor);
 		
@@ -197,25 +197,24 @@ public class Lista_Vendedor extends JPanel {
 		JButton btnFlitrarVendedor = new JButton("Filtrar");
 		btnFlitrarVendedor.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFlitrarVendedor.setBounds(440, 206, 140, 30);
-//		btnFlitrarVendedor.addActionListener(e-> {
-//              
-//              		
-//  			while (modelo.getRowCount() > 0) {
-//  				 modelo.removeRow(0);
-//  			}
-//
-//              if(textFieldFiltrarNombre.getText().isEmpty() && textFieldFiltrarApellido.getText().isEmpty()) {
-//            	  JOptionPane.showMessageDialog(null, "Debe ingresar al menos un filtro");
-//            	  mostrarResultados(gestorvendedores.listarTodos());
-//              }else {
-//            	  
-//                  mostrarResultados(gestorvendedores.buscarPorNombreApellido(textFieldFiltrarNombre.getText(), textFieldFiltrarApellido.getText()));
-//              }
-//
-//          }
-//
-//
-//      );
+		btnFlitrarVendedor.addActionListener(e-> {
+              
+              		
+  			while (modelo.getRowCount() > 0) {
+  				 modelo.removeRow(0);
+  			}
+
+              if(textFieldFiltrarNombre.getText().isEmpty() && textFieldFiltrarApellido.getText().isEmpty() && textFieldFiltrarDocumento.getText().isEmpty()) {
+            	  JOptionPane.showMessageDialog(null, "Debe ingresar al menos un filtro");
+            	  mostrarResultados(gestorVendedores.listarTodos());
+              }else {           	  
+                  mostrarResultados(gestorVendedores.buscarPorNombreApellidoDNI(textFieldFiltrarNombre.getText(), textFieldFiltrarApellido.getText(),textFieldFiltrarDocumento.getText() ));
+              }
+
+          }
+
+
+      );
 		add(btnFlitrarVendedor);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -252,7 +251,7 @@ public class Lista_Vendedor extends JPanel {
 		        }
 		});
 		
-		//this.mostrarResultados(vendedores);
+		this.mostrarResultados(vendedores);
 		
 		
 	}
@@ -263,17 +262,18 @@ public class Lista_Vendedor extends JPanel {
 			 modelo.removeRow(0);
 		}
 		
-//		for(Integer i = 0; i< this.vendedores.size(); i++) {
-//			  String[] dato = new String[8];
-//			  dato[7]= vendedores.get(i).getId().toString();
-//			  dato[0] = vendedores.get(i).getNombre();
-//			  dato[1] = vendedores.get(i).getApellido();
-//			  dato[2] = vendedores.get(i).getTipoInmueble().name();
-//			  dato[3] =  vendedores.get(i).getLocalidad();
-//			  dato[4] =  vendedores.get(i).getBarrio();
-//			  dato[5] =  vendedores.get(i).getMonto().toString();
-//			  this.modelo.addRow(new Object[]{dato[7],dato[0], dato[1],dato[2], dato[3],dato[4], dato[5]});
-//			    
-//		  }
+			
+		for(Integer i = 0; i< this.vendedores.size(); i++) {
+			  String[] dato = new String[7];
+			  dato[0] = vendedores.get(i).getNombre();
+			  dato[1] = vendedores.get(i).getApellido();
+			  dato[2] = vendedores.get(i).getTipodocumento().name();
+			  dato[3] =  vendedores.get(i).getNrodocumento();
+			  dato[4] =  vendedores.get(i).getLocalidad();
+			  dato[5] =  vendedores.get(i).getProvincia();
+			  dato[6] =  vendedores.get(i).getFechaNacimiento();
+			  this.modelo.addRow(new Object[]{dato[0], dato[1],dato[2], dato[3],dato[4], dato[5],dato[6]});
+			    
+		  }
 	}
 }

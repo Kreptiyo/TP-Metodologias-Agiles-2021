@@ -11,7 +11,7 @@ public class Vendedor {
 	private String nrodocumento;
 	private String localidad;
 	private String provincia;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private String contraseña;
 	private String usuario;
 	
@@ -104,12 +104,12 @@ public class Vendedor {
 	}
 
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

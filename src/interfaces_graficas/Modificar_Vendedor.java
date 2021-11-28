@@ -18,20 +18,21 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import dominio.Vendedor;
+import dominio.Vendedor.Tipo_Documento;
 import excepciones.BaseDeDatosException;
 import gestores.Gestor_Cliente;
 import gestores.Gestor_Vendedor;
 
-public class Alta_Vendedor extends JPanel {
+public class Modificar_Vendedor extends JPanel {
 		
-
 		private JTextField textFieldNombre;
 		private JTextField textFieldApellido;
 		private JTextField textFieldFechaNacimientoDia;
 		private JTextField textFieldLocalidad;
 		private JTextField textFieldProvincia;
 		private JTextField textFieldRepetirContraseña;
-		private JComboBox comboBoxTipoDocumento;
+		private JLabel textFieldTipoDocumento;
 		private JLabel lblErrorTipoDocumento;
 		private JLabel lblErrorLocalidad;
 		private JLabel lblErrorProvincia;
@@ -51,18 +52,21 @@ public class Alta_Vendedor extends JPanel {
 		private JTextField textFieldMes;
 		private JTextField textFieldAño;
 		private Gestor_Vendedor gestVendedor;
+		private Vendedor vend;
 		
-		
-		public Alta_Vendedor(JFrame pantallaPrincipal) {
-			armarPanel(pantallaPrincipal);
+		public Modificar_Vendedor(JFrame pantallaPrincipal, String nombre, String apellido, String dni) {
+			armarPanel(pantallaPrincipal, nombre, apellido ,dni);
 		}
 
-		public void armarPanel(JFrame pantallaPrincipal) {
+		public void armarPanel(JFrame pantallaPrincipal, String nombre, String apellido, String dni) {
 	
 				setBounds(100, 100, 1024, 768);
 				setLayout(null);	
 				
 				gestVendedor = new Gestor_Vendedor();
+				
+				vend = new Vendedor();
+				vend = gestVendedor.buscarPorNombreApellidoDNI(nombre, apellido, dni).get(0);
 	
 	JLabel lblNombreCliente = new JLabel("Nombre");
 	lblNombreCliente.setBounds(120, 50, 130, 25);
@@ -81,7 +85,7 @@ public class Alta_Vendedor extends JPanel {
 	add(lblFechaNacimiento);
 	
 	
-	textFieldNombre = new JTextField();
+	textFieldNombre = new JTextField(vend.getNombre());
 	textFieldNombre.setBounds(260, 50, 200, 25);
 	add(textFieldNombre);
 	textFieldNombre.setColumns(10);
@@ -104,7 +108,7 @@ public class Alta_Vendedor extends JPanel {
 
 		}
 	});
-	textFieldApellido = new JTextField();
+	textFieldApellido = new JTextField(vend.getApellido());
 	textFieldApellido.setColumns(10);
 	textFieldApellido.setBounds(660, 50, 200, 25);
 	add(textFieldApellido);
@@ -128,7 +132,8 @@ public class Alta_Vendedor extends JPanel {
 		}
 	});
 	
-	textFieldFechaNacimientoDia = new JTextField();
+	textFieldFechaNacimientoDia = new JTextField(vend.getFechaNacimiento().substring(0, 2));
+	textFieldFechaNacimientoDia.setEditable(false);
 	textFieldFechaNacimientoDia.setColumns(10);
 	textFieldFechaNacimientoDia.setBounds(370, 249, 69, 25);
 	textFieldFechaNacimientoDia.addKeyListener(new KeyAdapter() {
@@ -142,10 +147,10 @@ public class Alta_Vendedor extends JPanel {
 	   });
 	add(textFieldFechaNacimientoDia);
 	
-	JButton btnAñadirVendedor = new JButton("A\u00F1adir");
-	btnAñadirVendedor.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	btnAñadirVendedor.setBounds(298, 669, 140, 30);
-	add(btnAñadirVendedor);
+	JButton btnModificarVendedor = new JButton("Modificar");
+	btnModificarVendedor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	btnModificarVendedor.setBounds(298, 669, 140, 30);
+	add(btnModificarVendedor);
 	
 	JButton btnVolver = new JButton("Volver");
 	btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -191,7 +196,8 @@ public class Alta_Vendedor extends JPanel {
 	lblContrasea.setBounds(350, 380, 130, 25);
 	add(lblContrasea);
 	
-	textFieldUsuario = new JTextField();
+	textFieldUsuario = new JTextField(vend.getUsuario());
+	textFieldUsuario.setEditable(false);
 	textFieldUsuario.setColumns(10);
 	textFieldUsuario.setBounds(490, 326, 200, 25);
 	textFieldUsuario.addKeyListener(new KeyAdapter() 
@@ -215,7 +221,7 @@ public class Alta_Vendedor extends JPanel {
 	});
 	add(textFieldUsuario);
 	
-	textFieldContraseña = new JTextField();
+	textFieldContraseña = new JTextField(vend.getContraseña());
 	textFieldContraseña.setColumns(10);
 	textFieldContraseña.setBounds(490, 382, 200, 25);
 	textFieldContraseña.addKeyListener(new KeyAdapter() 
@@ -258,7 +264,8 @@ public class Alta_Vendedor extends JPanel {
 	lblnroDocumento.setBounds(520, 100, 130, 25);
 	add(lblnroDocumento);
 	
-	textFieldNroDocumento = new JTextField();
+	textFieldNroDocumento = new JTextField(vend.getNrodocumento());
+	textFieldNroDocumento.setEditable(false);
 	textFieldNroDocumento.setColumns(10);
 	textFieldNroDocumento.setBounds(660, 100, 200, 25);
 	textFieldNroDocumento.addKeyListener(new KeyAdapter() {
@@ -290,18 +297,10 @@ public class Alta_Vendedor extends JPanel {
 	lblErrorTipoDocumento.setForeground(Color.RED);
 	lblErrorTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	
-	String[] aux = new String[6];
-	aux[0]="";
-	aux[1]= "DNI";
-	aux[2]= "CI";
-	aux[3]= "LC";
-	aux[4]= "LE";
-	aux[5]= "Pasaporte";
-	
-	comboBoxTipoDocumento = new JComboBox(aux);
-	comboBoxTipoDocumento.setBounds(260, 100, 200, 25);
-	add(comboBoxTipoDocumento);
-	comboBoxTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	textFieldTipoDocumento = new JLabel(vend.getTipodocumento().name());
+	textFieldTipoDocumento.setBounds(260, 100, 200, 25);
+	add(textFieldTipoDocumento);
+	textFieldTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	
 	JLabel lblLocalidad = new JLabel("Localidad");
 	lblLocalidad.setBounds(520, 150, 130, 25);
@@ -336,7 +335,7 @@ public class Alta_Vendedor extends JPanel {
 	lblErrorRepetirContra.setForeground(Color.RED);
 	lblErrorRepetirContra.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	
-	textFieldLocalidad = new JTextField();
+	textFieldLocalidad = new JTextField(vend.getLocalidad());
 	textFieldLocalidad.setBounds(660, 150, 200, 25);
 	textFieldLocalidad.addKeyListener(new KeyAdapter() 
 	{
@@ -360,7 +359,7 @@ public class Alta_Vendedor extends JPanel {
 	add(textFieldLocalidad);
 	textFieldLocalidad.setColumns(10);
 	
-	textFieldProvincia = new JTextField();
+	textFieldProvincia = new JTextField(vend.getProvincia());
 	textFieldProvincia.setBounds(260, 150, 200, 25);
 	textFieldProvincia.addKeyListener(new KeyAdapter() 
 	{
@@ -384,7 +383,7 @@ public class Alta_Vendedor extends JPanel {
 	add(textFieldProvincia);
 	textFieldProvincia.setColumns(10);
 	
-	textFieldRepetirContraseña = new JTextField();
+	textFieldRepetirContraseña = new JTextField(vend.getContraseña());
 	textFieldRepetirContraseña.setBounds(490, 437, 200, 25);
 	textFieldRepetirContraseña.addKeyListener(new KeyAdapter() 
 	{
@@ -408,7 +407,8 @@ public class Alta_Vendedor extends JPanel {
 	add(textFieldRepetirContraseña);
 	textFieldRepetirContraseña.setColumns(10);
 	
-	textFieldMes = new JTextField();
+	textFieldMes = new JTextField(vend.getFechaNacimiento().substring(3,5));
+	textFieldMes.setEditable(false);
 	textFieldMes.setColumns(10);
 	textFieldMes.setBounds(480, 249, 69, 25);
 	textFieldMes.addKeyListener(new KeyAdapter() {
@@ -422,7 +422,8 @@ public class Alta_Vendedor extends JPanel {
 	   });
 	add(textFieldMes);
 	
-	textFieldAño = new JTextField();
+	textFieldAño = new JTextField(vend.getFechaNacimiento().substring(6, 10));
+	textFieldAño.setEditable(false);
 	textFieldAño.setColumns(10);
 	textFieldAño.setBounds(590, 249, 69, 25);
 	textFieldAño.addKeyListener(new KeyAdapter() {
@@ -462,7 +463,7 @@ public class Alta_Vendedor extends JPanel {
 	lblErrorFechaNacimiento.setVisible(false);
 	lblErrorUsuario.setVisible(false);
 	
-	btnAñadirVendedor.addActionListener(e-> {
+	btnModificarVendedor.addActionListener(e-> {
 		try {
 			this.crearVendedor();
 		} catch (SQLException e1) {
@@ -485,20 +486,12 @@ public class Alta_Vendedor extends JPanel {
 				error = true;
 			}else {
 				this.lblErrorNombre.setVisible(false);
-			}
-			
+			}			
 			if(this.textFieldApellido.getText().isEmpty()) {
 				this.lblErrorApellido.setVisible(true);
 				error = true;
 			}else {
 				this.lblErrorApellido.setVisible(false);
-			}
-			
-			if(this.textFieldNroDocumento.getText().isEmpty()) {
-				this.lblErrorDocumento.setVisible(true);
-				error = true;
-			}else {
-				this.lblErrorDocumento.setVisible(false);
 			}
 			
 			if(this.textFieldProvincia.getText().isEmpty()) {
@@ -527,31 +520,7 @@ public class Alta_Vendedor extends JPanel {
 				error = true;
 			}else {
 				this.lblErrorContraseña.setVisible(false);
-			}
-			if(this.textFieldUsuario.getText().isEmpty()) {
-				this.lblErrorUsuario.setVisible(true);
-				error = true;
-			}else {
-				this.lblErrorUsuario.setVisible(false);
-			}
-			if(this.comboBoxTipoDocumento.getSelectedIndex()==0) {
-				this.lblErrorTipoDocumento.setVisible(true);
-				error = true;
-			}else {
-				this.lblErrorTipoDocumento.setVisible(false);
-			}
-			
-			if(
-			this.textFieldFechaNacimientoDia.getText().isEmpty() ||
-			this.textFieldMes.getText().isEmpty()||
-			this.textFieldAño.getText().isEmpty()
-			) {
-				this.lblErrorFechaNacimiento.setVisible(true);
-				error = true;
-			}else {
-				this.lblErrorTipoDocumento.setVisible(false);
-			}
-			
+			}			
 			
 			if(error == true)		
 			{
@@ -566,18 +535,39 @@ public class Alta_Vendedor extends JPanel {
 			
 			if(!validarDatosVacios() && validarDatosContraseña() && validarDatosFecha()) {
 				
-				
-				int tipoDoc = this.comboBoxTipoDocumento.getSelectedIndex();
+				String tipoDoc = this.textFieldTipoDocumento.getText();
+				int tipodocumento = 0;
 				
 				String fecha;
 				fecha = this.textFieldFechaNacimientoDia.getText() + "/" + this.textFieldMes.getText() + "/" + this.textFieldAño.getText();
 				
+				switch (tipoDoc) 
+				{
+				case "DNI":
+					tipodocumento = 1; 
+					break;
+				case "CI":
+					tipodocumento = 2; 
+					break;
+				case "LC":
+					tipodocumento = 3; 
+					break;
+				case "LE":
+					tipodocumento = 4; 
+					break;
+				case "Pasaporte":
+					tipodocumento = 5; 
+					break;
+
+				}
+				
 				this.gestVendedor.actualizarVendedor(
+						this.vend.getId(),
 						this.textFieldNombre.getText(), 
 						this.textFieldApellido.getText(),
 						this.textFieldLocalidad.getText(),
 						this.textFieldProvincia.getText(),
-						tipoDoc, 
+						tipodocumento, 
 						this.textFieldNroDocumento.getText(),
 						fecha,
 						this.textFieldContraseña.getText(),
