@@ -19,6 +19,7 @@ public class Menu_Principal extends JPanel
 	private JButton btnGestionarInmuebles;
 	private JButton btnListaDeInmuebles;
 	private JButton btnABMCliente;
+	private JButton btnAbmVendedor;
 	private JLabel lblMenuPrincipal;
 	private JButton btnVerReservas;
 
@@ -35,7 +36,7 @@ public class Menu_Principal extends JPanel
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		panelMenu.setBackground(SystemColor.scrollbar);
-		panelMenu.setBounds(305, 200, 450, 382);
+		panelMenu.setBounds(305, 200, 450, 441);
 		add(panelMenu);
 		panelMenu.setLayout(null);
 		
@@ -133,6 +134,21 @@ public class Menu_Principal extends JPanel
 		lblMenuPrincipal.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblMenuPrincipal.setBounds(155, 11, 140, 35);
 		panelMenu.add(lblMenuPrincipal);
+		
+		btnAbmVendedor = new JButton("ABM Vendedor");
+		btnAbmVendedor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAbmVendedor.setBounds(85, 379, 280, 40);
+		btnAbmVendedor.addActionListener(e->
+		{
+			
+			this.setVisible(false);
+			JPanel panelListaDeVendedores = new Lista_Vendedor(pantallaPrincipal);
+			panelListaDeVendedores.setVisible(true);
+			pantallaPrincipal.setContentPane(panelListaDeVendedores);
+			pantallaPrincipal.setTitle("Lista de Vendedores");
+			
+		});
+		panelMenu.add(btnAbmVendedor);
 	
 		this.setVisible(true);
 

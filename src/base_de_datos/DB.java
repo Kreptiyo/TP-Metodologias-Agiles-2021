@@ -121,6 +121,21 @@ public class DB
 			"				 FOREIGN KEY (ID_CLIENTE) REFERENCES ma.cliente(ID), "+
 			"				 FOREIGN KEY (ID_INMUEBLE) REFERENCES ma.inmueble(ID))";
 	
+	private static final String TABLE_CREATE_VENDEDOR =
+    		"CREATE TABLE IF NOT EXISTS ma.vendedor ( "+
+    		"				 NOMBRE VARCHAR(30),"+
+    		"				 APELLIDO VARCHAR(30),"+
+    		"				 TELEFONO VARCHAR(15), "+
+    		"				 TIPO_DOCUMENTO VARCHAR(10), "+
+    		"				 NRO_DOCUMENTO VARCHAR(30), "+
+    		"				 LOCALIDAD VARCHAR(30), "+
+    		"				 PROVINCIA VARCHAR(30), "+
+    		"				 FECHA_NACIMIENTO VARCHAR(100), "+
+    		"				 USUARIO VARCHAR(30), "+
+    		"				 CONTRASENA  VARCHAR(30), "+
+    		"				 ID SERIAL, "+
+    		"				 PRIMARY KEY(ID)) ";
+	
 	public static void verificarCrearTablas(Connection conn)
 	{
 		if(!_TABLAS_CREADAS)
@@ -135,6 +150,7 @@ public class DB
 				stmt.execute(TABLE_CREATE_CATALOGO);
 				stmt.execute(TABLE_CREATE_RENGLON_CATALOGO);
 				stmt.execute(TABLE_CREATE_RESERVA);
+				stmt.execute(TABLE_CREATE_VENDEDOR);
 				
 			}
 			catch(SQLException e)
