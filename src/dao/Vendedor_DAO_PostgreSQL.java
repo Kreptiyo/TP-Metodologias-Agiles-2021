@@ -17,7 +17,6 @@ import gestores.Gestor_Conexion;
 public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 
 	private Connection conn = Gestor_Conexion.getConnection();
-	private Vendedor_DAO vednedorDAO = new Vendedor_DAO_PostgreSQL();
 	
 	private static final String SELECT_ALL_VENDEDOR =
 			"SELECT * FROM ma.vendedor";
@@ -73,7 +72,7 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 					pstmt.setString(4, v.getNrodocumento());
 					pstmt.setString(5, v.getLocalidad());
 					pstmt.setString(6, v.getProvincia());
-					pstmt.setDate(7, (Date) v.getFechaNacimiento());				
+					pstmt.setString(7, v.getFechaNacimiento().getDay() + "/" + v.getFechaNacimiento().getMonth() + "/" + v.getFechaNacimiento().getYear());				
 					pstmt.setString(8, v.getUsuario());
 					pstmt.setString(9, v.getContraseña());
 					pstmt.executeUpdate();

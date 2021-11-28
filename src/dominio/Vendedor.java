@@ -21,6 +21,18 @@ public class Vendedor {
 		DNI, CI, LC, LE, Pasaporte
 	}
 
+	public String toString() {
+		System.out.println(nombre);
+		System.out.println(apellido);
+		System.out.println(tipodocumento);
+		System.out.println(nrodocumento);
+		System.out.println(localidad);
+		System.out.println(provincia);
+		System.out.println(fechaNacimiento);
+		System.out.println(contraseña);
+		System.out.println(usuario);
+		return nombre;
+	}
 
 	public Integer getId() {
 		return id;

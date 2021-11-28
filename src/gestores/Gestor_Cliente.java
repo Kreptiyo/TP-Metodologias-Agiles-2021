@@ -31,7 +31,6 @@ public class Gestor_Cliente {
 	
 	public Cliente crear_Cliente() throws SQLException, BaseDeDatosException 
 	{
-		c.toString();
 		return clienteDAO.saveOrUpdate(c);
 	}
 	

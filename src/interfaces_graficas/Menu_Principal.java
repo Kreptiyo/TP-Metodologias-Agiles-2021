@@ -97,6 +97,21 @@ public class Menu_Principal extends JPanel
 		lblMenuPrincipal.setBounds(155, 11, 140, 35);
 		panelMenu.add(lblMenuPrincipal);
 		
+		JButton btnABMVendedor = new JButton("ABM Vendedor");
+		btnABMVendedor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnABMVendedor.setBounds(85, 276, 280, 40);
+		btnABMVendedor.addActionListener(e->
+		{
+			
+			this.setVisible(false);
+			JPanel panelListaDeVendedores = new Lista_Vendedor(pantallaPrincipal);
+			panelListaDeVendedores.setVisible(true);
+			pantallaPrincipal.setContentPane(panelListaDeVendedores);
+			pantallaPrincipal.setTitle("Lista de Vendedores");
+			
+		});
+		panelMenu.add(btnABMVendedor);
+		
 		this.setVisible(true);
 
 	}

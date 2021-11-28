@@ -114,11 +114,11 @@ public class Lista_Vendedor extends JPanel {
 		btnAñadirVendedor.addActionListener(e-> {
 			
 			
-//			this.setVisible(false);
-//			JPanel panelAltavendedores = new AltaCliente(pantallaPrincipal);
-//			panelAltavendedores.setVisible(true);
-//			pantallaPrincipal.setContentPane(panelAltavendedores);
-//			pantallaPrincipal.setTitle("Alta vendedores");
+			this.setVisible(false);
+			JPanel panelAltavendedores = new Alta_Vendedor(pantallaPrincipal);
+			panelAltavendedores.setVisible(true);
+			pantallaPrincipal.setContentPane(panelAltavendedores);
+			pantallaPrincipal.setTitle("Alta vendedores");
 		
 		});
 		add(btnAñadirVendedor);
