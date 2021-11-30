@@ -42,10 +42,6 @@ public class Gestor_Catalogo {
 		c.setIdPropietario(idCliente);
 		c.setIdCatalogo(idCliente);
 		
-		for(Inmueble i: c.getInmuebles()) {
-			System.out.println("id del inmueble seleccionado para catalogo: "+i.getId());
-		}
-		
 		/*metodo de persistencia de datos*/
 		catalogoDao.saveOrUpdate(c);
 	}
