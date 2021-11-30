@@ -8,8 +8,15 @@ import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 import dominio.Cliente;
 import dominio.Inmueble;
+import dominio.Reserva;
 import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Cliente;
@@ -22,6 +29,7 @@ import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -220,7 +228,7 @@ public class Interfaz_Generar_Reserva extends JPanel {
 				}
 						
 				Gestor_Reserva gestorReserva = new Gestor_Reserva();
-				gestorReserva.crear_Reserva(idCliente, idInmueble, importeReserva, tiempoVigencia, this.txtEmail.getText().toString());
+				this.sendMail(gestorReserva.crear_Reserva(idCliente, idInmueble, importeReserva, tiempoVigencia, this.txtEmail.getText().toString()));
 				
 				
 				this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "Se ha reservado el inmueble exitosamente!");
@@ -237,6 +245,9 @@ public class Interfaz_Generar_Reserva extends JPanel {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -361,4 +372,63 @@ public class Interfaz_Generar_Reserva extends JPanel {
 		this.txtPrecio.setText(inmueble.getPrecioDeVenta().toString());
 		
 	}
+	
+	private void sendMail(Reserva r) throws IOException {
+
+		
+		try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage(PDRectangle.A4);
+            document.addPage(page);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // Comienzo
+            contentStream.beginText();
+           
+          //Se pone la fuente de la letra  
+            contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 24);               
+            contentStream.setLeading(14.5f);  
+          
+            //Se setea la posicion donde se comienza a escribir
+            contentStream.newLineAtOffset(25, 700);  
+          
+	// Se escribe los textos que van a aparecer y se los agrega
+
+                  String text = "";  
+                  String Line1 = "Reserva";  
+                  String Line2 = "Cliente: n°: " + r.getIdCliente();
+                  String Line3 = "Usted ha realizado la reserva del inmueble n°: " + r.getIdInmueble();
+                  String Line4 = "El costo de la misma es de: " + r.getImporteReserva();
+                  String Line5 = "y tiene una duracion de " + r.getTiempoVigencia() + " dias";
+           
+            contentStream.showText(Line1);  
+            contentStream.newLine();   
+            contentStream.showText(text);  
+            contentStream.newLine();  
+            contentStream.showText(Line2);  
+            contentStream.newLine();   
+            contentStream.showText(text);  
+            contentStream.newLine();  
+            contentStream.showText(text);  
+            contentStream.newLine();   
+            contentStream.showText(Line3);  
+            contentStream.newLine();  
+            contentStream.showText(text);  
+            contentStream.newLine();   
+            contentStream.showText(Line4);  
+            contentStream.newLine();  
+            contentStream.showText(text);  
+            contentStream.newLine();   
+            contentStream.showText(Line5); 
+              
+            //Finaliza  
+            contentStream.endText();  
+          
+            //Se cierra y se guarda
+            contentStream.close();  
+            document.save("reserva.pdf");
+        }
+		
+	}
+
 }
