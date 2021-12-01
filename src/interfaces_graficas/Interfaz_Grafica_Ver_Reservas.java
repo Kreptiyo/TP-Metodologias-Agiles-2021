@@ -109,6 +109,20 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 			
 		});
 		add(btnLimpiarFiltro);
+		
+		JButton btnVender = new JButton("Vender");
+		btnVender.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnVender.setBounds(697, 717, 164, 40);
+		btnVender.addActionListener(e->{	
+				
+			  		this.setVisible(false);
+					JPanel panelVentaInmueble = new Venta_Inmueble(pantallaPrincipal);
+					panelVentaInmueble.setVisible(true);
+					pantallaPrincipal.setContentPane(panelVentaInmueble);
+					pantallaPrincipal.setTitle("Venta Inmueble");
+			  		
+		});
+		add(btnVender);
 
 	}
 }
