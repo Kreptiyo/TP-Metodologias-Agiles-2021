@@ -16,6 +16,7 @@ import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
 
 public class Gestor_Cliente {
+	
 	private Cliente_DAO clienteDAO;
 	private Gestor_Propietario gestorPropietario;
 	private Cliente c;
@@ -23,6 +24,8 @@ public class Gestor_Cliente {
 	
 	public Gestor_Cliente()
 	{
+		//Se inicializa el gestor y sus atributos
+		
 		super();
 		this.c = new Cliente();
 		this.listaDeClientes = new ArrayList<Cliente>();
@@ -34,9 +37,22 @@ public class Gestor_Cliente {
 		return clienteDAO.saveOrUpdate(c);
 	}
 	
+	public List<Cliente> listarTodos()
+	{
+		this.listaDeClientes.clear();
+		this.listaDeClientes.addAll(clienteDAO.buscarTodos());
+		return this.listaDeClientes;
+	}
+	
+	public void eliminarCliente(Integer id)
+	{
+		clienteDAO.eliminarCliente(id);
+	}
 	
 	public void actualizarCliente(Integer id, String nombre, String localidad, String apellido, String telefono, String barrio, Integer monto, String mail, String contraseña, String documento)
 	{	
+		
+		//Se setean los datos del cliente c
 		c.setId(id);
 		c.setNombre(nombre);
 		c.setLocalidad(localidad);
@@ -48,41 +64,13 @@ public class Gestor_Cliente {
 		c.setContraseña(contraseña);
 		c.setNroDocumento(documento);
 	}
+
 	
-	public void actualizarCliente(String nombre, String localidad, String apellido, String telefono, String barrio, Integer monto, String mail, String contraseña, String documento)
-	{	
-		c.setNombre(nombre);
-		c.setLocalidad(localidad);
-		c.setApellido(apellido);
-		c.setTelefono(telefono);
-		c.setBarrio(barrio);
-		c.setMonto(monto);
-		c.setNroDocumento(documento);
-		c.setMail(mail);
-		c.setContraseña(contraseña);
-	}
-	
-	public void actualizarModelo_Datos_Inmueble(
-			int tipoInmueble, 
-			int orientacion, 
-			Integer frente, 
-			Integer fondo, 
-			Integer superficie, 
-			Boolean propiedadHorizontal, 
-			Integer antiguedad, 
-			Integer dormitorios, 
-			Integer baños,
-			Boolean garaje, 
-			Boolean patio, 
-			Boolean piscina, 
-			Boolean aguaCorriente, 
-			Boolean cloacas, 
-			Boolean gasNatural, 
-			Boolean aguaCaliente, 
-			Boolean telefono, 
-			Boolean lavadero, 
-			Boolean pavimento) throws SQLException, BaseDeDatosException
-	{
+	public void actualizarModelo_Datos_Inmueble(int tipoInmueble, int orientacion, Integer frente, Integer fondo, Integer superficie, Boolean propiedadHorizontal, Integer antiguedad, 
+			Integer dormitorios, Integer baños, Boolean garaje, Boolean patio, Boolean piscina, Boolean aguaCorriente, Boolean cloacas, Boolean gasNatural, Boolean aguaCaliente, 
+			Boolean telefono, Boolean lavadero, Boolean pavimento) throws SQLException, BaseDeDatosException{
+		
+		//Se setean los datos de las caracteristicas del inmueble que le agradan al usaurio
 		
 		c.setFrente(frente);
 		c.setFondo(fondo);
@@ -102,66 +90,68 @@ public class Gestor_Cliente {
 		c.setLavadero(lavadero);
 		c.setPavimento(pavimento);
 
+		//Se setean la orientacion y el tipo del inmueble
+		
 		switch (tipoInmueble) 
 		{
 		case 1:
-			c.setTipoInmueble(Tipo_Inmueble.L);
-			break;
+			c.setTipoInmueble(Tipo_Inmueble.L);		break;
 		case 2:
-			c.setTipoInmueble(Tipo_Inmueble.C);
-			break;
+			c.setTipoInmueble(Tipo_Inmueble.C);		break;
 		case 3:
-			c.setTipoInmueble(Tipo_Inmueble.D);
-			break;
+			c.setTipoInmueble(Tipo_Inmueble.D);		break;
 		case 4:
-			c.setTipoInmueble(Tipo_Inmueble.T);
-			break;
+			c.setTipoInmueble(Tipo_Inmueble.T);		break;
 		case 5:
-			c.setTipoInmueble(Tipo_Inmueble.Q);
-			break;
+			c.setTipoInmueble(Tipo_Inmueble.Q);		break;
 		case 6:
-			c.setTipoInmueble(Tipo_Inmueble.G);
-			break;
+			c.setTipoInmueble(Tipo_Inmueble.G);		break;
 		}
 
 		switch(orientacion)
 		{
 		case 1:
-			c.setOrientacion(Orientacion.NORTE);
-			break;
+			c.setOrientacion(Orientacion.NORTE);		break;
 		case 2:
-			c.setOrientacion(Orientacion.SUR);
-			break;
+			c.setOrientacion(Orientacion.SUR);		    break;
 		case 3:
-			c.setOrientacion(Orientacion.ESTE);
-			break;
+			c.setOrientacion(Orientacion.ESTE);		    break;
 		case 4:
-			c.setOrientacion(Orientacion.OESTE);
-			break;
+			c.setOrientacion(Orientacion.OESTE);		break;
 		case 5:
-			c.setOrientacion(Orientacion.NORESTE);
-			break;
+			c.setOrientacion(Orientacion.NORESTE);		break;
 		case 6:
-			c.setOrientacion(Orientacion.NOROESTE);
-			break;
+			c.setOrientacion(Orientacion.NOROESTE);		break;
 		case 7:
-			c.setOrientacion(Orientacion.SURESTE);
-			break;
+			c.setOrientacion(Orientacion.SURESTE);		break;
 		case 8:
-			c.setOrientacion(Orientacion.SUROESTE);
-			break;
+			c.setOrientacion(Orientacion.SUROESTE);		break;
 		}
+		
+
+
+
+		
+		//Se llama al metodo crear cliente que es el que invoca a la clase DAO para persistirlo 
+		// en la base de datos
 		
 		this.crear_Cliente();
 	}	
 	
 	
-	public List<Cliente> listarTodos()
-	{
-		this.listaDeClientes.clear();
-		this.listaDeClientes.addAll(clienteDAO.buscarTodos());
-		return this.listaDeClientes;
+	public void actualizarCliente(String nombre, String localidad, String apellido, String telefono, String barrio, Integer monto, String mail, String contraseña, String documento)
+	{	
+		c.setNombre(nombre);
+		c.setLocalidad(localidad);
+		c.setApellido(apellido);
+		c.setTelefono(telefono);
+		c.setBarrio(barrio);
+		c.setMonto(monto);
+		c.setNroDocumento(documento);
+		c.setMail(mail);
+		c.setContraseña(contraseña);
 	}
+	
 	
 	public List<Cliente> buscarPorNombreApellido(String nom, String ape)
 	{
@@ -176,9 +166,6 @@ public class Gestor_Cliente {
 		 return this.clienteDAO.buscarPorId(id);
 	}
 	
-	public void eliminarCliente(Integer id)
-	{
-		clienteDAO.eliminarCliente(id);
-	}
+
 }
 

@@ -5,6 +5,8 @@ import dominio.Inmueble.Tipo_Inmueble;
 
 public class Cliente {
 
+	//clase cliente con atributos
+	
 	private Integer id;
 	private String nombre;
 	private String apellido;

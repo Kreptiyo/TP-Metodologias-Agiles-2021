@@ -130,7 +130,7 @@ public class Lista_Vendedor extends JPanel {
 		btnEliminarVendedor.addActionListener(e-> {
 			
 			String dni = (String) modelo.getValueAt(tablaVendedor.getSelectedRow(), 3);			
-			this.gestorVendedores.eliminarCliente(dni);
+			this.gestorVendedores.eliminarVendedor(dni);
 			 vendedores = gestorVendedores.listarTodos();
 			 this.mostrarResultados(vendedores);
 		});

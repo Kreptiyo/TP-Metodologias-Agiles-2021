@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Vendedor {
 
+	//Clase vendedor con sus atributos
+	
 	private Integer id;
 	private String nombre;
 	private String apellido;
@@ -21,6 +23,8 @@ public class Vendedor {
 		DNI, CI, LC, LE, Pasaporte
 	}
 
+	
+	
 	public String toString() {
 		System.out.println(nombre);
 		System.out.println(apellido);

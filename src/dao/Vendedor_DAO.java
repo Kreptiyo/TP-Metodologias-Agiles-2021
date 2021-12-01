@@ -9,6 +9,9 @@ import excepciones.BaseDeDatosException;
 
 public interface Vendedor_DAO {
 
+	//Interfaz Vendedor DAO donde se definen los metodos que se utilziaran en
+	// la clase Vendedor DAO Postgre SQL
+	
 	Vendedor saveOrUpdate(Vendedor p) throws BaseDeDatosException, SQLException;
 	List<Vendedor> buscarTodos();
 	String obtenerNroDocumentoVendedor(Integer id);

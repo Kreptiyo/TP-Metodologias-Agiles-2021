@@ -143,6 +143,11 @@ public class AltaCliente extends JPanel {
 		textFieldLocalidad.setColumns(10);
 		textFieldLocalidad.setBounds(190, 60, 200, 25);
 		panelDatosInmueble.add(textFieldLocalidad);
+		
+		//Para los campos de caracteres se restringio la entrada
+		// de solo caracteres en mayusculas o en su defecto
+		// se convertian los caracteres minusculas a mayuscula
+		
 		textFieldLocalidad.addKeyListener(new KeyAdapter() 
 		{
 			@Override
@@ -191,6 +196,10 @@ public class AltaCliente extends JPanel {
 		textFieldMonto.setColumns(10);
 		textFieldMonto.setBounds(190, 140, 200, 25);
 		panelDatosInmueble.add(textFieldMonto);
+		
+		//A los campos donde numericos, solo se permitia el ingreso de numeros del 0 al 9
+		// Si el usuario clickeaba otro caracter, el campo se bloqueaba
+		
 		textFieldMonto.addKeyListener(new KeyAdapter() {
 		      public void keyPressed(KeyEvent ke) {
 		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
@@ -794,7 +803,13 @@ public class AltaCliente extends JPanel {
 	
 	public boolean validarDatosVacios() {		
 		
+		//Validamos los campos de todos los datos pero solo mostramos
+		// un ejemplo con solo dos asi no agregamos demasiadas imagenes			
+		
 		boolean error = false;
+		
+		//Si algun campo obligatoria se encuentra vacio, se hace visible
+		// el simbolo rojo de error al aldo de este y se cambia el valor booleano de la variable
 		
 		if(this.textFieldNombre.getText().isEmpty()) {
 			this.lblErrorNombre.setVisible(true);
@@ -809,6 +824,21 @@ public class AltaCliente extends JPanel {
 		}else {
 			this.lblErrorApellido.setVisible(false);
 		}
+		
+		//Si algun dato obligatorio se encuentra sin rellenar (se valida la variable error)
+		//altara un mensaje en pantallaque se deben completar todos los campos
+		
+		if(error == true)		
+		{
+			JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+			return error;
+		}else {
+			JOptionPane.showMessageDialog(null, "Cliente creado");
+		}
+		
+		
+		
+		
 		
 		if(this.textFieldBarrio.getText().isEmpty()) {
 			this.lblErrorBarrio.setVisible(true);

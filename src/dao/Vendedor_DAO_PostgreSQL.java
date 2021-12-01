@@ -59,12 +59,11 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 	@Override
 	public Vendedor saveOrUpdate(Vendedor v) throws BaseDeDatosException, SQLException
 	{
-		PreparedStatement pstmt = null;
-		
-		try 
-		{
-				if(v.getId() != null && v.getId() > 0)
-				{
+		PreparedStatement pstmt = null;		
+		try {
+			//Se valida si el vendedor se tiene que insertar o actualizar			
+				if(v.getId() != null && v.getId() > 0){
+					//Se cargan los datos a persistir en la base de datos
 					conn.setAutoCommit(false);
 					pstmt = conn.prepareStatement(UPDATE_VENDEDOR);
 					pstmt.setString(1, v.getNombre());
@@ -78,11 +77,9 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 					pstmt.setString(9, v.getContraseña());
 					pstmt.setInt(10, v.getId());
 					pstmt.executeUpdate();
-					conn.commit();
-					
-				}
-				else
-				{
+					conn.commit();}
+				else{
+					//Se cargan los datos a persistir en la base de datos
 					conn.setAutoCommit(false);
 					pstmt = conn.prepareStatement(INSERT_VENDEDOR);
 					pstmt.setString(1, v.getNombre());
@@ -95,25 +92,18 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 					pstmt.setString(8, v.getUsuario());
 					pstmt.setString(9, v.getContraseña());
 					pstmt.executeUpdate();
-					conn.commit();
-				}					
+					conn.commit();}					
 		} 
-		catch (SQLException e) 
-		{
+		catch (SQLException e){
 			conn.rollback();
 			e.printStackTrace();
 			throw new BaseDeDatosException(e.getMessage());
 		}
-		finally 
-		{
-			try 
-			{
-				if(pstmt!=null) pstmt.close();				
-			}
-			catch(SQLException e) 
-			{
-				e.printStackTrace();
-			}
+		finally {
+			try {
+				if(pstmt!=null) pstmt.close();}
+			catch(SQLException e){
+				e.printStackTrace();}
 		}
 		return v;
 	}
@@ -121,37 +111,33 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 	@Override
 	public List<Vendedor> buscarTodos() 
 	{
+		//Se crean los atributos necesarios y se inicializan
+		
 		List<Vendedor> lista = new ArrayList<Vendedor>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		try
-		{
+		try{
+			//Se prepara la linea a ejectar para realizar la busqueda			
 			pstmt = conn.prepareStatement(SELECT_ALL_VENDEDOR);
 			rs = pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
+				//Se crea el vendedor, se le setean los datos correspondientes con los obtenidos en la BD
 				Vendedor v = new Vendedor();
 				v.setId(rs.getInt("ID"));
 				v.setNombre(rs.getString("NOMBRE"));
 				v.setApellido(rs.getString("APELLIDO"));
-				switch(rs.getString("TIPO_DOCUMENTO"))
-				{
+				switch(rs.getString("TIPO_DOCUMENTO")){
 				case "DNI":
-					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.DNI);
-					break;
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.DNI);				break;
 				case "CI":
-					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.CI);
-					break;
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.CI);				break;
 				case "LC":
-					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.LC);
-					break;
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.LC);				break;
 				case "LE":
-					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.LE);
-					break;
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.LE);				break;
 				case "Pasaporte":
-					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.Pasaporte);
-					break;
+					v.setTipodocumento(dominio.Vendedor.Tipo_Documento.Pasaporte);				break;
 				}
 				v.setNrodocumento(rs.getString("NRO_DOCUMENTO"));
 				v.setLocalidad(rs.getString("LOCALIDAD"));
@@ -159,26 +145,18 @@ public class Vendedor_DAO_PostgreSQL implements Vendedor_DAO{
 				v.setFechaNacimiento(rs.getString("FECHA_NACIMIENTO"));			
 				v.setUsuario(rs.getString("USUARIO"));
 				v.setContraseña(rs.getString("CONTRASENA"));
-
+				//Se agrega el vendedor a la lista y se sigue iterando con el vendedor siguiente
 				lista.add(v);
 			}
 		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
+		catch (SQLException e){
+			e.printStackTrace();}
+		finally{
+			try{
 				if(rs!=null) rs.close();
-				if(pstmt!=null) pstmt.close();
-			}
-			catch(SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+				if(pstmt!=null) pstmt.close();}
+			catch(SQLException e){
+				e.printStackTrace();}}
 		return lista;
 	}
 	

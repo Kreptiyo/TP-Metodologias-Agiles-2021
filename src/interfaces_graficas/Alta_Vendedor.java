@@ -194,6 +194,11 @@ public class Alta_Vendedor extends JPanel {
 	textFieldUsuario = new JTextField();
 	textFieldUsuario.setColumns(10);
 	textFieldUsuario.setBounds(490, 326, 200, 25);
+	
+	//Los campos de caracteres se bloquean a cierta longitud, en este caso 20 caracteres
+	// y tambien, los caracteres en minusculas ingresados se transforman automaticamente 
+	// a caracateres en mayusculas
+	
 	textFieldUsuario.addKeyListener(new KeyAdapter() 
 	{
 		@Override
@@ -261,6 +266,10 @@ public class Alta_Vendedor extends JPanel {
 	textFieldNroDocumento = new JTextField();
 	textFieldNroDocumento.setColumns(10);
 	textFieldNroDocumento.setBounds(660, 100, 200, 25);
+	
+	//A los campos donde solo se permiten numeros, el campo es editable
+	// solo con caracteres de 0 al 9 sino de bloquea
+	
 	textFieldNroDocumento.addKeyListener(new KeyAdapter() {
 	      public void keyPressed(KeyEvent ke) {
 	         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
@@ -590,7 +599,11 @@ public class Alta_Vendedor extends JPanel {
 			}
 		}
 		
+		
 		public boolean validarDatosContraseña() {
+			
+			//Se valdia que las contraseñas sean iguales y en caso de no ser asi
+			// se muestra en pantalla un mensaje de error y los labels correspondientes
 			
 			String c = this.textFieldContraseña.getText();
 			String rc = this.textFieldRepetirContraseña.getText();
@@ -610,6 +623,9 @@ public class Alta_Vendedor extends JPanel {
 		}
 		
 		public boolean validarDatosFecha() {
+			
+			//Se valida que los numeros de la fecha introducida sean validos y en caso de no ser asi
+			//se muestra en pantalla un mensaje de error y los labels correspondientes
 			
 			if(Integer.parseInt(this.textFieldFechaNacimientoDia.getText()) > 31 || 
 				Integer.parseInt(this.textFieldFechaNacimientoDia.getText()) < 1 ||

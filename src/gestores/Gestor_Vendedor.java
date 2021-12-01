@@ -17,6 +17,9 @@ import excepciones.BaseDeDatosException;
 
 public class Gestor_Vendedor {
 
+	
+	//creacion de los atributos necesarios e inicializacion 
+	
 	private Vendedor_DAO vendedorDAO;
 	private Vendedor v;
 	private List<Vendedor> listaDeVendedores;
@@ -29,13 +32,35 @@ public class Gestor_Vendedor {
 		this.vendedorDAO = new Vendedor_DAO_PostgreSQL();
 	}
 	
-	public Vendedor crear_Vendedor() throws SQLException, BaseDeDatosException 
-	{
+	//Metodo que llama a la clase DAO para persistir el vendedor en la base de datos
+	
+	public Vendedor crear_Vendedor() throws SQLException, BaseDeDatosException {
 		return vendedorDAO.saveOrUpdate(v);
 	}
 	
+	//Metodo que llama a la clase DAO para buscar todos los vendedores guardaos en la BD
+	//y los guarda en la lista de vendedorss
+	
+	public List<Vendedor> listarTodos()
+	{
+		this.listaDeVendedores.clear();
+		this.listaDeVendedores.addAll(vendedorDAO.buscarTodos());
+		return this.listaDeVendedores;
+	}
+	
+	//Metodo que llama a la clase DAO para eliminar el vendedor en la base de datos
+	public void eliminarVendedor(String dni)
+	{
+		vendedorDAO.eliminarVendedor(dni);
+	}
+
+	
 	public void actualizarVendedor(Integer id, String nombre, String apellido, String localidad, String provincia, Integer tipodocumento, String nrodocumento, String fechaNacimiento, String contraseña, String usuario)
 	{
+		
+		//En este metodo se setan los datos del  vendedor traidos de la pantalla alta o modificacion de vendedor
+		// todos estos datos ya se encuentran validados y verificados en la clase de la interfaz
+		
 		v.setId(id);
 		v.setNombre(nombre);
 		v.setApellido(apellido);
@@ -68,6 +93,7 @@ public class Gestor_Vendedor {
 		v.setUsuario(usuario);
 		
 		try {
+			
 			this.crear_Vendedor();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -123,18 +149,7 @@ public class Gestor_Vendedor {
 	
 	
 	
-	public List<Vendedor> listarTodos()
-	{
-		this.listaDeVendedores.clear();
-		this.listaDeVendedores.addAll(vendedorDAO.buscarTodos());
-		return this.listaDeVendedores;
-	}
 	
-	public void eliminarCliente(String dni)
-	{
-		vendedorDAO.eliminarVendedor(dni);
-	}
-
 	public List<Vendedor> buscarPorNombreApellidoDNI(String nom, String ape, String dni) {
 		this.listaDeVendedores.clear();
 		this.listaDeVendedores.addAll(vendedorDAO.buscarTodos(nom,ape,dni));

@@ -50,15 +50,19 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 	@Override
 	public Cliente saveOrUpdate(Cliente c) throws BaseDeDatosException, SQLException
 	{
+		//Conexion con la base de datos
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		conn = Gestor_Conexion.getConnection();
 		try 
 		{
+			//Validacion de ver si se ejecuta insert o update del cliente
 				if(c.getId() != null && c.getId() > 0)
 				{
-					System.out.println("Ejecuta update");
 					conn.setAutoCommit(false);
+					
+					// se carga el cliente c
 					pstmt = conn.prepareStatement(UPDATE_CLIENTE);
 					pstmt.setString(1, c.getNombre());
 					pstmt.setString(2, c.getApellido());
@@ -95,7 +99,6 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 				}
 				else
 				{
-					System.out.println("Ejecuta insert");
 					conn.setAutoCommit(false);
 					pstmt = conn.prepareStatement(INSERT_CLIENTE);
 					pstmt.setString(1, c.getNombre());
@@ -151,75 +154,61 @@ public class Cliente_DAO_PostgreSQL implements Cliente_DAO{
 	}
 
 	@Override
-	public List<Cliente> buscarTodos() 
-	{
+	public List<Cliente> buscarTodos(){
+		
+		//Se crea la conexion y la lista cliente a devolver
 		List<Cliente> lista = new ArrayList<Cliente>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		try
-		{
+		try{
 			pstmt = conn.prepareStatement(SELECT_ALL_CLIENTE);
 			rs = pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
+				//Se crea un cliente y se lo comienza a cargar con los datosextraidos de la base
 				Cliente c = new Cliente();
 				c.setId(rs.getInt("ID"));
 				c.setNombre(rs.getString("NOMBRE"));
 				c.setApellido(rs.getString("APELLIDO"));
 				c.setTelefono(rs.getString("TELEFONO"));
 				
-				switch(rs.getString("TIPO_INMUEBLE"))
-				{
+				switch(rs.getString("TIPO_INMUEBLE")){
 				case "L":
-					c.setTipoInmueble(Tipo_Inmueble.L);
-					break;
+					c.setTipoInmueble(Tipo_Inmueble.L);				break;
 				case "C":
-					c.setTipoInmueble(Tipo_Inmueble.C);
-					break;
+					c.setTipoInmueble(Tipo_Inmueble.C);				break;
 				case "D":
-					c.setTipoInmueble(Tipo_Inmueble.C);
-					break;
+					c.setTipoInmueble(Tipo_Inmueble.C);				break;
 				case "T":
-					c.setTipoInmueble(Tipo_Inmueble.T);
-					break;
+					c.setTipoInmueble(Tipo_Inmueble.T);				break;
 				case "Q":
-					c.setTipoInmueble(Tipo_Inmueble.Q);
-					break;
+					c.setTipoInmueble(Tipo_Inmueble.Q);				break;
 				case "G":
-					c.setTipoInmueble(Tipo_Inmueble.G);
-					break;
+					c.setTipoInmueble(Tipo_Inmueble.G);				break;
 				}
 				
-				switch(rs.getString("ORIENTACION"))
-				{
+				switch(rs.getString("ORIENTACION")){
 				case "NORTE":
-					c.setOrientacion(Orientacion.NORTE);
-					break;
+					c.setOrientacion(Orientacion.NORTE);			break;
 				case "SUR":
-					c.setOrientacion(Orientacion.SUR);
-					break;
+					c.setOrientacion(Orientacion.SUR);				break;
 				case "ESTE":
-					c.setOrientacion(Orientacion.ESTE);
-					break;
+					c.setOrientacion(Orientacion.ESTE);				break;
 				case "OESTE":
-					c.setOrientacion(Orientacion.OESTE);
-					break;
+					c.setOrientacion(Orientacion.OESTE);				break;
 				case "NORESTE":
-					c.setOrientacion(Orientacion.NORESTE);
-					break;
+					c.setOrientacion(Orientacion.NORESTE);				break;
 				case "NOROESTE":
-					c.setOrientacion(Orientacion.NOROESTE);
-					break;
+					c.setOrientacion(Orientacion.NOROESTE);				break;
 				case "SURESTE":
-					c.setOrientacion(Orientacion.SURESTE);
-					break;
+					c.setOrientacion(Orientacion.SURESTE);				break;
 				case "SUROESTE":
-					c.setOrientacion(Orientacion.SUROESTE);
-					break;
+					c.setOrientacion(Orientacion.SUROESTE);				break;
 				}
 				
-				
+			// se terminan de cargar los datos del cliente
+			// y luego de terminar las iteraciones de retorna
+				// la lista con los cleintes creados
 				c.setLocalidad(rs.getString("LOCALIDAD"));
 				c.setBarrio(rs.getString("BARRIO"));
 				c.setMonto(rs.getInt("MONTO"));
