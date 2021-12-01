@@ -2,7 +2,6 @@ package interfaces_graficas;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.SystemColor;
@@ -39,11 +38,6 @@ public class Menu_Principal extends JPanel
 		panelMenu.setBounds(305, 200, 450, 441);
 		add(panelMenu);
 		panelMenu.setLayout(null);
-		
-		//PARA VER SI SE GUARDO CORRECTAMENTE EL ID Y EL TIPO DE USUARIO
-		System.out.println("Remover esto de Interfaz Menu Principal");
-		System.out.println("ID usuario: " + Login.id);
-		System.out.println("Tipo de usuario: " + Login.tipoUsuario + " \n");
 		
 		btnGestionarPropietarios = new JButton("Gestionar Propietarios");
 		btnGestionarPropietarios.addActionListener(e->
