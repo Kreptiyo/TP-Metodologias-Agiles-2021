@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -18,9 +19,16 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 import dominio.Cliente;
 import dominio.Inmueble;
 import dominio.Reserva;
+import dominio.Venta;
 import dominio.Inmueble.Tipo_Inmueble;
 import excepciones.BaseDeDatosException;
 import excepciones.Datos_Invalidos_Exception;
@@ -56,27 +64,20 @@ public class Venta_Inmueble extends JPanel {
 		private Inmueble inmueble;
 		
 	public Venta_Inmueble(JFrame pantallaPrincipal, Integer idReserva) {
+		gestVenta = new Gestor_Venta();
+		gestReserva = new Gestor_Reserva();
+		gestCliente = new Gestor_Cliente();
+		gestInmueble = new Gestor_Inmueble();
+		reserva = gestReserva.buscarPorIdReserva(idReserva);
+		cliente = gestCliente.buscarPorId(reserva.getIdCliente());
+		inmueble = gestInmueble.buscarPorId(reserva.getIdInmueble());
 		armarPanel(pantallaPrincipal, idReserva);
 	}
 
 	public void armarPanel(JFrame pantallaPrincipal, Integer idReserva) {
 	
 		setBounds(100, 100, 1024, 768);
-		setLayout(null);	
-				
-		gestVenta = new Gestor_Venta();
-		gestReserva = new Gestor_Reserva();
-		gestCliente = new Gestor_Cliente();
-		gestInmueble = new Gestor_Inmueble();
-		
-		reserva = new Reserva();
-		cliente = new Cliente();
-		inmueble = new Inmueble();
-		
-		reserva = gestReserva.buscarPorIdReserva(idReserva);
-		cliente = gestCliente.buscarPorId(reserva.getIdCliente());
-		inmueble = gestInmueble.buscarPorId(reserva.getIdInmueble());
-		
+		setLayout(null);
 		
 		btnConfirmarVenta = new JButton("Confirmar Venta");
 		btnConfirmarVenta.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -255,6 +256,11 @@ public class Venta_Inmueble extends JPanel {
 		btnConfirmarVenta.addActionListener(e-> {
 			try {		
 				this.crearVenta();
+				this.setVisible(false);
+				JPanel panelListaDereservas = new Interfaz_Grafica_Ver_Reservas(pantallaPrincipal);
+				panelListaDereservas.setVisible(true);
+				pantallaPrincipal.setContentPane(panelListaDereservas);
+				pantallaPrincipal.setTitle("Lista de Reservas");
 			} catch (Datos_Invalidos_Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -262,6 +268,12 @@ public class Venta_Inmueble extends JPanel {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NumberFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -290,7 +302,7 @@ public class Venta_Inmueble extends JPanel {
 			}
 			
 			
-			public void crearVenta() throws SQLException, BaseDeDatosException, Datos_Invalidos_Exception {
+			public void crearVenta() throws SQLException, BaseDeDatosException, Datos_Invalidos_Exception, NumberFormatException, IOException {
 				
 				if(!validarDatosVacios()) {
 					
@@ -308,11 +320,66 @@ public class Venta_Inmueble extends JPanel {
 							this.textFieldPrecioVenta.getText(),
 							this.comboBoxTipoInmueble.getSelectedIndex()
 							);
-				
-					JOptionPane.showMessageDialog(null, "Vendedor creado");
+					 this.generarPDF(this.cliente.getId(), this.inmueble.getId(), Integer.parseInt(this.textFieldPrecioVenta.getText()));
+					JOptionPane.showMessageDialog(null, "Venta realizada");
 				
 				
 				}
+			}
+			
+			private void generarPDF(Integer idCliente, Integer idInmueble, Integer precioVenta) throws IOException {
+
+				
+				try (PDDocument document = new PDDocument()) {
+		            PDPage page = new PDPage(PDRectangle.A4);
+		            document.addPage(page);
+
+		            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+		            // Comienzo
+		            contentStream.beginText();
+		           
+		          //Se pone la fuente de la letra  
+		            contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 24);               
+		            contentStream.setLeading(14.5f);  
+		          
+		            //Se setea la posicion donde se comienza a escribir
+		            contentStream.newLineAtOffset(25, 700);  
+		          
+			// Se escribe los textos que van a aparecer y se los agrega
+
+		                  String text = "";  
+		                  String Line1 = "Venta";  
+		                  String Line2 = "Cliente: n°: " + idCliente;
+		                  String Line3 = "Se ha realizado la venta del inmueble n°: " + idInmueble;
+		                  String Line4 = "El costo de la misma es de: " + precioVenta;
+		           
+		            contentStream.showText(Line1);  
+		            contentStream.newLine();   
+		            contentStream.showText(text);  
+		            contentStream.newLine();  
+		            contentStream.showText(Line2);  
+		            contentStream.newLine();   
+		            contentStream.showText(text);  
+		            contentStream.newLine();  
+		            contentStream.showText(text);  
+		            contentStream.newLine();   
+		            contentStream.showText(Line3);  
+		            contentStream.newLine();  
+		            contentStream.showText(text);  
+		            contentStream.newLine();   
+		            contentStream.showText(Line4);  
+		            contentStream.newLine();  
+		            contentStream.showText(text);
+		              
+		            //Finaliza  
+		            contentStream.endText();  
+		          
+		            //Se cierra y se guarda
+		            contentStream.close();  
+		            document.save("venta.pdf");
+		        }
+				
 			}
 		
 		

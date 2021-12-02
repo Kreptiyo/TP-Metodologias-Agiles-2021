@@ -3,6 +3,8 @@ package interfaces_graficas;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.util.LinkedList;
 import java.awt.Color;
@@ -12,6 +14,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import dominio.Login;
 import gestores.Gestor_Reserva;
 import modelos_tablas.Modelo_Tabla_Ver_Reservas;
 
@@ -57,7 +60,7 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		JButton btnVender = new JButton("Vender");
 		btnVender.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVender.setBounds(697, 717, 164, 40);
-		btnVender.setEnabled(false);
+		btnVender.setEnabled(true);
 		
 		add(btnVender);
 		
@@ -73,8 +76,14 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVolver.setBounds(914, 717, 100, 40);
 		add(btnVolver);
-		
-		modeloTabla = new Modelo_Tabla_Ver_Reservas(gestorReservas.listarTodas());
+		if(Login.tipoUsuario.equals("VENDEDOR") || Login.tipoUsuario.equals("ADMINISTRADOR"))
+		{
+			modeloTabla = new Modelo_Tabla_Ver_Reservas(gestorReservas.listarTodas());
+		}
+		else if(Login.tipoUsuario.equals("CLIENTE"))
+		{
+			modeloTabla = new Modelo_Tabla_Ver_Reservas(gestorReservas.listarTodasPorIdCliente(Login.id));
+		}
 		table = new JTable();
 		table.setBounds(10, 214, 1004, 404);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -84,16 +93,6 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		scrollPane.setBounds(10, 194, 1004, 432);
 		TableRowSorter<TableModel> orden =  new TableRowSorter<TableModel>(modeloTabla);
 		table.setRowSorter(orden);
-		table.addMouseListener(new java.awt.event.MouseAdapter() {
-		    @Override
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	if(!table.getSelectionModel().isSelectionEmpty()){
-		    		btnVender.setEnabled(true);
-		    		
-		    	}
-		    	
-		        }
-		});
 		
 		add(scrollPane);
 		
@@ -129,17 +128,36 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		});
 		add(btnLimpiarFiltro);
 		
+		if(Login.tipoUsuario.equals("CLIENTE") || Login.tipoUsuario.equals("ADMINISTRADOR"))
+		{
+			btnVender.setEnabled(false);
+			
+		}
+		
 		btnVender.addActionListener(e->{	
 			
-	  		this.setVisible(false);
-	  		
-	  		Integer idReserva;
-	  		idReserva = Integer.parseInt(modeloTabla.getValueAt(table.getSelectedRow(), 1).toString());
-	  		
-			JPanel panelVentaInmueble = new Venta_Inmueble(pantallaPrincipal,idReserva );
-			panelVentaInmueble.setVisible(true);
-			pantallaPrincipal.setContentPane(panelVentaInmueble);
-			pantallaPrincipal.setTitle("Venta Inmueble");
+		
+			if(table.getSelectedRow() != -1) 
+			{
+				int resp = JOptionPane.showConfirmDialog(null, "Esta seguro de vender este inmueble?");
+				if(resp==JOptionPane.YES_OPTION)
+				{
+					Integer idReserva = modeloTabla.obtenerIdReserva(table.getSelectedRow());
+					
+					this.setVisible(false);
+					JPanel panelVentaInmueble = new Venta_Inmueble(pantallaPrincipal,idReserva );
+					panelVentaInmueble.setVisible(true);
+					pantallaPrincipal.setContentPane(panelVentaInmueble);
+					pantallaPrincipal.setTitle("Venta Inmueble");
+				}
+			}
+			else 
+			{
+				JOptionPane.showMessageDialog(pantallaPrincipal,
+					    "Debe seleccionar una reserva","Advertencia",
+					    JOptionPane.WARNING_MESSAGE);
+			}
+		
 	  		
 		});
 

@@ -32,8 +32,8 @@ public class Venta_DAO_PostgreSQL implements Venta_DAO {
 			"DELETE FROM ma.venta WHERE ID = ?";
 	
 	private static final String INSERT_VENTA =
-			"INSERT INTO ma.venta (ID_VENTA, ID_CLIENTE, ID_INMUEBLE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, TELEFONO_CLIENTE, "
-			+ "PROVINCIA, LOCALIDAD, BARRIO, CALLE_NUMERO, PRECIO_VENTA, TIPO_INMUEBLE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+			"INSERT INTO ma.venta (ID_CLIENTE, ID_INMUEBLE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, TELEFONO_CLIENTE, "
+			+ "PROVINCIA, LOCALIDAD, BARRIO, CALLE_NUMERO, PRECIO_VENTA, TIPO_INMUEBLE) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	
 	@Override
 	public Venta save(Venta v) throws BaseDeDatosException, SQLException {
@@ -50,18 +50,17 @@ public class Venta_DAO_PostgreSQL implements Venta_DAO {
 		{
 					conn.setAutoCommit(false);
 					pstmt = conn.prepareStatement(INSERT_VENTA);
-					pstmt.setInt(1, v.getId());
-					pstmt.setInt(2, v.getIdCliente());
-					pstmt.setInt(3, v.getIdInmueble());
-					pstmt.setString(4, v.getNombreCliente());
-					pstmt.setString(5, v.getApellidoCliente());
-					pstmt.setString(6, v.getTelefonoCliente());
-					pstmt.setString(7, v.getProvincia());
-					pstmt.setString(8, v.getLocalidad());
-					pstmt.setString(9, v.getBarrio());
-					pstmt.setString(10, v.getCalleNumero());
-					pstmt.setString(11, v.getPrecioVenta());
-					pstmt.setString(12, v.getTipoInmueble().toString());
+					pstmt.setInt(1, v.getIdCliente());
+					pstmt.setInt(2, v.getIdInmueble());
+					pstmt.setString(3, v.getNombreCliente());
+					pstmt.setString(4, v.getApellidoCliente());
+					pstmt.setString(5, v.getTelefonoCliente());
+					pstmt.setString(6, v.getProvincia());
+					pstmt.setString(7, v.getLocalidad());
+					pstmt.setString(8, v.getBarrio());
+					pstmt.setString(9, v.getCalleNumero());
+					pstmt.setString(10, v.getPrecioVenta());
+					pstmt.setString(11, v.getTipoInmueble().toString());
 					
 					pstmt.executeUpdate();
 					

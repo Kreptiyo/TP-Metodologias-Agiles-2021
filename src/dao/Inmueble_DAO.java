@@ -17,4 +17,5 @@ public interface Inmueble_DAO
 	public List<Inmueble> buscarTodosPorNroDocumentoPropietario(String nroDocumento);
 	void eliminarInmueblePropietario(String nroDocumento);
 	List<Inmueble> buscarPorCatalogo(List<Integer> id);
+	public String devolverEstadoInmueble(Integer id);
 }

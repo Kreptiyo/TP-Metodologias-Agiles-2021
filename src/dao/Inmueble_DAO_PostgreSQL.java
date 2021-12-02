@@ -43,6 +43,9 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 	private static final String DELETE_INMUEBLE_PROPIETARIO =
 			"DELETE FROM ma.inmueble WHERE NRO_DOCUMENTO_PROPIETARIO = ?";
 	
+	private static final String SELECT_ESTADO_INMUEBLE_POR_ID =
+			"SELECT ESTADO FROM ma.inmueble WHERE ID = ?";
+	
 	@Override
 	public Inmueble saveOrUpdate(Inmueble i) throws BaseDeDatosException, SQLException
 	{
@@ -865,6 +868,42 @@ public class Inmueble_DAO_PostgreSQL implements Inmueble_DAO
 			}
 		}
 		return lista;
+	}
+
+	@Override
+	public String devolverEstadoInmueble(Integer id) {
+		String estadoInmueble = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(SELECT_ESTADO_INMUEBLE_POR_ID);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			
+				while(rs.next())
+				{
+					estadoInmueble = rs.getString("ESTADO");
+				}
+			}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return estadoInmueble;
 	}
 	
 }
