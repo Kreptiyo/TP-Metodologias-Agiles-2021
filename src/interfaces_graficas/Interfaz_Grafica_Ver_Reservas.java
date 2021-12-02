@@ -54,7 +54,15 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		txtCodigoReserva.setBounds(265, 100, 150, 25);
 		add(txtCodigoReserva);
 		
+		JButton btnVender = new JButton("Vender");
+		btnVender.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnVender.setBounds(697, 717, 164, 40);
+		btnVender.setEnabled(false);
+		
+		add(btnVender);
+		
 		JButton btnVolver = new JButton("Volver");
+		
 		btnVolver.addActionListener(e->
 		{
 			this.setVisible(false);
@@ -76,6 +84,17 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		scrollPane.setBounds(10, 194, 1004, 432);
 		TableRowSorter<TableModel> orden =  new TableRowSorter<TableModel>(modeloTabla);
 		table.setRowSorter(orden);
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	if(!table.getSelectionModel().isSelectionEmpty()){
+		    		btnVender.setEnabled(true);
+		    		
+		    	}
+		    	
+		        }
+		});
+		
 		add(scrollPane);
 		
 		JButton btnFiltrar = new JButton("Filtrar");
@@ -110,19 +129,19 @@ public class Interfaz_Grafica_Ver_Reservas extends JPanel {
 		});
 		add(btnLimpiarFiltro);
 		
-		JButton btnVender = new JButton("Vender");
-		btnVender.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnVender.setBounds(697, 717, 164, 40);
 		btnVender.addActionListener(e->{	
-				
-			  		this.setVisible(false);
-					JPanel panelVentaInmueble = new Venta_Inmueble(pantallaPrincipal);
-					panelVentaInmueble.setVisible(true);
-					pantallaPrincipal.setContentPane(panelVentaInmueble);
-					pantallaPrincipal.setTitle("Venta Inmueble");
-			  		
+			
+	  		this.setVisible(false);
+	  		
+	  		Integer idReserva;
+	  		idReserva = Integer.parseInt(modeloTabla.getValueAt(table.getSelectedRow(), 1).toString());
+	  		
+			JPanel panelVentaInmueble = new Venta_Inmueble(pantallaPrincipal,idReserva );
+			panelVentaInmueble.setVisible(true);
+			pantallaPrincipal.setContentPane(panelVentaInmueble);
+			pantallaPrincipal.setTitle("Venta Inmueble");
+	  		
 		});
-		add(btnVender);
 
 	}
 }
