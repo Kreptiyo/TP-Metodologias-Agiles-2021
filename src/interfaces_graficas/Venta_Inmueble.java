@@ -23,10 +23,12 @@ import dominio.Inmueble;
 import dominio.Reserva;
 import dominio.Inmueble.Tipo_Inmueble;
 import excepciones.BaseDeDatosException;
+import excepciones.Datos_Invalidos_Exception;
 import gestores.Gestor_Cliente;
 import gestores.Gestor_Inmueble;
 import gestores.Gestor_Reserva;
 import gestores.Gestor_Vendedor;
+import gestores.Gestor_Venta;
 
 public class Venta_Inmueble extends JPanel {
 		
@@ -40,7 +42,7 @@ public class Venta_Inmueble extends JPanel {
 		private JTextField textFieldCalleNumero;
 		private JLabel lblnroTelefono;
 		private JTextField textFieldNroTelefono;
-		private Gestor_Vendedor gestVendedor;
+		private Gestor_Venta gestVenta;
 		private Gestor_Reserva gestReserva;
 		private Gestor_Cliente gestCliente;
 		private Gestor_Inmueble gestInmueble;
@@ -62,7 +64,7 @@ public class Venta_Inmueble extends JPanel {
 		setBounds(100, 100, 1024, 768);
 		setLayout(null);	
 				
-		gestVendedor = new Gestor_Vendedor();
+		gestVenta = new Gestor_Venta();
 		gestReserva = new Gestor_Reserva();
 		gestCliente = new Gestor_Cliente();
 		gestInmueble = new Gestor_Inmueble();
@@ -237,18 +239,32 @@ public class Venta_Inmueble extends JPanel {
 		textFieldPrecioVenta.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldPrecioVenta.setColumns(10);
 		textFieldPrecioVenta.setBounds(418, 196, 200, 40);
+		
+		textFieldPrecioVenta.addKeyListener(new KeyAdapter() {
+		      public void keyPressed(KeyEvent ke) {
+		         if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8) {
+		        	 textFieldPrecioVenta.setEditable(true);
+		         } else {
+		        	 textFieldPrecioVenta.setEditable(false);
+		         }
+		      }
+		   });
+		
 		panel.add(textFieldPrecioVenta);
 		
 		btnConfirmarVenta.addActionListener(e-> {
-	//		try {
-	//			//this.crearVendedor();
-	//		} catch (SQLException e1) {
-	//			// TODO Auto-generated catch block
-	//			e1.printStackTrace();
-	//		} catch (BaseDeDatosException e1) {
-	//			// TODO Auto-generated catch block
-	//			e1.printStackTrace();
-	//		}
+			try {		
+				this.crearVenta();
+			} catch (Datos_Invalidos_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (BaseDeDatosException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		  });
 	}
@@ -256,8 +272,6 @@ public class Venta_Inmueble extends JPanel {
 			public boolean validarDatosVacios() {		
 				
 				boolean error = false;
-				
-				
 				
 				if(this.textFieldPrecioVenta.getText().isEmpty()) {
 					this.textFieldPrecioVenta.setVisible(true);
@@ -276,31 +290,30 @@ public class Venta_Inmueble extends JPanel {
 			}
 			
 			
-	//		@SuppressWarnings("deprecation")
-	//		public void crearVendedor() throws SQLException, BaseDeDatosException {
-	//			
-	//			if(!validarDatosVacios()) {
-	//				
-	//				
-	//				int tipoDoc = this.comboBoxTipoDocumento.getSelectedIndex();
-	//
-	//				this.gestVendedor.actualizarVendedor(
-	//						this.textFieldNombre.getText(), 
-	//						this.textFieldApellido.getText(),
-	//						this.textFieldLocalidad.getText(),
-	//						this.textFieldProvincia.getText(),
-	//						tipoDoc, 
-	//						this.textFieldNroTelefono.getText(),
-	//						fecha,
-	//						this.textFieldCalleNumero.getText(),
-	//						this.textFieldUsuario.getText()
-	//						);
-	//			
-	//				JOptionPane.showMessageDialog(null, "Vendedor creado");
-	//			
-	//			
-	//			}
-	//		}
+			public void crearVenta() throws SQLException, BaseDeDatosException, Datos_Invalidos_Exception {
+				
+				if(!validarDatosVacios()) {
+					
+	
+					this.gestVenta.crear_Venta(
+							this.cliente.getId(),
+							this.inmueble.getId(),
+							this.textFieldNombre.getText(), 
+							this.textFieldApellido.getText(),
+							this.textFieldNroTelefono.getText(),
+							this.textFieldProvincia.getText(),
+							this.textFieldLocalidad.getText(),
+							this.textFieldCalleNumero.getText(),
+							this.textFieldBarrio.getText(),
+							this.textFieldPrecioVenta.getText(),
+							this.comboBoxTipoInmueble.getSelectedIndex()
+							);
+				
+					JOptionPane.showMessageDialog(null, "Vendedor creado");
+				
+				
+				}
+			}
 		
 		
 			
