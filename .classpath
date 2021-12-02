@@ -6,27 +6,27 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Kreptile/Downloads/commons-logging-1.2.jar">
+	<classpathentry kind="lib" path="C:/Users/Rama/git/pdfbox-2.0.19.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Kreptile/Downloads/fontbox-2.0.19.jar">
+	<classpathentry kind="lib" path="C:/Users/Rama/git/pdfbox-tools-2.0.19.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Kreptile/Downloads/pdfbox-2.0.19.jar">
+	<classpathentry kind="lib" path="C:/Users/Rama/git/fontbox-2.0.19.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Kreptile/Downloads/pdfbox-tools-2.0.19.jar">
+	<classpathentry kind="lib" path="C:/Users/Rama/git/commons-logging-1.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/UTN 2021/Backup/METODOS AGILES/postgresql-42.3.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Rama/git/postgresql-42.2.16.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
