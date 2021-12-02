@@ -147,6 +147,25 @@ public class DB
 	private static final String CREAR_ADMINISTRADOR_DEFAULT =
 			"INSERT INTO ma.administrador (NOMBRE, APELLIDO, NRO_DOCUMENTO, PASSWORD) VALUES ('Admin', 'Admin', '1234', 'ADMIN')";
 	
+	private static final String TABLE_CREATE_VENTA =
+			"CREATE TABLE IF NOT EXISTS ma.venta ( "+
+			"				 ID_VENTA SERIAL, "+
+			"				 ID_CLIENTE INTEGER, "+
+			"				 ID_INMUEBLE INTEGER, "+
+			"				 NOMBRE_CLIENTE VARCHAR(30), "+
+			"				 APELLIDO_CLIENTE VARCHAR(30), "+
+			"				 TELEFONO_CLIENTE VARCHAR(30), "+
+			"				 PROVINCIA VARCHAR(30), "+
+			"				 LOCALIDAD VARCHAR(30), "+
+			"				 BARRIO VARCHAR(30), "+
+			"				 CALLE_NUMERO VARCHAR(30), "+
+			"				 PRECIO_VENTA VARCHAR(30), "+
+			"				 TIPO_INMUEBLE VARCHAR(30), "+
+			"				 PRIMARY KEY(ID_VENTA), " +
+			"				 FOREIGN KEY (ID_CLIENTE) REFERENCES ma.cliente(ID), "+
+			"				 FOREIGN KEY (ID_INMUEBLE) REFERENCES ma.inmueble(ID))";
+	
+	
 	public static void verificarCrearTablas(Connection conn)
 	{
 		if(!_TABLAS_CREADAS)
@@ -164,6 +183,7 @@ public class DB
 				stmt.execute(TABLE_CREATE_VENDEDOR);
 				stmt.execute(TABLE_CREATE_ADMINISTRADOR);
 				stmt.execute(CREAR_ADMINISTRADOR_DEFAULT);
+				stmt.execute(TABLE_CREATE_VENTA);
 				
 			}
 			catch(SQLException e)

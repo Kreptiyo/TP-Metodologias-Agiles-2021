@@ -84,6 +84,7 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 
 	@Override
 	public List<Reserva> buscarTodas() {
+		
 		List<Reserva> lista = new ArrayList<Reserva>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -156,6 +157,7 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 
 	@Override
 	public Reserva buscarPorId(Integer id) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Reserva r = new Reserva();
