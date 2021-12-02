@@ -21,13 +21,16 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 	private Connection conn = Gestor_Conexion.getConnection();
 	
 	private static final String SELECT_RESERVAS_POR_ID_CLIENTE =
-			"SELECT * FROM ma.reserva WHERE ID = ?";
+			"SELECT * FROM ma.reserva WHERE ID_CLIENTE = ?";
+	
+	private static final String SELECT_RESERVA_POR_ID =
+			"SELECT * FROM ma.reserva WHERE ID_RESERVA = ?";
 	
 	private static final String SELECT_ALL_RESERVAS =
 			"SELECT * FROM ma.reserva";
 	
 	private static final String DELETE_RESERVA =
-			"DELETE FROM ma.reserva WHERE ID = ?";
+			"DELETE FROM ma.reserva WHERE ID_RESERVA = ?";
 	
 	private static final String INSERT_RESERVA =
 			"INSERT INTO ma.reserva (ID_CLIENTE, ID_INMUEBLE, IMPORTE_RESERVA, TIEMPO_VIGENCIA, EMAIL, FECHA_EMISION) VALUES (?,?,?,?,?,?)";
@@ -124,6 +127,50 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 		}
 		return lista;
 	}
+	
+	@Override
+	public List<Reserva> buscarTodasPorIdCliente(Integer idCliente) {
+		
+		List<Reserva> lista = new ArrayList<Reserva>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(SELECT_RESERVAS_POR_ID_CLIENTE);
+			pstmt.setInt(1, idCliente);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				Reserva r = new Reserva();
+				r.setIdReserva(rs.getInt("ID_RESERVA"));
+				r.setIdCliente(rs.getInt("ID_CLIENTE"));
+				r.setIdInmueble(rs.getInt("ID_INMUEBLE"));
+				r.setImporteReserva(rs.getInt("IMPORTE_RESERVA"));
+				r.setTiempoVigencia(rs.getInt("TIEMPO_VIGENCIA"));
+				r.setEmail(rs.getString("EMAIL"));
+				r.setFechaEmision(rs.getString("FECHA_EMISION"));
+				lista.add(r);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return lista;
+	}
 
 	@Override
 	public void eliminarReserva(Integer id) {
@@ -153,48 +200,6 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 			}
 		}
 		
-	}
-
-	@Override
-	public Reserva buscarPorId(Integer id) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Reserva r = new Reserva();
-		
-		try
-		{
-			pstmt = conn.prepareStatement(SELECT_RESERVAS_POR_ID_CLIENTE);
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			while(rs.next())
-			{
-				r.setIdReserva(rs.getInt("ID_RESERVA"));
-				r.setIdCliente(rs.getInt("ID_CLIENTE"));
-				r.setIdInmueble(rs.getInt("ID_INMUEBLE"));
-				r.setImporteReserva(rs.getInt("IMPORTE_RESERVA"));
-				r.setTiempoVigencia(rs.getInt("TIEMPO_VIGENCIA"));
-				r.setEmail(rs.getString("EMAIL"));
-				r.setFechaEmision(rs.getString("FECHA_EMISION"));
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				if(rs!=null) rs.close();
-				if(pstmt!=null) pstmt.close();
-			}
-			catch(SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return r;
 	}
 
 	@Override
@@ -230,6 +235,47 @@ public class Reserva_DAO_PostgreSQL implements Reserva_DAO{
 			}
 		}
 		return resultado;
+	}
+
+	@Override
+	public Reserva buscarPorIdReserva(Integer id) {
+		Reserva r = new Reserva();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			pstmt = conn.prepareStatement(SELECT_RESERVA_POR_ID);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				r.setIdReserva(rs.getInt("ID_RESERVA"));
+				r.setIdCliente(rs.getInt("ID_CLIENTE"));
+				r.setIdInmueble(rs.getInt("ID_INMUEBLE"));
+				r.setImporteReserva(rs.getInt("IMPORTE_RESERVA"));
+				r.setTiempoVigencia(rs.getInt("TIEMPO_VIGENCIA"));
+				r.setEmail(rs.getString("EMAIL"));
+				r.setFechaEmision(rs.getString("FECHA_EMISION"));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return r;
 	}
 
 }

@@ -50,7 +50,7 @@ public class Modelo_Tabla_Ver_Reservas extends AbstractTableModel {
 	            return getValueAt(0, c).getClass();
 	    }
 	        
-	    public Integer obtenerIdInmueble(int row){
+	    public Integer obtenerIdReserva(int row){
 	    		Reserva r = data.get(row);
 	            return r.getIdReserva();
 	    }

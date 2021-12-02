@@ -9,8 +9,9 @@ public interface Reserva_DAO {
 	
 	public Reserva save(Reserva r) throws BaseDeDatosException, SQLException;
 	public List<Reserva> buscarTodas();
+	public List<Reserva> buscarTodasPorIdCliente(Integer idCliente);
 	public void eliminarReserva(Integer id);
-	public Reserva buscarPorId(Integer id);
+	public Reserva buscarPorIdReserva(Integer id);
 	public Integer obtenerIdReservaConIdInmueble(Integer idInmueble);
 
 }

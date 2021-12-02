@@ -228,7 +228,7 @@ public class Interfaz_Generar_Reserva extends JPanel {
 				}
 						
 				Gestor_Reserva gestorReserva = new Gestor_Reserva();
-				this.sendMail(gestorReserva.crear_Reserva(idCliente, idInmueble, importeReserva, tiempoVigencia, this.txtEmail.getText().toString()));
+				this.generarPDF(gestorReserva.crear_Reserva(idCliente, idInmueble, importeReserva, tiempoVigencia, this.txtEmail.getText().toString()));
 				
 				
 				this.mostrarMensajeInformacion(pantallaPrincipal,"Exito", "Se ha reservado el inmueble exitosamente!");
@@ -373,7 +373,7 @@ public class Interfaz_Generar_Reserva extends JPanel {
 		
 	}
 	
-	private void sendMail(Reserva r) throws IOException {
+	private void generarPDF(Reserva r) throws IOException {
 
 		
 		try (PDDocument document = new PDDocument()) {

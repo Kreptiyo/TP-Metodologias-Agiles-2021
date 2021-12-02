@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 
 import dominio.Login;
 import gestores.Gestor_Catalogo;
+import gestores.Gestor_Inmueble;
 import gestores.Gestor_Reserva;
 import modelos_tablas.Modelo_Tabla_Ver_Catalogo;
 
@@ -24,11 +25,13 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 	private Modelo_Tabla_Ver_Catalogo modeloTabla;
 	private Gestor_Catalogo gestorCatalogo;
 	private Gestor_Reserva gestorReserva;
+	private Gestor_Inmueble gestorInmueble;
 	
 	public Interfaz_Grafica_Ver_Catalogo(JFrame pantallaPrincipal)
 	{
 		gestorCatalogo = new Gestor_Catalogo();
 		gestorReserva = new Gestor_Reserva();
+		gestorInmueble = new Gestor_Inmueble();
 		armarPanel(pantallaPrincipal);
 	}
 	
@@ -65,7 +68,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 			if(table.getSelectedRow() != -1) 
 			{
 				Integer idInmueble = modeloTabla.obtenerIdInmueble(table.getSelectedRow());
-				if(gestorReserva.obtenerIdReservaConIdInmueble(idInmueble) < 0)
+				if(!gestorInmueble.devolverEstadoInmueble(idInmueble).equals("RESERVADO") && !gestorInmueble.devolverEstadoInmueble(idInmueble).equals("VENDIDO"))
 				{
 					this.setVisible(false);
 					JPanel panelGenerarReserva = new Interfaz_Generar_Reserva(pantallaPrincipal, Login.id, idInmueble);
@@ -73,7 +76,7 @@ public class Interfaz_Grafica_Ver_Catalogo extends JPanel {
 				}
 				else
 				{
-					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Inmueble ya reservado.", "Debe seleccionar un inmueble"+"\n"+" que no haya sido reservado");
+					this.mostrarMensajeAdvertencia(pantallaPrincipal, "Advertencia", "Debe seleccionar un inmueble"+"\n"+" que no haya sido reservado o vendido");
 				}
 			}
 			else 

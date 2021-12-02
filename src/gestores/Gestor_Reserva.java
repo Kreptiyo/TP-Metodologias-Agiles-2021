@@ -108,10 +108,16 @@ public class Gestor_Reserva {
 		return this.listaDeReservas;
 	}
 	
+	public List<Reserva> listarTodasPorIdCliente(Integer idCliente)
+	{
+		this.listaDeReservas.clear();
+		this.listaDeReservas.addAll(reservaDAO.buscarTodasPorIdCliente(idCliente));
+		return this.listaDeReservas;
+	}
+	
 	public Reserva buscarPorIdReserva(Integer idReserva)
 	{
-		Reserva r = reservaDAO.buscarPorId(idReserva);
-		return r;
+		return reservaDAO.buscarPorIdReserva(idReserva);
 	}
 	
 	public void eliminarReserva(Integer id)

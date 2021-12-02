@@ -280,4 +280,9 @@ public class Gestor_Inmueble
 	{
 		inmuebleDAO.eliminarInmueble(id);
 	}
+	
+	public String devolverEstadoInmueble(Integer id)
+	{
+		return inmuebleDAO.devolverEstadoInmueble(id);
+	}
 }
