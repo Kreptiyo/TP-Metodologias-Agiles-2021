@@ -14,6 +14,29 @@ public class Propietario
 	private String telefono;
 	private String email;
 	
+	  public boolean equals (Object obj) {
+
+	        if (obj instanceof Propietario) {
+
+	        	Propietario tmpPropietario = (Propietario) obj;
+
+	            		if (this.nombre.equals(tmpPropietario.nombre) 
+	            		&& this.apellido.equals(tmpPropietario.apellido) 
+	            		&& this.tipodocumento.equals(tmpPropietario.tipodocumento)
+	            		&& this.nrodocumento.equals(tmpPropietario.nrodocumento) 
+	            		&& this.calle.equals(tmpPropietario.calle) 
+	            		&& this.nrocalle.equals(tmpPropietario.nrocalle)
+	            		&& this.localidad.equals(tmpPropietario.localidad) 
+	            		&& this.provincia.equals(tmpPropietario.provincia) 
+	            		&& this.telefono.equals(tmpPropietario.telefono )
+	            		&& this.email.equals(tmpPropietario.email) ) { return true; } else { return false; }
+
+	    } else { return false; }
+
+	}
+	
+	
+	
 	public enum Tipo_Documento
 	{
 		DNI, CI, LC, LE, Pasaporte

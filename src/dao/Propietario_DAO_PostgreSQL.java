@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.postgresql.util.PSQLException;
+
 import excepciones.BaseDeDatosException;
 
 public class Propietario_DAO_PostgreSQL implements Propietario_DAO
@@ -36,7 +39,7 @@ public class Propietario_DAO_PostgreSQL implements Propietario_DAO
 			"SELECT NRO_DOCUMENTO FROM ma.propietario WHERE ID = ?";
 	
 	@Override
-	public Propietario saveOrUpdate(Propietario p) throws BaseDeDatosException, SQLException
+	public Propietario saveOrUpdate(Propietario p) throws BaseDeDatosException, SQLException , PSQLException 
 	{
 		PreparedStatement pstmt = null;
 		
