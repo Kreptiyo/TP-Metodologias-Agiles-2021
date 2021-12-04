@@ -1,5 +1,7 @@
 package dominio;
 
+import dominio.Propietario.Tipo_Documento;
+
 public class Propietario 
 {
 	private Integer id;
@@ -35,8 +37,6 @@ public class Propietario
 
 	}
 	
-	
-	
 	public enum Tipo_Documento
 	{
 		DNI, CI, LC, LE, Pasaporte
@@ -71,6 +71,41 @@ public class Propietario
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipodocumento = tipodocumento;
+		this.nrodocumento = nrodocumento;
+		this.calle = calle;
+		this.nrocalle = nrocalle;
+		this.localidad = localidad;
+		this.provincia = provincia;
+		this.telefono = telefono;
+		this.email = email;
+	}
+	
+	public Propietario(String nombre, String apellido, String tipodocumento, String nrodocumento, String calle,
+			Integer nrocalle, String localidad, String provincia, String telefono, String email)
+	{
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		
+		switch(tipodocumento)
+		{
+		case "DNI":
+			this.setTipodocumento(Tipo_Documento.DNI);
+			break;
+		case "CI":
+			this.setTipodocumento(Tipo_Documento.CI);
+			break;
+		case "LC":
+			this.setTipodocumento(Tipo_Documento.LC);
+			break;
+		case "LE":
+			this.setTipodocumento(Tipo_Documento.LE);
+			break;
+		case "Pasaporte":
+			this.setTipodocumento(Tipo_Documento.Pasaporte);
+			break;
+		}
+		
 		this.nrodocumento = nrodocumento;
 		this.calle = calle;
 		this.nrocalle = nrocalle;
