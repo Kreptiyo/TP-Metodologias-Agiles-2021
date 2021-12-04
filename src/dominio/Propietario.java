@@ -1,5 +1,7 @@
 package dominio;
 
+import dominio.Propietario.Tipo_Documento;
+
 public class Propietario 
 {
 	private Integer id;
@@ -13,6 +15,27 @@ public class Propietario
 	private String provincia;
 	private String telefono;
 	private String email;
+	
+	  public boolean equals (Object obj) {
+
+	        if (obj instanceof Propietario) {
+
+	        	Propietario tmpPropietario = (Propietario) obj;
+
+	            		if (this.nombre.equals(tmpPropietario.nombre) 
+	            		&& this.apellido.equals(tmpPropietario.apellido) 
+	            		&& this.tipodocumento.equals(tmpPropietario.tipodocumento)
+	            		&& this.nrodocumento.equals(tmpPropietario.nrodocumento) 
+	            		&& this.calle.equals(tmpPropietario.calle) 
+	            		&& this.nrocalle.equals(tmpPropietario.nrocalle)
+	            		&& this.localidad.equals(tmpPropietario.localidad) 
+	            		&& this.provincia.equals(tmpPropietario.provincia) 
+	            		&& this.telefono.equals(tmpPropietario.telefono )
+	            		&& this.email.equals(tmpPropietario.email) ) { return true; } else { return false; }
+
+	    } else { return false; }
+
+	}
 	
 	public enum Tipo_Documento
 	{
@@ -48,6 +71,41 @@ public class Propietario
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipodocumento = tipodocumento;
+		this.nrodocumento = nrodocumento;
+		this.calle = calle;
+		this.nrocalle = nrocalle;
+		this.localidad = localidad;
+		this.provincia = provincia;
+		this.telefono = telefono;
+		this.email = email;
+	}
+	
+	public Propietario(String nombre, String apellido, String tipodocumento, String nrodocumento, String calle,
+			Integer nrocalle, String localidad, String provincia, String telefono, String email)
+	{
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		
+		switch(tipodocumento)
+		{
+		case "DNI":
+			this.setTipodocumento(Tipo_Documento.DNI);
+			break;
+		case "CI":
+			this.setTipodocumento(Tipo_Documento.CI);
+			break;
+		case "LC":
+			this.setTipodocumento(Tipo_Documento.LC);
+			break;
+		case "LE":
+			this.setTipodocumento(Tipo_Documento.LE);
+			break;
+		case "Pasaporte":
+			this.setTipodocumento(Tipo_Documento.Pasaporte);
+			break;
+		}
+		
 		this.nrodocumento = nrodocumento;
 		this.calle = calle;
 		this.nrocalle = nrocalle;
