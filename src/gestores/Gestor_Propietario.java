@@ -29,7 +29,8 @@ public class Gestor_Propietario {
 	}
 	
 	
-	public Propietario crear_Propietario(Integer id_Propietario, String nombre, String apellido, String tipoDocumento, String numDocumento, String numTelefono, String email, String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception, SQLException, BaseDeDatosException 
+	public Propietario crear_Propietario(Integer id_Propietario, String nombre, String apellido, String tipoDocumento, String numDocumento, 
+			String numTelefono, String email, String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception, SQLException, BaseDeDatosException 
 	{
 		/*la excepcion de datos invalidos la vuelvo a relanzar para atraparla en la gui de alta de propietario con el fin de marcar los campos
 		 * en los cuales ocurrieron errores*/
@@ -46,12 +47,12 @@ public class Gestor_Propietario {
 	
 	/*valida que los campos este completos, caso contrario lanza una excepcion de campos invalidos*/
 	
-	public void validar_Datos(String nombre, String apellido, String tipoDocumento, String numDocumento, String numTelefono, String email,
+	public void validar_Datos(String nombre, String apellido, String tipoDocumento, String numDocumento, String numTelefono, String email, 
 			String calle, Integer numCalle, String provincia, String localidad) throws Datos_Invalidos_Exception{
 		
 		StringBuilder mensajeAMostrar = new StringBuilder();
 		
-		//Se crea la lista de campos erroneos, se la recorre y se muestra el mensaje correspondiente
+		//Se crea la lista de campos erroneos, se valida los datos y se los agrega a la lista
 		
 		List<String> lista_de_campos_erroneos = new ArrayList<String>();
 	
@@ -66,6 +67,7 @@ public class Gestor_Propietario {
 		if(provincia.equals("SELECCIONAR"))			lista_de_campos_erroneos.add("Provincia");				
 		if(localidad.equals("SELECCIONAR"))			lista_de_campos_erroneos.add("Localidad");
 
+		//Se recorre la lista si tiene algun elemento erroneo y se muestra el mensaje correspondiente
 		
 		if(lista_de_campos_erroneos.size()>0) {
 			
